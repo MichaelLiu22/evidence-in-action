@@ -1,15 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Download, Mail, ExternalLink } from "lucide-react";
-import heroBackground from "@/assets/medical-hero-bg.jpg";
 
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background with Medical Grid */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-5"
-        style={{ backgroundImage: `url(${heroBackground})` }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
+        style={{ backgroundImage: `url(/lovable-uploads/34d2e04d-975a-4d61-b037-16668e1568a4.png)` }}
       />
       <div className="absolute inset-0 medical-grid-bg" />
       <div className="absolute inset-0 ecg-wave" />
@@ -24,15 +23,15 @@ const Hero = () => {
           Currently: City of Hope Research Intern | Huntington Hospital Volunteer
         </Badge>
         
-        {/* Main Heading - Chinese */}
+        {/* Main Heading - English */}
         <h1 className="text-5xl md:text-7xl font-bold heading-clinical mb-6 leading-tight">
-          面向临床与公共健康的
-          <span className="text-primary block">证据型学习者</span>
+          Evidence-Driven Learner in
+          <span className="text-primary block">Clinical Service & Health Equity</span>
         </h1>
         
-        {/* Sub Heading - English */}
+        {/* Sub Heading */}
         <h2 className="text-xl md:text-2xl text-muted-foreground mb-8 font-medium tracking-wide">
-          Evidence-Driven Learner focused on Clinical Service & Health Equity
+          Bridging Clinical Experience with Maternal Health Research
         </h2>
         
         {/* Mission Statement */}

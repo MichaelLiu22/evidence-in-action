@@ -11,8 +11,8 @@ const ClinicalService = () => {
       location: "Pasadena, CA",
       role: "Patient Services Volunteer",
       responsibilities: [
-        "患者接待与分诊服务，熟悉医院导航系统",
-        "跨科室沟通协调，协助患者流程管理",
+        "Patient reception and triage services, familiar with hospital navigation systems",
+        "Cross-departmental communication coordination, assisting with patient flow management", 
         "Census tracking & visitation management",
         "Emergency response coordination"
       ],
@@ -22,9 +22,9 @@ const ClinicalService = () => {
         details: "Self-initiated patient care program across multiple departments"
       },
       achievements: [
-        "发起 heARTbeat 项目，为痴呆患者及家属提供艺术感官护理包",
-        "与神经科、老年科、ICU 等多科室建立合作关系",
-        "建立物资采购与分发标准化流程"
+        "Initiated heARTbeat project, providing art & sensory care packages for dementia patients and families",
+        "Established collaborative relationships with Neurology, Geriatrics, ICU, and other departments",
+        "Created standardized procurement and distribution procedures for care materials"
       ],
       evidence: {
         website: "https://heartbeatorganization.weebly.com/",
@@ -38,10 +38,10 @@ const ClinicalService = () => {
       location: "Pasadena, CA", 
       role: "Admissions & Community Outreach",
       responsibilities: [
-        "校园招生活动组织与新生引导",
-        "DEIJ (Diversity, Equity, Inclusion, Justice) 主题讲座策划",
-        "Student Voices 项目：健康公平议题宣讲",
-        "全校集会演讲：Pink Tax, Medical Racism 等社会议题"
+        "Campus admissions activity organization and new student orientation",
+        "DEIJ (Diversity, Equity, Inclusion, Justice) themed lecture planning",
+        "Student Voices project: health equity issue advocacy",
+        "Campus-wide assembly presentations on social issues: Pink Tax, Medical Racism, etc."
       ],
       impact: {
         metric: "500+",
@@ -49,9 +49,9 @@ const ClinicalService = () => {
         details: "Monthly campus-wide discussions on health equity"
       },
       achievements: [
-        "策划并主持 Medical Racism 主题月度分享会",
-        "设计 Pink Tax 教育活动，覆盖全校学生群体",
-        "建立学生健康素养提升长效机制"
+        "Planned and hosted Medical Racism themed monthly sharing sessions",
+        "Designed Pink Tax education activities covering the entire student body",
+        "Established long-term mechanisms for student health literacy improvement"
       ],
       evidence: {
         website: "#westridge-portfolio",
@@ -65,9 +65,9 @@ const ClinicalService = () => {
       location: "Los Angeles County",
       role: "Health Equity Advocate",
       responsibilities: [
-        "社区健康教育材料开发与分发",
-        "低收入社区孕产健康资源对接",
-        "双语健康素养培训支持",
+        "Community health education material development and distribution",
+        "Maternal health resource coordination for low-income communities",
+        "Bilingual health literacy training support",
         "Community partnership development"
       ],
       impact: {
@@ -76,9 +76,9 @@ const ClinicalService = () => {
         details: "Focus on BIPOC and low-SES communities"
       },
       achievements: [
-        "开发适合不同文化背景的健康教育材料",
-        "建立社区卫生机构合作网络",
-        "推动青少年母婴健康教育计划"
+        "Developed culturally appropriate health education materials for diverse backgrounds",
+        "Established community health institution partnership network",
+        "Advanced adolescent maternal health education initiatives"
       ],
       evidence: {
         website: "#community-impact",

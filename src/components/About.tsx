@@ -1,7 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { CalendarDays, MapPin, GraduationCap, Heart } from "lucide-react";
-import profileImage from "@/assets/profile-placeholder.jpg";
 
 const About = () => {
   const timeline = [
@@ -49,7 +48,7 @@ const About = () => {
             <div className="relative">
               <div className="w-80 h-80 mx-auto rounded-2xl overflow-hidden shadow-lg border border-border/50">
                 <img 
-                  src={profileImage} 
+                  src="/lovable-uploads/34d2e04d-975a-4d61-b037-16668e1568a4.png" 
                   alt="Makayla Wang - Medical Student Portfolio"
                   className="w-full h-full object-cover"
                 />
@@ -68,8 +67,10 @@ const About = () => {
                   <h3 className="font-semibold heading-clinical">Mission Statement</h3>
                 </div>
                 <p className="text-clinical leading-relaxed">
-                  我在 Huntington Hospital 的一线志愿体验与对孕产健康差异的研究，让我更关注临床流程中的真实需求与健康公平。
-                  未来希望在更严格的方法学训练下，持续把"证据—干预—评估"闭环做扎实。
+                  My frontline volunteer experience at Huntington Hospital and research on maternal health disparities 
+                  have deepened my focus on real clinical needs and health equity. I aim to strengthen the 
+                  "evidence—intervention—evaluation" cycle through rigorous methodological training and 
+                  evidence-based healthcare advocacy.
                 </p>
               </CardContent>
             </Card>

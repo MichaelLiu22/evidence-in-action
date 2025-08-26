@@ -8,12 +8,12 @@ const Projects = () => {
     {
       id: "heartbeat",
       title: "heARTbeat",
-      subtitle: "住院患者艺术/感官护理包项目",
+      subtitle: "Art & Sensory Care Package Program for Hospitalized Patients",
       status: "Active",
       launched: "2023",
       category: "Patient Care Innovation",
-      description: "为住院患者特别是痴呆症患者及家属设计的艺术感官治疗包，通过标准化流程提供个性化护理支持。",
-      target: "住院患者（重点：痴呆症、长期住院、ICU 患者家属）",
+      description: "Art and sensory therapy packages designed for hospitalized patients, particularly dementia patients and their families, providing personalized care support through standardized processes.",
+      target: "Hospitalized patients (focus: dementia, long-term care, ICU patient families)",
       impact: {
         packages: "200+",
         departments: "5+",
@@ -21,40 +21,40 @@ const Projects = () => {
         expansion: "3 hospitals"
       },
       components: [
-        "艺术创作材料（彩铅、画纸、涂色本）",
-        "感官刺激物品（芳香疗法、触觉材料）",
-        "认知支持工具（简单拼图、记忆卡片）",
-        "情绪支持资源（冥想指导、音乐播放列表）"
+        "Art creation materials (colored pencils, drawing paper, coloring books)",
+        "Sensory stimulation items (aromatherapy, tactile materials)",
+        "Cognitive support tools (simple puzzles, memory cards)",
+        "Emotional support resources (meditation guides, music playlists)"
       ],
       process: [
-        "需求评估：与护理团队协商确定患者需求",
-        "物资定制：根据科室特点调整包装内容",
-        "分发协调：与社工团队建立分发机制",
-        "效果跟踪：收集患者与家属反馈数据"
+        "Needs assessment: Collaborate with nursing teams to determine patient needs",
+        "Material customization: Adjust package contents based on department specifics",
+        "Distribution coordination: Establish distribution mechanisms with social work teams",
+        "Impact tracking: Collect patient and family feedback data"
       ],
       collaborations: [
-        "神经科 - 痴呆症患者专项",
-        "ICU - 家属情绪支持",
-        "老年科 - 认知刺激活动",
-        "社工部 - 分发协调与效果评估"
+        "Neurology - Dementia patient specialty programs",
+        "ICU - Family emotional support",
+        "Geriatrics - Cognitive stimulation activities",
+        "Social Work - Distribution coordination and impact assessment"
       ],
       evidence: "https://heartbeatorganization.weebly.com/",
       nextSteps: [
-        "扩展到更多医院系统",
-        "开发数字化跟踪系统",
-        "建立志愿者培训计划",
-        "与医疗保险系统合作覆盖成本"
+        "Expand to more hospital systems",
+        "Develop digital tracking system",
+        "Establish volunteer training programs",
+        "Partner with insurance systems for cost coverage"
       ]
     },
     {
       id: "piggyco",
       title: "Piggy & Co Tote Bags",
-      subtitle: "新手妈妈关怀包项目",
+      subtitle: "New Mother Care Package Initiative",
       status: "Expanding",
       launched: "2024",
       category: "Maternal Health Support",
-      description: "为新手妈妈设计并分发的实用关怀包，重点关注产后即时需求与情绪支持。",
-      target: "产科住院新手妈妈（特别是首次生产、高风险妊娠恢复期）",
+      description: "Practical care packages designed and distributed for new mothers, focusing on immediate postpartum needs and emotional support.",
+      target: "Obstetric inpatient new mothers (particularly first-time mothers, high-risk pregnancy recovery)",
       impact: {
         packages: "150+",
         departments: "3",
@@ -62,40 +62,40 @@ const Projects = () => {
         partnerships: "2 clinics"
       },
       components: [
-        "产后护理必需品（护理垫、舒适用品）",
-        "婴儿护理基础工具（温度计、护理指南）",
-        "情绪支持资源（产后抑郁信息、支持热线）",
-        "营养恢复补充品（健康零食、水化提醒）"
+        "Postpartum care essentials (nursing pads, comfort items)",
+        "Basic baby care tools (thermometer, care guides)",
+        "Emotional support resources (postpartum depression information, support hotlines)",
+        "Nutritional recovery supplements (healthy snacks, hydration reminders)"
       ],
       process: [
-        "设计研究：调研新手妈妈最迫切需求",
-        "物资采购：建立供应商关系与成本控制",
-        "分发机制：与产科护理团队协作",
-        "效果评估：产后 6 周随访调查"
+        "Design research: Survey urgent needs of new mothers",
+        "Material procurement: Establish supplier relationships and cost control",
+        "Distribution mechanism: Collaborate with obstetric nursing teams",
+        "Impact assessment: 6-week postpartum follow-up surveys"
       ],
       collaborations: [
-        "产科 - 住院期间分发",
-        "社工团队 - 高风险案例识别",
-        "营养科 - 恢复期营养指导",
-        "心理健康服务 - 产后抑郁筛查"
+        "Obstetrics - Distribution during hospital stay",
+        "Social Work Team - High-risk case identification",
+        "Nutrition Department - Recovery period nutrition guidance",
+        "Mental Health Services - Postpartum depression screening"
       ],
       evidence: "https://www.thepiggyco.com/",
       nextSteps: [
-        "对接更多产科诊所",
-        "开发产前版本关怀包",
-        "建立捐助者网络",
-        "研究长期健康结果影响"
+        "Connect with more obstetric clinics",
+        "Develop prenatal version care packages",
+        "Establish donor network",
+        "Research long-term health outcome impacts"
       ]
     },
     {
       id: "money-mindset",
       title: "Makayla's Money Mindset",
-      subtitle: "金融素养与心理学交叉科普写作",
+      subtitle: "Financial Literacy & Psychology Cross-Disciplinary Science Communication",
       status: "Ongoing",
       launched: "2023",
       category: "Health Education & Advocacy",
-      description: "通过博客平台探讨金融素养、心理健康与健康公平的交叉议题，为青少年提供实用的理财与健康决策指导。",
-      target: "高中生及大学生（特别关注低收入背景学生的金融健康素养）",
+      description: "Exploring intersections of financial literacy, mental health, and health equity through blog platform, providing practical financial and health decision-making guidance for adolescents.",
+      target: "High school and college students (particularly focusing on financial health literacy for low-income background students)",
       impact: {
         readers: "1000+",
         articles: "25+",
@@ -109,23 +109,23 @@ const Projects = () => {
         "Financial stress & academic performance"
       ],
       approach: [
-        "研究驱动内容：引用同行评议研究",
-        "案例分析：真实场景应用",
-        "行动指南：可操作的决策框架",
-        "资源链接：可靠的金融与健康资源"
+        "Research-driven content: Citing peer-reviewed research",
+        "Case analysis: Real-world scenario applications",
+        "Action guides: Actionable decision-making frameworks",
+        "Resource links: Reliable financial and health resources"
       ],
       collaborations: [
-        "学校咨询中心 - 学生财务压力支持",
-        "社区金融教育机构 - 内容审核",
-        "同龄人网络 - 内容反馈与分享",
-        "专业导师 - 内容准确性验证"
+        "School Counseling Center - Student financial stress support",
+        "Community financial education institutions - Content review",
+        "Peer networks - Content feedback and sharing",
+        "Professional mentors - Content accuracy verification"
       ],
       evidence: "https://makaylamoneymindset.weebly.com/blog",
       nextSteps: [
-        "开发针对医学预科生的专题系列",
-        "与更多教育机构合作推广",
-        "制作多媒体内容（播客、视频）",
-        "建立同龄人金融健康互助网络"
+        "Develop specialized series for pre-medical students",
+        "Collaborate with more educational institutions for promotion",
+        "Create multimedia content (podcasts, videos)",
+        "Establish peer financial health mutual support network"
       ]
     }
   ];

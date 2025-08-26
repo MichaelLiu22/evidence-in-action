@@ -9,12 +9,12 @@ const Leadership = () => {
     title: "Coro Youth Climate Fellowship",
     period: "2025",
     location: "Los Angeles, CA",
-    description: "系统思维训练与跨部门合作的气候政策青年领导力项目",
+    description: "Youth leadership program in systems thinking and cross-sector collaboration for climate policy",
     components: [
-      "政府机构实地走访与政策制定流程学习",
-      "非营利组织运营模式与社区动员策略",
-      "企业可持续发展实践与利益相关者管理",
-      "跨部门访谈与协作项目设计"
+      "Government agency field visits and policy-making process education",
+      "Nonprofit organization operational models and community mobilization strategies",
+      "Corporate sustainability practices and stakeholder management",
+      "Cross-sector interviews and collaborative project design"
     ],
     skills: [
       "Systems thinking & policy analysis",
@@ -22,8 +22,8 @@ const Leadership = () => {
       "Community organizing & advocacy",
       "Cross-sector collaboration"
     ],
-    teamProject: "气候适应与健康公平交叉议题研究：低收入社区极端天气应对策略",
-    relevance: "将系统思维应用于健康公平议题，特别是环境因素对脆弱人群健康结果的影响"
+    teamProject: "Climate adaptation and health equity intersection research: Extreme weather response strategies for low-income communities",
+    relevance: "Applying systems thinking to health equity issues, particularly environmental impacts on vulnerable population health outcomes"
   };
 
   const competitions = [
@@ -34,9 +34,9 @@ const Leadership = () => {
       focus: "Healthcare Innovation & Finance",
       role: "Team Strategy Lead",
       outcome: "Completed Program Certificate",
-      description: "医疗创新商业模式分析，重点关注可持续融资与患者可及性平衡",
+      description: "Healthcare innovation business model analysis, focusing on sustainable financing and patient accessibility balance",
       skills: ["Financial modeling", "Market analysis", "Presentation skills", "Team leadership"],
-      relevance: "为医疗创新项目提供商业可行性分析能力"
+      relevance: "Providing business viability analysis capabilities for medical innovation projects"
     },
     {
       title: "NFTE National Competition",
@@ -45,9 +45,9 @@ const Leadership = () => {
       focus: "Social Enterprise Development",
       role: "Founder & Presenter",
       outcome: "Regional Advancement",
-      description: "社会企业模式设计，聚焦解决医疗资源不平等问题",
+      description: "Social enterprise model design, focusing on solving healthcare resource inequality issues",
       skills: ["Business plan development", "Social impact measurement", "Pitch delivery", "Financial planning"],
-      relevance: "将创业思维应用于医疗健康领域社会问题解决"
+      relevance: "Applying entrepreneurial thinking to healthcare social problem solving"
     },
     {
       title: "Harvard Crimson Business Competition",
@@ -56,9 +56,9 @@ const Leadership = () => {
       focus: "Healthcare Policy & Economics",
       role: "Research Analyst",
       outcome: "Top 25% Performance",
-      description: "医疗政策经济学案例分析，评估政策干预的成本效益",
+      description: "Healthcare policy economics case analysis, evaluating cost-effectiveness of policy interventions",
       skills: ["Policy analysis", "Economic modeling", "Data interpretation", "Strategic thinking"],
-      relevance: "政策分析能力直接支持健康公平研究与倡导工作"
+      relevance: "Policy analysis capabilities directly support health equity research and advocacy work"
     },
     {
       title: "Blue Ocean Strategy Competition",
@@ -67,21 +67,21 @@ const Leadership = () => {
       focus: "Healthcare Access Innovation",
       role: "Innovation Strategist",
       outcome: "Innovation Award",
-      description: "医疗服务创新策略设计，创造患者、提供者、支付方的价值共赢",
+      description: "Healthcare service innovation strategy design, creating win-win value for patients, providers, and payers",
       skills: ["Innovation strategy", "Value proposition design", "Market creation", "Collaborative problem-solving"],
-      relevance: "创新思维应用于医疗服务模式改进与健康公平提升"
+      relevance: "Applying innovative thinking to healthcare service model improvement and health equity enhancement"
     }
   ];
 
   const leadershipPhilosophy = {
     approach: "Evidence-based collaborative leadership",
     principles: [
-      "数据驱动决策：所有倡议均基于严格的证据评估",
-      "包容性参与：确保不同背景声音在决策过程中被听到",
-      "系统性思维：关注根本原因而非表面症状",
-      "可持续影响：设计长期可持续的干预策略"
+      "Data-driven decision making: All initiatives based on rigorous evidence assessment",
+      "Inclusive participation: Ensuring diverse voices are heard in decision-making processes",
+      "Systems thinking: Focusing on root causes rather than surface symptoms",
+      "Sustainable impact: Designing long-term sustainable intervention strategies"
     ],
-    application: "将商业策略思维与社会公益目标结合，在医疗健康领域创造可测量的积极变化"
+    application: "Combining business strategy thinking with social impact goals to create measurable positive change in healthcare"
   };
 
   return (

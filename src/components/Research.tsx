@@ -10,38 +10,38 @@ const Research = () => {
     period: "2025",
     mentor: "Elizabeth Maglio",
     status: "In Progress",
-    focus: "美国孕产妇死亡率上升与低 SES/BIPOC 群体差异",
+    focus: "Rising maternal mortality rates in the US and disparities among low-SES/BIPOC populations",
     methodology: [
-      "公共健康数据分析 (CDC, State Health Departments)",
-      "系统性文献综述 (PubMed, Cochrane Database)",
-      "历史政策回顾与影响评估",
-      "统计建模与趋势分析"
+      "Public health data analysis (CDC, State Health Departments)",
+      "Systematic literature review (PubMed, Cochrane Database)",
+      "Historical policy review and impact assessment",
+      "Statistical modeling and trend analysis"
     ],
     keyFindings: [
-      "美国孕产妇死亡率较其他发达国家显著偏高",
-      "BIPOC 群体死亡率为白人群体 2-3 倍",
-      "低 SES 社区缺乏充足产前照护资源",
-      "保险可及性与健康结果强相关"
+      "US maternal mortality rates significantly higher than other developed countries",
+      "BIPOC population mortality rates 2-3 times higher than white populations",
+      "Low-SES communities lack adequate prenatal care resources",
+      "Insurance accessibility strongly correlates with health outcomes"
     ],
     interventions: [
-      "Doula 支持服务标准化",
-      "社区产前照护中心建设",
-      "保险覆盖范围扩展政策",
-      "文化敏感性健康教育项目"
+      "Standardized doula support services",
+      "Community prenatal care center development",
+      "Insurance coverage expansion policies",
+      "Culturally sensitive health education programs"
     ],
-    proposedProgram: "校园与公益机构合作的青少年母婴健康教育计划"
+    proposedProgram: "Campus and nonprofit organization collaborative adolescent maternal health education program"
   };
 
   const futureResearch = {
     title: "City of Hope Research Internship",
     period: "2025 - Present",
     status: "Ongoing",
-    description: "临床转化研究实习，聚焦癌症治疗与患者生活质量改善",
+    description: "Clinical translational research internship focusing on cancer treatment and patient quality of life improvement",
     plannedOutputs: [
-      "实验记录与方法学文档",
-      "研究读书笔记与文献综述",
-      "标准化操作程序 (SOP) 卡片",
-      "跨学科团队协作经验总结"
+      "Laboratory records and methodological documentation",
+      "Research reading notes and literature reviews",
+      "Standardized operating procedure (SOP) cards",
+      "Cross-disciplinary team collaboration experience summary"
     ]
   };
 
@@ -276,8 +276,8 @@ const Research = () => {
 
                 <div className="bg-muted/50 rounded-lg p-4">
                   <p className="text-sm text-muted-foreground italic">
-                    * 详细研究记录与方法学卡片将在实习期间持续更新，
-                    包括实验设计、数据分析方法及跨学科协作经验总结。
+                    * Detailed research records and methodology cards will be continuously updated during the internship,
+                    including experimental design, data analysis methods, and cross-disciplinary collaboration experience summaries.
                   </p>
                 </div>
               </CardContent>
