@@ -4,7 +4,7 @@ import { ArrowDown, Download, Mail, ExternalLink } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background with Medical Grid */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
@@ -71,10 +71,12 @@ const Hero = () => {
             <ArrowDown className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
           </Button>
           
-          <Button variant="outline" size="lg" className="group">
-            <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-            Download Resume
-          </Button>
+          <a href="/Makayla Resume.pdf" download>
+            <Button variant="outline" size="lg" className="group">
+              <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+              Download Resume
+            </Button>
+          </a>
           
           <Button variant="outline" size="lg" className="group">
             <Mail className="mr-2 h-4 w-4" />

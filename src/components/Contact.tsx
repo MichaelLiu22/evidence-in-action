@@ -122,10 +122,12 @@ const Contact = () => {
                 </div>
                 
                 <div className="pt-4 border-t border-border/50">
-                  <Button className="w-full" size="sm">
-                    <Download className="h-4 w-4 mr-2" />
-                    Download Resume (PDF)
-                  </Button>
+                  <a href="/Makayla Resume.pdf" download className="block">
+                    <Button className="w-full" size="sm">
+                      <Download className="h-4 w-4 mr-2" />
+                      Download Resume (PDF)
+                    </Button>
+                  </a>
                 </div>
               </CardContent>
             </Card>
