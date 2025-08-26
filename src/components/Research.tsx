@@ -102,7 +102,7 @@ const Research = () => {
 
           {/* Current Research Tab */}
           <TabsContent value="current" className="space-y-8">
-            <Card className="evidence-card">
+            <Card id="research-maternal" className="evidence-card">
               <CardHeader>
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div>
@@ -246,7 +246,7 @@ const Research = () => {
 
           {/* Future Work Tab */}
           <TabsContent value="future" className="space-y-8">
-            <Card className="evidence-card">
+            <Card id="research-coh" className="evidence-card">
               <CardHeader>
                 <CardTitle className="text-2xl heading-clinical mb-2">
                   {futureResearch.title}

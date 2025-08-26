@@ -89,7 +89,7 @@ const ClinicalService = () => {
   ];
 
   return (
-    <section id="clinical-service" className="py-section px-6 bg-muted/30">
+    <section id="clinical-px" className="py-section px-6 bg-muted/30">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -106,7 +106,7 @@ const ClinicalService = () => {
         {/* Experience Cards */}
         <div className="space-y-8">
           {experiences.map((exp, index) => (
-            <Card key={index} className="evidence-card group hover:shadow-lg transition-all duration-300">
+            <Card key={index} id={index === 0 ? "service-huntington" : index === 1 ? "leadership-studentvoices" : "advocacy"} className="evidence-card group hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-4">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div className="space-y-2">

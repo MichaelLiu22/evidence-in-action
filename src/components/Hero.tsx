@@ -18,21 +18,45 @@ const Hero = () => {
       
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center animate-fade-in-up">
-        {/* Status Badge */}
-        <Badge variant="outline" className="mb-6 text-primary border-primary/30">
-          Currently: City of Hope Research Intern | Huntington Hospital Volunteer
-        </Badge>
-        
-        {/* Main Heading - English */}
-        <h1 className="text-5xl md:text-7xl font-bold heading-clinical mb-6 leading-tight">
-          Evidence-Driven Learner in
-          <span className="text-primary block">Clinical Service & Health Equity</span>
+        {/* Main Name */}
+        <h1 className="text-4xl md:text-6xl font-bold heading-clinical mb-4 leading-tight">
+          Makayla Wang
         </h1>
         
-        {/* Sub Heading */}
-        <h2 className="text-xl md:text-2xl text-muted-foreground mb-8 font-medium tracking-wide">
-          Bridging Clinical Experience with Maternal Health Research
-        </h2>
+        {/* Inline Titles */}
+        <div className="text-lg md:text-xl text-muted-foreground mb-8 font-medium leading-relaxed max-w-3xl mx-auto">
+          Pre-Health College Applicant · Founder, heARTbeat (200+ kits) · Huntington Hospital Volunteer · Student Research Intern, City of Hope
+        </div>
+        
+        {/* Keyword Tags */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {[
+            { label: "Maternal Health", href: "#research-maternal" },
+            { label: "Patient Experience / QI", href: "#clinical-px" },
+            { label: "Health Equity / DEIJ", href: "#advocacy" },
+            { label: "heARTbeat", href: "https://heartbeatorganization.weebly.com/", external: true },
+            { label: "Huntington Hospital", href: "#service-huntington" },
+            { label: "City of Hope Internship", href: "#research-coh" },
+            { label: "Piggy & Co Tote Bags", href: "https://www.thepiggyco.com/", external: true },
+            { label: "Independent Study", href: "#research-independent" },
+            { label: "Student Ambassador / Student Voices", href: "#leadership-studentvoices" },
+            { label: "Coro Youth Climate Fellowship", href: "#leadership-coro" },
+            { label: "Georgetown Hoya – Business & Leadership", href: "#education-hoya" },
+            { label: "Wharton Global Youth", href: "#education-wharton" },
+            { label: "Blog: Makayla's Money Mindset", href: "https://makaylamoneymindset.weebly.com/blog", external: true }
+          ].map((tag) => (
+            <a
+              key={tag.label}
+              href={tag.href}
+              target={tag.external ? "_blank" : undefined}
+              rel={tag.external ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center px-3 py-1.5 text-sm border border-primary/30 rounded-full bg-background/50 hover:bg-primary/10 hover:border-primary/50 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-primary/50"
+            >
+              {tag.label}
+              {tag.external && <ExternalLink className="ml-1 h-3 w-3" />}
+            </a>
+          ))}
+        </div>
         
         {/* Mission Statement */}
         <p className="text-lg text-clinical max-w-2xl mx-auto mb-12 leading-relaxed">

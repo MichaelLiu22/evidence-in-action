@@ -108,7 +108,7 @@ const Leadership = () => {
 
           {/* Fellowship Tab */}
           <TabsContent value="fellowship" className="space-y-8">
-            <Card className="evidence-card">
+            <Card id="leadership-coro" className="evidence-card">
               <CardHeader>
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div>
@@ -189,7 +189,7 @@ const Leadership = () => {
           <TabsContent value="competitions" className="space-y-6">
             <div className="grid gap-6">
               {competitions.map((comp, index) => (
-                <Card key={index} className="evidence-card group hover:border-primary/30">
+                <Card key={index} id={comp.title.includes('Wharton') ? 'education-wharton' : comp.title.includes('Georgetown') ? 'education-hoya' : undefined} className="evidence-card group hover:border-primary/30">
                   <CardHeader className="pb-4">
                     <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                       <div className="space-y-2">

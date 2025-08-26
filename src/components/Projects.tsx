@@ -148,7 +148,7 @@ const Projects = () => {
         {/* Projects Grid */}
         <div className="space-y-12">
           {projects.map((project, index) => (
-            <Card key={project.id} className="evidence-card group hover:shadow-xl transition-all duration-300">
+            <Card key={project.id} id={project.id === 'heartbeat' ? 'projects-heartbeat' : project.id === 'piggyco' ? 'projects-piggyco' : 'research-independent'} className="evidence-card group hover:shadow-xl transition-all duration-300">
               <CardHeader className="border-b border-border/50">
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                   <div className="space-y-3">
