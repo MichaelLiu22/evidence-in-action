@@ -122,7 +122,7 @@ const Contact = () => {
                 </div>
                 
                 <div className="pt-4 border-t border-border/50">
-                  <a href="/Makayla Resume.pdf" download className="block">
+                  <a href="./Makayla Resume.pdf" download className="block">
                     <Button className="w-full" size="sm">
                       <Download className="h-4 w-4 mr-2" />
                       Download Resume (PDF)

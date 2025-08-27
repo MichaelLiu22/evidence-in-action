@@ -87,7 +87,7 @@ const Navigation = () => {
 
           {/* Desktop Action Buttons */}
           <div className="hidden lg:flex items-center gap-2">
-            <a href="/Makayla Resume.pdf" download>
+            <a href="./Makayla Resume.pdf" download>
               <Button variant="outline" size="sm">
                 <Download className="h-3 w-3 mr-1" />
                 Resume
@@ -129,7 +129,7 @@ const Navigation = () => {
               
               {/* Mobile Action Buttons */}
               <div className="pt-4 border-t border-border/50 space-y-2">
-                <a href="/Makayla Resume.pdf" download className="block">
+                <a href="./Makayla Resume.pdf" download className="block">
                   <Button variant="outline" size="sm" className="w-full">
                     <Download className="h-3 w-3 mr-2" />
                     Download Resume

@@ -3,6 +3,32 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Download, Mail, ExternalLink } from "lucide-react";
 
 const Hero = () => {
+  const handleResumeDownload = () => {
+    // 尝试多种路径来确保在不同环境下都能工作
+    const resumePath = './Makayla Resume.pdf';
+    
+    // 创建一个临时的 a 标签来触发下载
+    const link = document.createElement('a');
+    link.href = resumePath;
+    link.download = 'Makayla Resume.pdf';
+    link.target = '_blank';
+    
+    // 如果直接下载失败，尝试在新窗口中打开
+    link.onclick = (e) => {
+      try {
+        // 尝试直接下载
+        link.click();
+      } catch (error) {
+        // 如果下载失败，在新窗口中打开
+        window.open(resumePath, '_blank');
+      }
+    };
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background with Medical Grid */}
@@ -71,12 +97,10 @@ const Hero = () => {
             <ArrowDown className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
           </Button>
           
-          <a href="/Makayla Resume.pdf" download>
-            <Button variant="outline" size="lg" className="group">
-              <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-              Download Resume
-            </Button>
-          </a>
+          <Button variant="outline" size="lg" className="group" onClick={handleResumeDownload}>
+            <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+            Download Resume
+          </Button>
           
           <Button variant="outline" size="lg" className="group">
             <Mail className="mr-2 h-4 w-4" />
