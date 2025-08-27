@@ -19,62 +19,15 @@ const Contact = () => {
   const { toast } = useToast();
 
   const handleResumeDownload = () => {
-    // 尝试多种路径来确保在不同环境下都能工作
-    const resumePaths = [
-      './Makayla Resume.pdf',
-      '/Makayla Resume.pdf',
-      'Makayla Resume.pdf'
-    ];
+    // 直接在新窗口中打开 PDF 文件，让用户自行下载
+    const resumePath = '/Makayla Resume.pdf';
     
-    const tryDownload = (path: string) => {
-      return new Promise((resolve, reject) => {
-        const link = document.createElement('a');
-        link.href = path;
-        link.download = 'Makayla Resume.pdf';
-        
-        link.onclick = (e) => {
-          try {
-            // 尝试直接下载
-            link.click();
-            resolve(true);
-          } catch (error) {
-            reject(error);
-          }
-        };
-        
-        // 如果直接下载失败，尝试在新窗口中打开
-        link.onerror = () => {
-          try {
-            window.open(path, '_blank');
-            resolve(true);
-          } catch (error) {
-            reject(error);
-          }
-        };
-        
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      });
-    };
-    
-    // 依次尝试不同的路径
-    const attemptDownload = async () => {
-      for (const path of resumePaths) {
-        try {
-          await tryDownload(path);
-          return; // 成功则退出
-        } catch (error) {
-          console.log(`Failed to download from ${path}:`, error);
-          continue; // 继续尝试下一个路径
-        }
-      }
-      
-      // 如果所有路径都失败，显示错误信息
-      alert('无法下载简历，请检查文件是否存在或联系管理员。');
-    };
-    
-    attemptDownload();
+    try {
+      window.open(resumePath, '_blank');
+    } catch (error) {
+      console.error('Failed to open resume:', error);
+      alert('无法打开简历文件。请检查文件是否存在或联系管理员。');
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

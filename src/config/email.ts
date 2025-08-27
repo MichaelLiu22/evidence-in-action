@@ -36,3 +36,6 @@ export const getDirectContactInfo = () => ({
   phone: '(626) 491-9968',
   location: 'Pasadena, CA'
 });
+
+// 简历下载路径
+export const RESUME_PATH = '/Makayla Resume.pdf';
