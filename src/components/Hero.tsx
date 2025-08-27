@@ -4,15 +4,95 @@ import { ArrowDown, Download, Mail, ExternalLink } from "lucide-react";
 
 const Hero = () => {
   const handleResumeDownload = () => {
-    // 直接在新窗口中打开 PDF 文件，让用户自行下载
-    const resumePath = '/Makayla Resume.pdf';
+    // 定义多个可能的文件路径，适应不同环境
+    const possiblePaths = [
+      '/Makayla Resume.pdf',                    // 标准路径
+      '/lovable-uploads/Makayla Resume.pdf',    // 备选路径
+      './Makayla Resume.pdf',                   // 相对路径
+      'Makayla Resume.pdf'                      // 当前目录
+    ];
     
-    try {
-      window.open(resumePath, '_blank');
-    } catch (error) {
-      console.error('Failed to open resume:', error);
-      alert('无法打开简历文件。请检查文件是否存在或联系管理员。');
-    }
+    console.log('Starting resume download process...');
+    console.log('Current location:', window.location.href);
+    console.log('Possible paths:', possiblePaths);
+    
+    // 尝试下载的策略
+    const attemptDownload = async () => {
+      for (const path of possiblePaths) {
+        try {
+          console.log(`Trying path: ${path}`);
+          
+          // 检查文件是否存在
+          const response = await fetch(path);
+          
+          if (response.ok) {
+            console.log(`File found at: ${path}`);
+            
+            // 方法1: 尝试在新窗口中打开
+            try {
+              window.open(path, '_blank');
+              console.log('Successfully opened in new window');
+              return; // 成功则退出
+            } catch (openError) {
+              console.error('Failed to open in new window:', openError);
+            }
+            
+            // 方法2: 如果打开失败，尝试直接下载
+            try {
+              const link = document.createElement('a');
+              link.href = path;
+              link.download = 'Makayla Resume.pdf';
+              link.target = '_blank';
+              
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              
+              console.log('Successfully triggered download');
+              return; // 成功则退出
+            } catch (downloadError) {
+              console.error('Failed to trigger download:', downloadError);
+            }
+            
+          } else {
+            console.log(`File not found at: ${path}, status: ${response.status}`);
+          }
+          
+        } catch (error) {
+          console.error(`Error checking path ${path}:`, error);
+          continue; // 继续尝试下一个路径
+        }
+      }
+      
+      // 如果所有路径都失败，尝试最后的备选方案
+      console.log('All local paths failed, trying external URL...');
+      
+      // 方法3: 尝试外部 URL（生产环境）
+      const externalUrl = 'https://www.makaylawang.com/Makayla%20Resume.pdf';
+      try {
+        window.open(externalUrl, '_blank');
+        console.log('Opened external URL');
+      } catch (externalError) {
+        console.error('Failed to open external URL:', externalError);
+        
+        // 最后的备选方案：显示错误信息和手动下载链接
+        const errorMessage = `
+无法自动下载简历文件。
+
+请尝试以下方法：
+1. 右键点击此链接并选择"另存为"
+2. 复制链接到新标签页打开
+3. 联系管理员获取文件
+
+下载链接：${externalUrl}
+        `;
+        
+        alert(errorMessage);
+      }
+    };
+    
+    // 开始尝试下载
+    attemptDownload();
   };
 
   const scrollToProjects = () => {
