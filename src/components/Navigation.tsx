@@ -147,8 +147,14 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo/Brand */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-sm">
-              MW
+            <div className="flex items-center justify-center">
+              <img 
+                src="/lovable-uploads/MW_logo.png" 
+                alt="MW Logo" 
+                className="h-10 w-auto object-contain transition-transform duration-200 hover:scale-105 cursor-pointer"
+                onClick={() => scrollToSection('hero', 'hero')}
+                title="Click to go to top"
+              />
             </div>
             <div className="hidden sm:block">
               <h1 className="font-semibold heading-clinical">Makayla Wang</h1>
