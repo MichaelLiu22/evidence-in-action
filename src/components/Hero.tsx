@@ -217,8 +217,8 @@ Best regards,
 
       {/* Download Options Modal */}
       {showDownloadOptions && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-background rounded-lg p-6 max-w-md w-full mx-4 shadow-xl border border-border">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] p-4">
+          <div className="bg-background rounded-lg p-6 max-w-md w-full mx-4 shadow-xl border border-border transform transition-all">
             <h3 className="text-xl font-semibold mb-4 text-center">Choose Download Method</h3>
             <p className="text-muted-foreground text-center mb-6">
               Please select your preferred way to access the resume
