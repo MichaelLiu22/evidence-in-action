@@ -19,95 +19,57 @@ const Contact = () => {
   const { toast } = useToast();
 
   const handleResumeDownload = () => {
-    // 定义多个可能的文件路径，适应不同环境
-    const possiblePaths = [
-      '/Makayla Resume.pdf',                    // 标准路径
-      '/lovable-uploads/Makayla Resume.pdf',    // 备选路径
-      './Makayla Resume.pdf',                   // 相对路径
-      'Makayla Resume.pdf'                      // 当前目录
-    ];
+    console.log('Starting alternative resume download...');
     
-    console.log('Starting resume download process...');
-    console.log('Current location:', window.location.href);
-    console.log('Possible paths:', possiblePaths);
+    // 方案1: 直接下载链接（适用于大多数情况）
+    const downloadLink = document.createElement('a');
+    downloadLink.href = '/Makayla Resume.pdf';
+    downloadLink.download = 'Makayla Resume.pdf';
+    downloadLink.style.display = 'none';
     
-    // 尝试下载的策略
-    const attemptDownload = async () => {
-      for (const path of possiblePaths) {
-        try {
-          console.log(`Trying path: ${path}`);
-          
-          // 检查文件是否存在
-          const response = await fetch(path);
-          
-          if (response.ok) {
-            console.log(`File found at: ${path}`);
-            
-            // 方法1: 尝试在新窗口中打开
-            try {
-              window.open(path, '_blank');
-              console.log('Successfully opened in new window');
-              return; // 成功则退出
-            } catch (openError) {
-              console.error('Failed to open in new window:', openError);
-            }
-            
-            // 方法2: 如果打开失败，尝试直接下载
-            try {
-              const link = document.createElement('a');
-              link.href = path;
-              link.download = 'Makayla Resume.pdf';
-              link.target = '_blank';
-              
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-              
-              console.log('Successfully triggered download');
-              return; // 成功则退出
-            } catch (downloadError) {
-              console.error('Failed to trigger download:', downloadError);
-            }
-            
-          } else {
-            console.log(`File not found at: ${path}, status: ${response.status}`);
-          }
-          
-        } catch (error) {
-          console.error(`Error checking path ${path}:`, error);
-          continue; // 继续尝试下一个路径
-        }
-      }
-      
-      // 如果所有路径都失败，尝试最后的备选方案
-      console.log('All local paths failed, trying external URL...');
-      
-      // 方法3: 尝试外部 URL（生产环境）
-      const externalUrl = 'https://www.makaylawang.com/Makayla%20Resume.pdf';
-      try {
-        window.open(externalUrl, '_blank');
-        console.log('Opened external URL');
-      } catch (externalError) {
-        console.error('Failed to open external URL:', externalError);
-        
-        // 最后的备选方案：显示错误信息和手动下载链接
-        const errorMessage = `
-无法自动下载简历文件。
+    // 添加到页面并触发下载
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    
+    // 延迟检查是否下载成功，如果没有成功则提供备选方案
+    setTimeout(() => {
+      // 方案2: 如果直接下载失败，提供备选方案
+      const userChoice = confirm(`
+简历下载可能遇到问题。
 
-请尝试以下方法：
-1. 右键点击此链接并选择"另存为"
-2. 复制链接到新标签页打开
-3. 联系管理员获取文件
+请选择：
+- 点击"确定"在新窗口中打开简历
+- 点击"取消"获取邮件发送方式
+      `);
+      
+      if (userChoice) {
+        // 在新窗口中打开
+        window.open('/Makayla Resume.pdf', '_blank');
+      } else {
+        // 提供邮件发送方式
+        const emailBody = `Hi Makayla,
 
-下载链接：${externalUrl}
-        `;
+I would like to request a copy of your resume.
+
+Best regards,
+[Your Name]`;
         
-        alert(errorMessage);
+        const mailtoLink = `mailto:michaelxliu22@gmail.com?subject=Resume Request&body=${encodeURIComponent(emailBody)}`;
+        window.open(mailtoLink, '_blank');
+        
+        alert(`
+已为您打开邮件客户端。
+
+如果邮件客户端没有自动打开，请：
+1. 发送邮件到: michaelxliu22@gmail.com
+2. 主题: Resume Request
+3. 内容: 请求简历副本
+
+我会尽快回复并附上简历文件。
+        `);
       }
-    };
-    
-    // 开始尝试下载
-    attemptDownload();
+    }, 2000);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

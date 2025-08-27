@@ -1,98 +1,57 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Download, Mail, ExternalLink } from "lucide-react";
+import { useState } from "react";
 
 const Hero = () => {
+  const [showDownloadOptions, setShowDownloadOptions] = useState(false);
+
   const handleResumeDownload = () => {
-    // 定义多个可能的文件路径，适应不同环境
-    const possiblePaths = [
-      '/Makayla Resume.pdf',                    // 标准路径
-      '/lovable-uploads/Makayla Resume.pdf',    // 备选路径
-      './Makayla Resume.pdf',                   // 相对路径
-      'Makayla Resume.pdf'                      // 当前目录
-    ];
-    
-    console.log('Starting resume download process...');
-    console.log('Current location:', window.location.href);
-    console.log('Possible paths:', possiblePaths);
-    
-    // 尝试下载的策略
-    const attemptDownload = async () => {
-      for (const path of possiblePaths) {
-        try {
-          console.log(`Trying path: ${path}`);
-          
-          // 检查文件是否存在
-          const response = await fetch(path);
-          
-          if (response.ok) {
-            console.log(`File found at: ${path}`);
-            
-            // 方法1: 尝试在新窗口中打开
-            try {
-              window.open(path, '_blank');
-              console.log('Successfully opened in new window');
-              return; // 成功则退出
-            } catch (openError) {
-              console.error('Failed to open in new window:', openError);
-            }
-            
-            // 方法2: 如果打开失败，尝试直接下载
-            try {
-              const link = document.createElement('a');
-              link.href = path;
-              link.download = 'Makayla Resume.pdf';
-              link.target = '_blank';
-              
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-              
-              console.log('Successfully triggered download');
-              return; // 成功则退出
-            } catch (downloadError) {
-              console.error('Failed to trigger download:', downloadError);
-            }
-            
-          } else {
-            console.log(`File not found at: ${path}, status: ${response.status}`);
-          }
-          
-        } catch (error) {
-          console.error(`Error checking path ${path}:`, error);
-          continue; // 继续尝试下一个路径
-        }
-      }
-      
-      // 如果所有路径都失败，尝试最后的备选方案
-      console.log('All local paths failed, trying external URL...');
-      
-      // 方法3: 尝试外部 URL（生产环境）
-      const externalUrl = 'https://www.makaylawang.com/Makayla%20Resume.pdf';
-      try {
-        window.open(externalUrl, '_blank');
-        console.log('Opened external URL');
-      } catch (externalError) {
-        console.error('Failed to open external URL:', externalError);
-        
-        // 最后的备选方案：显示错误信息和手动下载链接
-        const errorMessage = `
-无法自动下载简历文件。
+    setShowDownloadOptions(true);
+  };
 
-请尝试以下方法：
-1. 右键点击此链接并选择"另存为"
-2. 复制链接到新标签页打开
-3. 联系管理员获取文件
-
-下载链接：${externalUrl}
-        `;
-        
-        alert(errorMessage);
-      }
-    };
+  const downloadDirect = () => {
+    setShowDownloadOptions(false);
     
-    // 开始尝试下载
-    attemptDownload();
+    // 直接下载尝试
+    const downloadLink = document.createElement('a');
+    downloadLink.href = '/Makayla Resume.pdf';
+    downloadLink.download = 'Makayla Resume.pdf';
+    downloadLink.style.display = 'none';
+    
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
+
+  const openInNewWindow = () => {
+    setShowDownloadOptions(false);
+    window.open('/Makayla Resume.pdf', '_blank');
+  };
+
+  const requestViaEmail = () => {
+    setShowDownloadOptions(false);
+    
+    const emailBody = `Hi Makayla,
+
+I would like to request a copy of your resume.
+
+Best regards,
+[Your Name]`;
+    
+    const mailtoLink = `mailto:michaelxliu22@gmail.com?subject=Resume Request&body=${encodeURIComponent(emailBody)}`;
+    window.open(mailtoLink, '_blank');
+    
+    alert(`
+已为您打开邮件客户端。
+
+如果邮件客户端没有自动打开，请：
+1. 发送邮件到: michaelxliu22@gmail.com
+2. 主题: Resume Request
+3. 内容: 请求简历副本
+
+我会尽快回复并附上简历文件。
+    `);
   };
 
   const scrollToProjects = () => {
@@ -266,6 +225,57 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* Download Options Modal */}
+      {showDownloadOptions && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-background rounded-lg p-6 max-w-md w-full mx-4 shadow-xl border border-border">
+            <h3 className="text-xl font-semibold mb-4 text-center">选择下载方式</h3>
+            <p className="text-muted-foreground text-center mb-6">
+              请选择您偏好的简历获取方式
+            </p>
+            
+            <div className="space-y-3">
+              <Button 
+                onClick={downloadDirect} 
+                className="w-full justify-start"
+                size="lg"
+              >
+                <Download className="mr-3 h-4 w-4" />
+                直接下载 (推荐)
+              </Button>
+              
+              <Button 
+                onClick={openInNewWindow} 
+                variant="outline" 
+                className="w-full justify-start"
+                size="lg"
+              >
+                <ExternalLink className="mr-3 h-4 w-4" />
+                在新窗口中打开
+              </Button>
+              
+              <Button 
+                onClick={requestViaEmail} 
+                variant="outline" 
+                className="w-full justify-start"
+                size="lg"
+              >
+                <Mail className="mr-3 h-4 w-4" />
+                通过邮件请求
+              </Button>
+            </div>
+            
+            <Button 
+              onClick={() => setShowDownloadOptions(false)} 
+              variant="ghost" 
+              className="w-full mt-4"
+            >
+              取消
+            </Button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
