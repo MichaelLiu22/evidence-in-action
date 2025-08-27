@@ -5,32 +5,101 @@ import { ArrowDown, Download, Mail, ExternalLink } from "lucide-react";
 const Hero = () => {
   const handleResumeDownload = () => {
     // 尝试多种路径来确保在不同环境下都能工作
-    const resumePath = './Makayla Resume.pdf';
+    const resumePaths = [
+      './Makayla Resume.pdf',
+      '/Makayla Resume.pdf',
+      'Makayla Resume.pdf'
+    ];
     
-    // 创建一个临时的 a 标签来触发下载
-    const link = document.createElement('a');
-    link.href = resumePath;
-    link.download = 'Makayla Resume.pdf';
-    link.target = '_blank';
-    
-    // 如果直接下载失败，尝试在新窗口中打开
-    link.onclick = (e) => {
-      try {
-        // 尝试直接下载
+    const tryDownload = (path: string) => {
+      return new Promise((resolve, reject) => {
+        const link = document.createElement('a');
+        link.href = path;
+        link.download = 'Makayla Resume.pdf';
+        
+        link.onclick = (e) => {
+          try {
+            // 尝试直接下载
+            link.click();
+            resolve(true);
+          } catch (error) {
+            reject(error);
+          }
+        };
+        
+        // 如果直接下载失败，尝试在新窗口中打开
+        link.onerror = () => {
+          try {
+            window.open(path, '_blank');
+            resolve(true);
+          } catch (error) {
+            reject(error);
+          }
+        };
+        
+        document.body.appendChild(link);
         link.click();
-      } catch (error) {
-        // 如果下载失败，在新窗口中打开
-        window.open(resumePath, '_blank');
-      }
+        document.body.removeChild(link);
+      });
     };
     
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // 依次尝试不同的路径
+    const attemptDownload = async () => {
+      for (const path of resumePaths) {
+        try {
+          await tryDownload(path);
+          return; // 成功则退出
+        } catch (error) {
+          console.log(`Failed to download from ${path}:`, error);
+          continue; // 继续尝试下一个路径
+        }
+      }
+      
+      // 如果所有路径都失败，显示错误信息
+      alert('无法下载简历，请检查文件是否存在或联系管理员。');
+    };
+    
+    attemptDownload();
+  };
+
+  const scrollToProjects = () => {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      const offset = 80; // 为固定导航栏留出空间
+      const elementPosition = projectsSection.offsetTop - offset;
+      window.scrollTo({ 
+        top: elementPosition, 
+        behavior: 'smooth' 
+      });
+    }
+  };
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      const offset = 80; // 为固定导航栏留出空间
+      const elementPosition = contactSection.offsetTop - offset;
+      window.scrollTo({ 
+        top: elementPosition, 
+        behavior: 'smooth' 
+      });
+    }
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      const offset = 80; // 为固定导航栏留出空间
+      const elementPosition = section.offsetTop - offset;
+      window.scrollTo({ 
+        top: elementPosition, 
+        behavior: 'smooth' 
+      });
+    }
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background with Medical Grid */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
@@ -54,34 +123,59 @@ const Hero = () => {
           Pre-Health College Applicant · Founder, heARTbeat (200+ kits) · Huntington Hospital Volunteer · Student Research Intern, City of Hope
         </div>
         
-        {/* Keyword Tags */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
-          {[
-            { label: "Maternal Health", href: "#research-maternal" },
-            { label: "Patient Experience / QI", href: "#clinical-px" },
-            { label: "Health Equity / DEIJ", href: "#advocacy" },
-            { label: "heARTbeat", href: "https://heartbeatorganization.weebly.com/", external: true },
-            { label: "Huntington Hospital", href: "#service-huntington" },
-            { label: "City of Hope Internship", href: "#research-coh" },
-            { label: "Piggy & Co Tote Bags", href: "https://www.thepiggyco.com/", external: true },
-            { label: "Independent Study", href: "#research-independent" },
-            { label: "Student Ambassador / Student Voices", href: "#leadership-studentvoices" },
-            { label: "Coro Youth Climate Fellowship", href: "#leadership-coro" },
-            { label: "Georgetown Hoya – Business & Leadership", href: "#education-hoya" },
-            { label: "Wharton Global Youth", href: "#education-wharton" },
-            { label: "Blog: Makayla's Money Mindset", href: "https://makaylamoneymindset.weebly.com/blog", external: true }
-          ].map((tag) => (
-            <a
-              key={tag.label}
-              href={tag.href}
-              target={tag.external ? "_blank" : undefined}
-              rel={tag.external ? "noopener noreferrer" : undefined}
-              className="inline-flex items-center px-3 py-1.5 text-sm border border-primary/30 rounded-full bg-background/50 hover:bg-primary/10 hover:border-primary/50 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-primary/50"
-            >
-              {tag.label}
-              {tag.external && <ExternalLink className="ml-1 h-3 w-3" />}
-            </a>
-          ))}
+        {/* Keyword Tags - Reorganized into categories */}
+        <div className="space-y-4 mb-8">
+          {/* Row 1: Clickable Project Links (External) */}
+          <div className="flex flex-wrap justify-center gap-2">
+            <div className="w-full text-center mb-2">
+              <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
+                🚀 Project Links
+              </span>
+            </div>
+            {[
+              { label: "heARTbeat", href: "https://heartbeatorganization.weebly.com/", external: true },
+              { label: "Piggy & Co Tote Bags", href: "https://www.thepiggyco.com/", external: true },
+              { label: "Blog: Makayla's Money Mindset", href: "https://makaylamoneymindset.weebly.com/blog", external: true }
+            ].map((tag) => (
+              <a
+                key={tag.label}
+                href={tag.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-3 py-1.5 text-sm border-2 border-primary/50 rounded-full bg-primary/10 hover:bg-primary/20 hover:border-primary transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-sm"
+              >
+                {tag.label}
+                <ExternalLink className="ml-1 h-3 w-3 text-primary" />
+              </a>
+            ))}
+          </div>
+          
+          {/* Row 2: Research & Experience Projects (Merged) */}
+          <div className="flex flex-wrap justify-center gap-2">
+            <div className="w-full text-center mb-2">
+              <span className="text-sm font-medium text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
+                🔬 Research & Experience Projects
+              </span>
+            </div>
+            {[
+              { label: "Maternal Health Research", href: "#research", project: "Independent Research on Maternal Mortality" },
+              { label: "Huntington Hospital Volunteer", href: "#clinical-service", project: "Patient Services & heARTbeat Program" },
+              { label: "City of Hope Intern", href: "#research", project: "Clinical Research Internship" },
+              { label: "Student Ambassador", href: "#clinical-service", project: "DEIJ Leadership & Health Advocacy" },
+              { label: "Coro Fellowship", href: "#leadership", project: "Youth Climate Leadership Program" },
+              { label: "Business Competitions", href: "#leadership", project: "Healthcare Innovation Challenges" }
+            ].map((tag) => (
+              <button
+                key={tag.label}
+                onClick={() => scrollToSection(tag.href.replace('#', ''))}
+                className="inline-flex items-center px-3 py-1.5 text-sm border border-blue-300 rounded-full bg-blue-50 hover:bg-blue-100 hover:border-blue-400 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-blue-400 group cursor-pointer"
+                title={tag.project}
+              >
+                {tag.label}
+                <span className="ml-1 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+              </button>
+            ))}
+          </div>
         </div>
         
         {/* Mission Statement */}
@@ -92,7 +186,7 @@ const Hero = () => {
         
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-          <Button size="lg" className="group">
+          <Button size="lg" className="group" onClick={scrollToProjects}>
             View Projects
             <ArrowDown className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
           </Button>
@@ -102,7 +196,7 @@ const Hero = () => {
             Download Resume
           </Button>
           
-          <Button variant="outline" size="lg" className="group">
+          <Button variant="outline" size="lg" className="group" onClick={scrollToContact}>
             <Mail className="mr-2 h-4 w-4" />
             Contact Me
           </Button>

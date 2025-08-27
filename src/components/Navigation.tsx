@@ -6,6 +6,7 @@ import { Menu, X, Download, Mail } from "lucide-react";
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const navItems = [
     { id: 'hero', label: 'Home', href: '#' },
@@ -17,12 +18,72 @@ const Navigation = () => {
     { id: 'contact', label: 'Contact', href: '#contact' }
   ];
 
-  // Handle scroll-based active section detection
+  const handleResumeDownload = () => {
+    // 尝试多种路径来确保在不同环境下都能工作
+    const resumePaths = [
+      './Makayla Resume.pdf',
+      '/Makayla Resume.pdf',
+      'Makayla Resume.pdf'
+    ];
+    
+    const tryDownload = (path: string) => {
+      return new Promise((resolve, reject) => {
+        const link = document.createElement('a');
+        link.href = path;
+        link.download = 'Makayla Resume.pdf';
+        
+        link.onclick = (e) => {
+          try {
+            // 尝试直接下载
+            link.click();
+            resolve(true);
+          } catch (error) {
+            reject(error);
+          }
+        };
+        
+        // 如果直接下载失败，尝试在新窗口中打开
+        link.onerror = () => {
+          try {
+            window.open(path, '_blank');
+            resolve(true);
+          } catch (error) {
+            reject(error);
+          }
+        };
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    };
+    
+    // 依次尝试不同的路径
+    const attemptDownload = async () => {
+      for (const path of resumePaths) {
+        try {
+          await tryDownload(path);
+          return; // 成功则退出
+        } catch (error) {
+          console.log(`Failed to download from ${path}:`, error);
+          continue; // 继续尝试下一个路径
+        }
+      }
+      
+      // 如果所有路径都失败，显示错误信息
+      alert('无法下载简历，请检查文件是否存在或联系管理员。');
+    };
+    
+    attemptDownload();
+  };
+
+  // Handle scroll-based active section detection and progress bar
   useEffect(() => {
     const handleScroll = () => {
       const sections = navItems.map(item => document.getElementById(item.id) || document.querySelector(item.href) as HTMLElement);
       const scrollPosition = window.scrollY + 100;
 
+      // Update active section
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i] as HTMLElement;
         if (section && section.offsetTop <= scrollPosition) {
@@ -30,9 +91,36 @@ const Navigation = () => {
           break;
         }
       }
+
+      // Update progress bar - more reliable calculation
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const maxScroll = documentHeight - windowHeight;
+      
+      let scrollPercent = 0;
+      if (maxScroll > 0) {
+        scrollPercent = (scrollTop / maxScroll) * 100;
+      }
+      
+      const clampedProgress = Math.min(100, Math.max(0, scrollPercent));
+      setScrollProgress(clampedProgress);
+      
+      // Debug logging
+      console.log('Scroll Progress:', {
+        scrollTop,
+        windowHeight,
+        documentHeight,
+        maxScroll,
+        scrollPercent: scrollPercent.toFixed(2),
+        clampedProgress: clampedProgress.toFixed(2)
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Initial call to set initial progress
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -87,12 +175,10 @@ const Navigation = () => {
 
           {/* Desktop Action Buttons */}
           <div className="hidden lg:flex items-center gap-2">
-            <a href="./Makayla Resume.pdf" download>
-              <Button variant="outline" size="sm">
-                <Download className="h-3 w-3 mr-1" />
-                Resume
-              </Button>
-            </a>
+            <Button variant="outline" size="sm" onClick={handleResumeDownload}>
+              <Download className="h-3 w-3 mr-1" />
+              Resume
+            </Button>
             <Button size="sm">
               <Mail className="h-3 w-3 mr-1" />
               Contact
@@ -129,12 +215,10 @@ const Navigation = () => {
               
               {/* Mobile Action Buttons */}
               <div className="pt-4 border-t border-border/50 space-y-2">
-                <a href="./Makayla Resume.pdf" download className="block">
-                  <Button variant="outline" size="sm" className="w-full">
-                    <Download className="h-3 w-3 mr-2" />
-                    Download Resume
-                  </Button>
-                </a>
+                <Button variant="outline" size="sm" className="w-full" onClick={handleResumeDownload}>
+                  <Download className="h-3 w-3 mr-2" />
+                  Download Resume
+                </Button>
                 <Button size="sm" className="w-full">
                   <Mail className="h-3 w-3 mr-2" />
                   Contact Me
@@ -146,13 +230,19 @@ const Navigation = () => {
       </div>
 
       {/* Progress Indicator */}
-      <div className="absolute bottom-0 left-0 h-0.5 bg-primary/30 w-full">
+      <div className="absolute bottom-0 left-0 h-1 bg-primary/20 w-full overflow-hidden">
         <div 
-          className="h-full bg-primary transition-all duration-300 ease-out"
+          className="h-full bg-gradient-to-r from-primary via-primary/80 to-primary transition-all duration-300 ease-out shadow-sm"
           style={{ 
-            width: `${Math.min(100, (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100)}%` 
+            width: `${scrollProgress}%`,
+            transform: `translateX(${scrollProgress > 0 ? 0 : -100}%)`
           }}
         />
+      </div>
+      
+      {/* Debug Info - Remove this after testing */}
+      <div className="absolute top-16 right-4 text-xs text-muted-foreground bg-background/80 px-2 py-1 rounded">
+        Progress: {scrollProgress.toFixed(1)}% | Active: {activeSection}
       </div>
     </nav>
   );

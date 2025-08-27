@@ -89,7 +89,7 @@ const ClinicalService = () => {
   ];
 
   return (
-    <section id="clinical-px" className="py-section px-6 bg-muted/30">
+    <section id="clinical-service" className="py-section px-6 bg-muted/30">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, ExternalLink, Download, Linkedin, FileText, Send } from "lucide-react";
+import { Mail, Phone, ExternalLink, Download, Linkedin, FileText, Send, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { createMailtoLink } from '@/config/email';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,19 +15,103 @@ const Contact = () => {
     subject: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleResumeDownload = () => {
+    // 尝试多种路径来确保在不同环境下都能工作
+    const resumePaths = [
+      './Makayla Resume.pdf',
+      '/Makayla Resume.pdf',
+      'Makayla Resume.pdf'
+    ];
+    
+    const tryDownload = (path: string) => {
+      return new Promise((resolve, reject) => {
+        const link = document.createElement('a');
+        link.href = path;
+        link.download = 'Makayla Resume.pdf';
+        
+        link.onclick = (e) => {
+          try {
+            // 尝试直接下载
+            link.click();
+            resolve(true);
+          } catch (error) {
+            reject(error);
+          }
+        };
+        
+        // 如果直接下载失败，尝试在新窗口中打开
+        link.onerror = () => {
+          try {
+            window.open(path, '_blank');
+            resolve(true);
+          } catch (error) {
+            reject(error);
+          }
+        };
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    };
+    
+    // 依次尝试不同的路径
+    const attemptDownload = async () => {
+      for (const path of resumePaths) {
+        try {
+          await tryDownload(path);
+          return; // 成功则退出
+        } catch (error) {
+          console.log(`Failed to download from ${path}:`, error);
+          continue; // 继续尝试下一个路径
+        }
+      }
+      
+      // 如果所有路径都失败，显示错误信息
+      alert('无法下载简历，请检查文件是否存在或联系管理员。');
+    };
+    
+    attemptDownload();
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Simulate form submission
-    toast({
-      title: "Message Sent Successfully",
-      description: "Thank you for your message. I'll respond within 24-48 hours.",
-    });
+    if (isSubmitting) return;
     
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setIsSubmitting(true);
+    
+    try {
+      // 使用 mailto 链接直接发送邮件
+      const mailtoLink = createMailtoLink(formData);
+      
+      // 显示成功消息
+      toast({
+        title: "Message Prepared Successfully!",
+        description: "Your message has been prepared. Your email client will open automatically.",
+      });
+      
+      // 延迟一下再打开邮件客户端，让用户看到成功消息
+      setTimeout(() => {
+        window.open(mailtoLink, '_blank');
+      }, 1000);
+      
+      // Reset form
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      
+    } catch (error) {
+      console.error('Failed to prepare message:', error);
+      toast({
+        title: "Failed to Prepare Message",
+        description: "There was an error preparing your message. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -37,7 +122,7 @@ const Contact = () => {
   };
 
   const contactInfo = {
-    email: "makaylawang07@gmail.com",
+    email: "Michaelxliu22@gmail.com", // 您的测试邮箱
     phone: "(626) 491-9968",
     linkedin: "linkedin.com/in/makaylawang",
     location: "Pasadena, CA"
@@ -82,8 +167,7 @@ const Contact = () => {
             Contact & Collaboration
           </h2>
           <p className="text-xl text-clinical max-w-3xl mx-auto">
-            Open to research collaborations, clinical partnerships, 
-            and discussions on health equity initiatives
+            Send me a message directly through your email client. Fill out the form below and your message will be automatically prepared and ready to send.
           </p>
           <div className="w-24 h-1 bg-primary mx-auto rounded-full mt-6"></div>
         </div>
@@ -109,25 +193,21 @@ const Contact = () => {
                   </div>
                   <div className="flex items-center gap-3">
                     <Phone className="h-4 w-4 text-primary" />
-                    <a href={`tel:${contactInfo.phone}`} className="evidence-link text-sm">
-                      {contactInfo.phone}
-                    </a>
+                    <span className="text-sm">{contactInfo.phone}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Linkedin className="h-4 w-4 text-primary" />
-                    <a href={`https://${contactInfo.linkedin}`} target="_blank" rel="noopener noreferrer" className="evidence-link text-sm">
-                      LinkedIn Profile
-                    </a>
+                    <MapPin className="h-4 w-4 text-primary" />
+                    <span className="text-sm">{contactInfo.location}</span>
                   </div>
                 </div>
                 
                 <div className="pt-4 border-t border-border/50">
-                  <a href="./Makayla Resume.pdf" download className="block">
-                    <Button className="w-full" size="sm">
-                      <Download className="h-4 w-4 mr-2" />
-                      Download Resume (PDF)
-                    </Button>
-                  </a>
+                  <div className="bg-primary/5 rounded-lg p-3 text-sm">
+                    <p className="font-medium text-primary mb-1">💡 Anonymous Messaging</p>
+                    <p className="text-clinical text-xs">
+                      Use the form to send messages anonymously. Your email client will open with a pre-filled message ready to send.
+                    </p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -252,6 +332,9 @@ const Contact = () => {
 
                   <div className="bg-accent/30 rounded-lg p-4 text-sm text-clinical">
                     <p className="mb-2">
+                      <strong>How it works:</strong> Fill out this form and your message will be automatically prepared in your email client. You can then send it directly to me.
+                    </p>
+                    <p className="mb-2">
                       <strong>Response Time:</strong> I aim to respond to all inquiries within 24-48 hours.
                     </p>
                     <p>
@@ -260,9 +343,21 @@ const Contact = () => {
                     </p>
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full">
-                    <Send className="h-4 w-4 mr-2" />
-                    Send Message
+                  <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin h-4 w-4 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Preparing...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4 mr-2" />
+                        Prepare & Send Message
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>
