@@ -17,33 +17,13 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  const [showDownloadOptions, setShowDownloadOptions] = useState(false);
 
   const handleResumeDownload = () => {
-    setShowDownloadOptions(true);
-  };
-
-  const downloadDirect = () => {
-    setShowDownloadOptions(false);
-    
-    // Direct download attempt
-    const downloadLink = document.createElement('a');
-    downloadLink.href = '/Makayla_Resume.pdf';
-    downloadLink.download = 'Makayla_Resume.pdf';
-    downloadLink.style.display = 'none';
-    
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-  };
-
-  const openInNewWindow = () => {
-    setShowDownloadOptions(false);
+    // Directly open resume in new window
     window.open('/Makayla_Resume.pdf', '_blank');
   };
 
   const requestViaEmail = () => {
-    setShowDownloadOptions(false);
     
     const emailBody = `Hi Makayla,
 
@@ -376,57 +356,6 @@ Best regards,
           </p>
         </div>
       </div>
-
-      {/* Download Options Modal */}
-      {showDownloadOptions && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] p-4">
-          <div className="bg-background rounded-lg p-6 max-w-md w-full mx-4 shadow-xl border border-border transform transition-all">
-            <h3 className="text-xl font-semibold mb-4 text-center">Choose Download Method</h3>
-            <p className="text-muted-foreground text-center mb-6">
-              Please select your preferred way to access the resume
-            </p>
-            
-            <div className="space-y-3">
-              <Button 
-                onClick={downloadDirect} 
-                className="w-full justify-start"
-                size="lg"
-              >
-                <Download className="mr-3 h-4 w-4" />
-                Direct Download (Recommended)
-              </Button>
-              
-              <Button 
-                onClick={openInNewWindow} 
-                variant="outline" 
-                className="w-full justify-start"
-                size="lg"
-              >
-                <ExternalLink className="mr-3 h-4 w-4" />
-                Open in New Window
-              </Button>
-              
-              <Button 
-                onClick={requestViaEmail} 
-                variant="outline" 
-                className="w-full justify-start"
-                size="lg"
-              >
-                <Mail className="mr-3 h-4 w-4" />
-                Request via Email
-              </Button>
-            </div>
-            
-            <Button 
-              onClick={() => setShowDownloadOptions(false)} 
-              variant="ghost" 
-              className="w-full mt-4"
-            >
-              Cancel
-            </Button>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

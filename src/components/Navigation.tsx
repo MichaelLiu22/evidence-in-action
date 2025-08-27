@@ -7,7 +7,6 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [showDownloadOptions, setShowDownloadOptions] = useState(false);
 
   const navItems = [
     { id: 'hero', label: 'Home', href: '#' },
@@ -18,43 +17,6 @@ const Navigation = () => {
     { id: 'leadership', label: 'Leadership', href: '#leadership' },
     { id: 'contact', label: 'Contact', href: '#contact' }
   ];
-
-  const handleResumeDownload = () => {
-    setShowDownloadOptions(true);
-  };
-
-  const downloadDirect = () => {
-    setShowDownloadOptions(false);
-    
-    // Direct download attempt
-    const downloadLink = document.createElement('a');
-    downloadLink.href = '/Makayla_Resume.pdf';
-    downloadLink.download = 'Makayla_Resume.pdf';
-    downloadLink.style.display = 'none';
-    
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-  };
-
-  const openInNewWindow = () => {
-    setShowDownloadOptions(false);
-    window.open('/Makayla_Resume.pdf', '_blank');
-  };
-
-  const requestViaEmail = () => {
-    setShowDownloadOptions(false);
-    
-    const emailBody = `Hi Makayla,
-
-I would like to request a copy of your resume.
-
-Best regards,
-[Your Name]`;
-    
-    const mailtoLink = `mailto:michaelxliu22@gmail.com?subject=Resume Request&body=${encodeURIComponent(emailBody)}`;
-    window.open(mailtoLink, '_blank');
-  };
 
   // Handle scroll-based active section detection and progress bar
   useEffect(() => {
@@ -163,11 +125,11 @@ Best regards,
             <Button 
               variant="outline" 
               size="sm" 
-              onClick={handleResumeDownload}
+              onClick={() => window.open('/Makayla_Resume.pdf', '_blank')}
               className="hidden sm:flex"
             >
               <Download className="mr-2 h-4 w-4" />
-              View Resume
+              Open Resume
             </Button>
             <Button size="sm">
               <Mail className="h-3 w-3 mr-1" />
@@ -205,9 +167,9 @@ Best regards,
               
               {/* Mobile Action Buttons */}
               <div className="pt-4 border-t border-border/50 space-y-2">
-                <Button variant="outline" size="sm" className="w-full" onClick={handleResumeDownload}>
+                <Button variant="outline" size="sm" className="w-full" onClick={() => window.open('/Makayla_Resume.pdf', '_blank')}>
                   <Download className="h-3 w-3 mr-2" />
-                  View Resume
+                  Open Resume
                 </Button>
                 <Button size="sm" className="w-full">
                   <Mail className="h-3 w-3 mr-2" />
@@ -234,57 +196,6 @@ Best regards,
       <div className="absolute top-16 right-4 text-xs text-muted-foreground bg-background/80 px-2 py-1 rounded">
         Progress: {scrollProgress.toFixed(1)}% | Active: {activeSection}
       </div>
-
-      {/* Download Options Modal */}
-      {showDownloadOptions && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] p-4">
-          <div className="bg-background rounded-lg p-6 max-w-md w-full mx-4 shadow-xl border border-border transform transition-all">
-            <h3 className="text-xl font-semibold mb-4 text-center">Choose Download Method</h3>
-            <p className="text-muted-foreground text-center mb-6">
-              Please select your preferred way to access the resume
-            </p>
-            
-            <div className="space-y-3">
-              <Button 
-                onClick={downloadDirect} 
-                className="w-full justify-start"
-                size="lg"
-              >
-                <Download className="mr-3 h-4 w-4" />
-                Direct Download (Recommended)
-              </Button>
-              
-              <Button 
-                onClick={openInNewWindow} 
-                variant="outline" 
-                className="w-full justify-start"
-                size="lg"
-              >
-                <ExternalLink className="mr-3 h-4 w-4" />
-                Open in New Window
-              </Button>
-              
-              <Button 
-                onClick={requestViaEmail} 
-                variant="outline" 
-                className="w-full justify-start"
-                size="lg"
-              >
-                <Mail className="mr-3 h-4 w-4" />
-                Request via Email
-              </Button>
-            </div>
-            
-            <Button 
-              onClick={() => setShowDownloadOptions(false)} 
-              variant="ghost" 
-              className="w-full mt-4"
-            >
-              Cancel
-            </Button>
-          </div>
-        </div>
-      )}
     </nav>
   );
 };
