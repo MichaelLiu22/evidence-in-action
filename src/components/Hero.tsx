@@ -13,10 +13,10 @@ const Hero = () => {
   const downloadDirect = () => {
     setShowDownloadOptions(false);
     
-    // 直接下载尝试
+    // Direct download attempt
     const downloadLink = document.createElement('a');
-    downloadLink.href = '/Makayla Resume.pdf';
-    downloadLink.download = 'Makayla Resume.pdf';
+    downloadLink.href = '/Makayla_Resume.pdf';
+    downloadLink.download = 'Makayla_Resume.pdf';
     downloadLink.style.display = 'none';
     
     document.body.appendChild(downloadLink);
@@ -26,7 +26,7 @@ const Hero = () => {
 
   const openInNewWindow = () => {
     setShowDownloadOptions(false);
-    window.open('/Makayla Resume.pdf', '_blank');
+    window.open('/Makayla_Resume.pdf', '_blank');
   };
 
   const requestViaEmail = () => {
@@ -41,17 +41,6 @@ Best regards,
     
     const mailtoLink = `mailto:michaelxliu22@gmail.com?subject=Resume Request&body=${encodeURIComponent(emailBody)}`;
     window.open(mailtoLink, '_blank');
-    
-    alert(`
-已为您打开邮件客户端。
-
-如果邮件客户端没有自动打开，请：
-1. 发送邮件到: michaelxliu22@gmail.com
-2. 主题: Resume Request
-3. 内容: 请求简历副本
-
-我会尽快回复并附上简历文件。
-    `);
   };
 
   const scrollToProjects = () => {
@@ -230,9 +219,9 @@ Best regards,
       {showDownloadOptions && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-background rounded-lg p-6 max-w-md w-full mx-4 shadow-xl border border-border">
-            <h3 className="text-xl font-semibold mb-4 text-center">选择下载方式</h3>
+            <h3 className="text-xl font-semibold mb-4 text-center">Choose Download Method</h3>
             <p className="text-muted-foreground text-center mb-6">
-              请选择您偏好的简历获取方式
+              Please select your preferred way to access the resume
             </p>
             
             <div className="space-y-3">
@@ -242,7 +231,7 @@ Best regards,
                 size="lg"
               >
                 <Download className="mr-3 h-4 w-4" />
-                直接下载 (推荐)
+                Direct Download (Recommended)
               </Button>
               
               <Button 
@@ -252,7 +241,7 @@ Best regards,
                 size="lg"
               >
                 <ExternalLink className="mr-3 h-4 w-4" />
-                在新窗口中打开
+                Open in New Window
               </Button>
               
               <Button 
@@ -262,7 +251,7 @@ Best regards,
                 size="lg"
               >
                 <Mail className="mr-3 h-4 w-4" />
-                通过邮件请求
+                Request via Email
               </Button>
             </div>
             
@@ -271,7 +260,7 @@ Best regards,
               variant="ghost" 
               className="w-full mt-4"
             >
-              取消
+              Cancel
             </Button>
           </div>
         </div>
