@@ -1,43 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Download, Mail, ExternalLink } from "lucide-react";
-import { openResume } from "@/lib/utils";
+import { openResume, smoothScrollTo } from "@/lib/utils";
 
 const Hero = () => {
   const scrollToProjects = () => {
-    const projectsSection = document.getElementById('projects');
-    if (projectsSection) {
-      const offset = 80; // 为固定导航栏留出空间
-      const elementPosition = projectsSection.offsetTop - offset;
-      window.scrollTo({ 
-        top: elementPosition, 
-        behavior: 'smooth' 
-      });
-    }
+    smoothScrollTo('projects');
   };
 
   const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      const offset = 80; // 为固定导航栏留出空间
-      const elementPosition = contactSection.offsetTop - offset;
-      window.scrollTo({ 
-        top: elementPosition, 
-        behavior: 'smooth' 
-      });
-    }
+    smoothScrollTo('contact');
   };
 
   const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      const offset = 80; // 为固定导航栏留出空间
-      const elementPosition = section.offsetTop - offset;
-      window.scrollTo({ 
-        top: elementPosition, 
-        behavior: 'smooth' 
-      });
-    }
+    smoothScrollTo(sectionId);
   };
 
   return (
