@@ -11,31 +11,106 @@ export const openResume = () => {
   const currentPath = window.location.pathname;
   const currentOrigin = window.location.origin;
   
-  console.log('Current location info:', {
-    url: currentUrl,
-    path: currentPath,
-    origin: currentOrigin
-  });
+  console.log('🔍 Resume Download Debug Info:');
+  console.log('Current URL:', currentUrl);
+  console.log('Current Path:', currentPath);
+  console.log('Current Origin:', currentOrigin);
   
-  // Try the most reliable path first
-  const resumePath = 'Makayla_Resume.pdf';
+  // 尝试多种路径策略
+  const paths = [
+    // 方法1: 相对路径（最可靠）
+    'Makayla_Resume.pdf',
+    
+    // 方法2: 绝对路径
+    '/Makayla_Resume.pdf',
+    
+    // 方法3: 完整URL
+    `${currentOrigin}/Makayla_Resume.pdf`,
+    
+    // 方法4: 如果当前在子目录中
+    `${currentPath.replace(/\/[^/]*$/, '')}/Makayla_Resume.pdf`
+  ];
   
-  console.log(`Attempting to open resume at: ${resumePath}`);
+  console.log('📁 Trying these paths:', paths);
   
-  try {
-    const newWindow = window.open(resumePath, '_blank');
-    if (newWindow) {
-      console.log('Resume window opened successfully');
-    } else {
-      console.log('Failed to open resume window');
-      // Fallback to absolute path
-      window.open('/Makayla_Resume.pdf', '_blank');
+  // 尝试每个路径
+  for (let i = 0; i < paths.length; i++) {
+    const path = paths[i];
+    console.log(`\n🔄 Attempt ${i + 1}: ${path}`);
+    
+    try {
+      // 尝试打开文件
+      const newWindow = window.open(path, '_blank');
+      
+      if (newWindow && !newWindow.closed) {
+        console.log(`✅ SUCCESS: Resume opened from ${path}`);
+        return;
+      } else {
+        console.log(`❌ Failed to open window for ${path}`);
+      }
+    } catch (error) {
+      console.error(`❌ Error with path ${path}:`, error);
     }
-  } catch (error) {
-    console.error('Error opening resume:', error);
-    // Final fallback
-    window.open(`${currentOrigin}/Makayla_Resume.pdf`, '_blank');
   }
+  
+  // 如果所有方法都失败，提供手动下载链接
+  console.error('❌ All resume paths failed');
+  
+  // 创建手动下载链接
+  const downloadLink = document.createElement('a');
+  downloadLink.href = 'Makayla_Resume.pdf';
+  downloadLink.download = 'Makayla_Resume.pdf';
+  downloadLink.textContent = 'Click here to download resume';
+  downloadLink.style.display = 'block';
+  downloadLink.style.padding = '10px';
+  downloadLink.style.margin = '10px';
+  downloadLink.style.backgroundColor = '#f0f0f0';
+  downloadLink.style.border = '1px solid #ccc';
+  downloadLink.style.borderRadius = '5px';
+  downloadLink.style.textDecoration = 'none';
+  downloadLink.style.color = '#333';
+  
+  // 显示错误信息和手动下载选项
+  const errorMessage = `
+无法自动打开简历文件。
+
+请尝试以下方法：
+1. 右键点击下面的链接，选择"另存为"
+2. 或者直接在浏览器地址栏输入: ${currentOrigin}/Makayla_Resume.pdf
+
+如果仍然无法访问，请检查：
+- 文件是否存在于服务器上
+- 服务器配置是否正确
+- 文件权限是否正确
+
+调试信息已输出到控制台。
+  `;
+  
+  alert(errorMessage);
+  
+  // 在页面上显示手动下载链接
+  const container = document.createElement('div');
+  container.style.position = 'fixed';
+  container.style.top = '50%';
+  container.style.left = '50%';
+  container.style.transform = 'translate(-50%, -50%)';
+  container.style.backgroundColor = 'white';
+  container.style.padding = '20px';
+  container.style.border = '2px solid #ff6b6b';
+  container.style.borderRadius = '10px';
+  container.style.zIndex = '10000';
+  container.style.maxWidth = '400px';
+  container.style.textAlign = 'center';
+  
+  container.innerHTML = `
+    <h3 style="color: #ff6b6b; margin-bottom: 15px;">简历下载</h3>
+    <p style="margin-bottom: 15px;">自动下载失败，请手动下载：</p>
+    ${downloadLink.outerHTML}
+    <br><br>
+    <button onclick="this.parentElement.remove()" style="padding: 8px 16px; background: #ccc; border: none; border-radius: 5px; cursor: pointer;">关闭</button>
+  `;
+  
+  document.body.appendChild(container);
 };
 
 // 通用的平滑滚动函数

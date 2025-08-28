@@ -120,6 +120,34 @@ const Hero = () => {
           </Button>
         </div>
         
+        {/* Test Resume Links */}
+        <div className="text-center mb-8">
+          <p className="text-sm text-muted-foreground mb-2">测试简历下载链接：</p>
+          <div className="flex flex-wrap justify-center gap-2">
+            <a 
+              href="Makayla_Resume.pdf" 
+              target="_blank" 
+              className="text-blue-600 hover:text-blue-800 underline text-sm"
+            >
+              直接链接: Makayla_Resume.pdf
+            </a>
+            <a 
+              href="/Makayla_Resume.pdf" 
+              target="_blank" 
+              className="text-blue-600 hover:text-blue-800 underline text-sm"
+            >
+              绝对路径: /Makayla_Resume.pdf
+            </a>
+            <a 
+              href={`${window.location.origin}/Makayla_Resume.pdf`} 
+              target="_blank" 
+              className="text-blue-600 hover:text-blue-800 underline text-sm"
+            >
+              完整URL: {window.location.origin}/Makayla_Resume.pdf
+            </a>
+          </div>
+        </div>
+        
         {/* Key Focus Areas */}
         <div className="flex flex-wrap justify-center gap-3">
           {[
