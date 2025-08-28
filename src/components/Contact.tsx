@@ -1,12 +1,13 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, ExternalLink, Download, Linkedin, FileText, Send, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { createMailtoLink } from '@/config/email';
+import { Download, Mail, Phone, MapPin, ExternalLink, Send } from "lucide-react";
+import { openResume } from "@/lib/utils";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -18,9 +19,15 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
+  const createMailtoLink = (data: typeof formData) => {
+    const subject = encodeURIComponent(data.subject);
+    const body = encodeURIComponent(`Hi Makayla,\n\n${data.message}\n\nBest regards,\n${data.name}\n${data.email}`);
+    return `mailto:Michaelxliu22@gmail.com?subject=${subject}&body=${body}`;
+  };
+
   const handleResumeDownload = () => {
     // Directly open resume in new window
-    window.open('/Makayla_Resume.pdf', '_blank');
+    openResume();
   };
 
   const requestViaEmail = () => {

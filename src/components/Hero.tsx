@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Download, Mail, ExternalLink } from "lucide-react";
+import { openResume } from "@/lib/utils";
 
 const Hero = () => {
   const scrollToProjects = () => {
@@ -132,7 +133,7 @@ const Hero = () => {
             <ArrowDown className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
           </Button>
           
-          <Button variant="outline" size="lg" className="group" onClick={() => window.open('/Makayla_Resume.pdf', '_blank')}>
+          <Button variant="outline" size="lg" className="group" onClick={openResume}>
             <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
             Open Resume
           </Button>

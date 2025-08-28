@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, Download, Mail, ExternalLink } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X, Download, Mail } from "lucide-react";
+import { openResume } from "@/lib/utils";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -125,7 +126,7 @@ const Navigation = () => {
             <Button 
               variant="outline" 
               size="sm" 
-              onClick={() => window.open('/Makayla_Resume.pdf', '_blank')}
+              onClick={openResume}
               className="hidden sm:flex"
             >
               <Download className="mr-2 h-4 w-4" />
@@ -167,7 +168,7 @@ const Navigation = () => {
               
               {/* Mobile Action Buttons */}
               <div className="pt-4 border-t border-border/50 space-y-2">
-                <Button variant="outline" size="sm" className="w-full" onClick={() => window.open('/Makayla_Resume.pdf', '_blank')}>
+                <Button variant="outline" size="sm" className="w-full" onClick={openResume}>
                   <Download className="h-3 w-3 mr-2" />
                   Open Resume
                 </Button>
