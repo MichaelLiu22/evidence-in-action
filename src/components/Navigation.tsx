@@ -91,8 +91,8 @@ const Navigation = () => {
           <div className="flex items-center gap-3">
             <div className="flex items-center justify-center">
               <img 
-                src="/lovable-uploads/MW_logo.png" 
-                alt="MW Logo" 
+                src="/lovable-uploads/Mikeswaylogo.png" 
+                alt="Mikesway Logo" 
                 className="h-10 w-auto object-contain transition-transform duration-200 hover:scale-105 cursor-pointer"
                 onClick={() => scrollToSection('hero', 'hero')}
                 title="Click to go to top"
