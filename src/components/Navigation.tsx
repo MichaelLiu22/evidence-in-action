@@ -3,100 +3,117 @@ import { Badge } from "@/components/ui/badge";
 import { useState, useEffect } from "react";
 import { Menu, X, Download, Mail } from "lucide-react";
 import { openResume } from "@/lib/utils";
+import { Link, useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const location = useLocation();
 
-  const navItems = [
-    { id: 'hero', label: 'Home', href: '#' },
-    { id: 'about', label: 'About', href: '#about' },
-    { id: 'clinical-service', label: 'Clinical Service', href: '#clinical-service' },
-    { id: 'research', label: 'Research', href: '#research' },
-    { id: 'projects', label: 'Projects', href: '#projects' },
-    { id: 'leadership', label: 'Leadership', href: '#leadership' },
-    { id: 'contact', label: 'Contact', href: '#contact' }
-  ];
-
-  // Handle scroll-based active section detection and progress bar
+  // 卷轴展开动画效果
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = navItems.map(item => document.getElementById(item.id) || document.querySelector(item.href) as HTMLElement);
-      const scrollPosition = window.scrollY + 100;
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 300); // 延迟300ms开始动画，让效果更明显
 
-      // Update active section
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i] as HTMLElement;
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(navItems[i].id);
-          break;
-        }
-      }
-
-      // Update progress bar - more reliable calculation
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const maxScroll = documentHeight - windowHeight;
-      
-      let scrollPercent = 0;
-      if (maxScroll > 0) {
-        scrollPercent = (scrollTop / maxScroll) * 100;
-      }
-      
-      const clampedProgress = Math.min(100, Math.max(0, scrollPercent));
-      setScrollProgress(clampedProgress);
-      
-      // Debug logging
-      console.log('Scroll Progress:', {
-        scrollTop,
-        windowHeight,
-        documentHeight,
-        maxScroll,
-        scrollPercent: scrollPercent.toFixed(2),
-        clampedProgress: clampedProgress.toFixed(2)
-      });
-    };
-
-    // Initial call to set initial progress
-    handleScroll();
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => clearTimeout(timer);
   }, []);
 
-  const scrollToSection = (href: string, id: string) => {
-    setActiveSection(id);
-    setIsOpen(false);
-    
-    if (href === '#') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
+  const navItems = [
+    { 
+      id: 'home', 
+      label: 'Home', 
+      href: '/',
+      activeColor: 'bg-gradient-to-r from-purple-500 to-pink-500',
+      hoverColor: 'hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500',
+      hoverTextColor: 'hover:text-white',
+      animation: 'hover:scale-105 hover:shadow-lg'
+    },
+    { 
+      id: 'about', 
+      label: 'About', 
+      href: '/about',
+      activeColor: 'bg-gradient-to-r from-blue-500 to-cyan-500',
+      hoverColor: 'hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500',
+      hoverTextColor: 'hover:text-white',
+      animation: 'hover:scale-105 hover:shadow-lg'
+    },
+    { 
+      id: 'clinical-service', 
+      label: 'Clinical Service', 
+      href: '/clinical-service',
+      activeColor: 'bg-gradient-to-r from-green-500 to-emerald-500',
+      hoverColor: 'hover:bg-gradient-to-r hover:from-green-500 hover:to-emerald-500',
+      hoverTextColor: 'hover:text-white',
+      animation: 'hover:scale-105 hover:shadow-lg'
+    },
+    { 
+      id: 'research', 
+      label: 'Research', 
+      href: '/research',
+      activeColor: 'bg-gradient-to-r from-orange-500 to-red-500',
+      hoverColor: 'hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500',
+      hoverTextColor: 'hover:text-white',
+      animation: 'hover:scale-105 hover:shadow-lg'
+    },
+    { 
+      id: 'projects', 
+      label: 'Projects', 
+      href: '/projects',
+      activeColor: 'bg-gradient-to-r from-indigo-500 to-purple-500',
+      hoverColor: 'hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-500',
+      hoverTextColor: 'hover:text-white',
+      animation: 'hover:scale-105 hover:shadow-lg'
+    },
+    { 
+      id: 'leadership', 
+      label: 'Leadership', 
+      href: '/leadership',
+      activeColor: 'bg-gradient-to-r from-yellow-500 to-orange-500',
+      hoverColor: 'hover:bg-gradient-to-r hover:from-yellow-500 hover:to-orange-500',
+      hoverTextColor: 'hover:text-white',
+      animation: 'hover:scale-105 hover:shadow-lg'
+    },
+    { 
+      id: 'contact', 
+      label: 'Contact', 
+      href: '/contact',
+      activeColor: 'bg-gradient-to-r from-teal-500 to-blue-500',
+      hoverColor: 'hover:bg-gradient-to-r hover:from-teal-500 hover:to-blue-500',
+      hoverTextColor: 'hover:text-white',
+      animation: 'hover:scale-105 hover:shadow-lg'
     }
+  ];
 
-    const element = document.querySelector(href) as HTMLElement;
-    if (element) {
-      const offset = 80; // Account for fixed navbar
-      const elementPosition = element.offsetTop - offset;
-      window.scrollTo({ top: elementPosition, behavior: 'smooth' });
-    }
+  const getCurrentPage = () => {
+    const path = location.pathname;
+    if (path === '/') return 'home';
+    return path.substring(1); // Remove leading slash
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50">
+    <nav className={`fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50 transition-all duration-1500 ease-out transform ${
+      isVisible 
+        ? 'translate-y-0 opacity-100' 
+        : '-translate-y-32 opacity-0'
+    }`}>
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
+                <div className="flex items-center justify-between h-16">
           {/* Logo/Brand */}
-          <div className="flex items-center gap-3">
+          <div className={`flex items-center gap-3 mr-8 transition-all duration-1000 ease-out transform ${
+            isVisible 
+              ? 'translate-x-0 opacity-100 scale-100' 
+              : '-translate-x-16 opacity-0 scale-75'
+          }`} style={{ transitionDelay: '500ms' }}>
             <div className="flex items-center justify-center">
-              <img 
-                src="/lovable-uploads/Mikeswaylogo.png" 
-                alt="Mikesway Logo" 
-                className="h-10 w-auto object-contain transition-transform duration-200 hover:scale-105 cursor-pointer"
-                onClick={() => scrollToSection('hero', 'hero')}
-                title="Click to go to top"
-              />
+              <Link to="/">
+                <img
+                  src="/lovable-uploads/Mikeswaylogo.png"
+                  alt="Mikesway Logo"
+                  className="h-10 w-auto object-contain transition-transform duration-200 hover:scale-105 cursor-pointer"
+                  title="Click to go to home"
+                />
+              </Link>
             </div>
             <div className="hidden sm:block">
               <h1 className="font-semibold heading-clinical">Makayla Wang</h1>
@@ -104,24 +121,40 @@ const Navigation = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navItems.map((item) => (
-              <button
+          <div className={`hidden lg:flex items-center gap-1 transition-all duration-1000 ease-out transform ${
+            isVisible 
+              ? 'translate-y-0 opacity-100 scale-100' 
+              : 'translate-y-8 opacity-0 scale-90'
+          }`} style={{ transitionDelay: '700ms' }}>
+            {navItems.map((item, index) => (
+              <Link
                 key={item.id}
-                onClick={() => scrollToSection(item.href, item.id)}
-                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
-                  activeSection === item.id
-                    ? 'text-primary bg-primary/10'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                to={item.href}
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-500 ease-out transform ${item.animation} ${
+                  getCurrentPage() === item.id
+                    ? `text-white ${item.activeColor} shadow-md`
+                    : `text-muted-foreground ${item.hoverColor} ${item.hoverTextColor} hover:shadow-md`
+                } ${
+                  isVisible 
+                    ? 'translate-y-0 opacity-100 scale-100' 
+                    : 'translate-y-6 opacity-0 scale-75'
                 }`}
+                style={{ 
+                  transitionDelay: `${900 + index * 100}ms`,
+                  animationDelay: `${900 + index * 100}ms`
+                }}
               >
                 {item.label}
-              </button>
+              </Link>
             ))}
           </div>
 
           {/* Desktop Action Buttons */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className={`hidden lg:flex items-center gap-2 transition-all duration-1000 ease-out transform ${
+            isVisible 
+              ? 'translate-x-0 opacity-100 scale-100' 
+              : 'translate-x-16 opacity-0 scale-75'
+          }`} style={{ transitionDelay: '1200ms' }}>
             <Button 
               variant="outline" 
               size="sm" 
@@ -140,7 +173,12 @@ const Navigation = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+            className={`lg:hidden p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-1000 ease-out transform ${
+              isVisible 
+                ? 'translate-x-0 opacity-100 scale-100' 
+                : 'translate-x-16 opacity-0 scale-75'
+            }`}
+            style={{ transitionDelay: '1200ms' }}
             aria-label="Toggle navigation menu"
           >
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -152,17 +190,18 @@ const Navigation = () => {
           <div className="lg:hidden border-t border-border/50 bg-background">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
-                <button
+                <Link
                   key={item.id}
-                  onClick={() => scrollToSection(item.href, item.id)}
-                  className={`block w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                    activeSection === item.id
-                      ? 'text-primary bg-primary/10'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                  to={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`block w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 transform ${item.animation} ${
+                    getCurrentPage() === item.id
+                      ? `text-white ${item.activeColor} shadow-md`
+                      : `text-muted-foreground ${item.hoverColor} ${item.hoverTextColor} hover:shadow-md`
                   }`}
                 >
                   {item.label}
-                </button>
+                </Link>
               ))}
               
               {/* Mobile Action Buttons */}
@@ -181,21 +220,7 @@ const Navigation = () => {
         )}
       </div>
 
-      {/* Progress Indicator */}
-      <div className="absolute bottom-0 left-0 h-1 bg-primary/20 w-full overflow-hidden">
-        <div 
-          className="h-full bg-gradient-to-r from-primary via-primary/80 to-primary transition-all duration-300 ease-out shadow-sm"
-          style={{ 
-            width: `${scrollProgress}%`,
-            transform: `translateX(${scrollProgress > 0 ? 0 : -100}%)`
-          }}
-        />
-      </div>
-      
-      {/* Debug Info - Remove this after testing */}
-      <div className="absolute top-16 right-4 text-xs text-muted-foreground bg-background/80 px-2 py-1 rounded">
-        Progress: {scrollProgress.toFixed(1)}% | Active: {activeSection}
-      </div>
+
     </nav>
   );
 };
