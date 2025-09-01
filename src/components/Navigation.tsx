@@ -100,7 +100,6 @@ const Navigation = () => {
             </div>
             <div className="hidden sm:block">
               <h1 className="font-semibold heading-clinical">Makayla Wang</h1>
-              <p className="text-xs text-muted-foreground">Evidence-Driven Clinical Research</p>
             </div>
           </div>
 
@@ -130,7 +129,7 @@ const Navigation = () => {
               className="hidden sm:flex"
             >
               <Download className="mr-2 h-4 w-4" />
-              Open Resume
+              View Resume
             </Button>
             <Button size="sm">
               <Mail className="h-3 w-3 mr-1" />
@@ -170,7 +169,7 @@ const Navigation = () => {
               <div className="pt-4 border-t border-border/50 space-y-2">
                 <Button variant="outline" size="sm" className="w-full" onClick={openResume}>
                   <Download className="h-3 w-3 mr-2" />
-                  Open Resume
+                  View Resume
                 </Button>
                 <Button size="sm" className="w-full">
                   <Mail className="h-3 w-3 mr-2" />

@@ -26,7 +26,7 @@ const Contact = () => {
   };
 
   const handleResumeDownload = () => {
-    // Directly open resume in new window
+    // Open Google Drive resume folder
     openResume();
   };
 

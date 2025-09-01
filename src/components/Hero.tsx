@@ -36,10 +36,7 @@ const Hero = () => {
           Makayla Wang
         </h1>
         
-        {/* Inline Titles */}
-        <div className="text-lg md:text-xl text-muted-foreground mb-8 font-medium leading-relaxed max-w-3xl mx-auto">
-          Pre-Health College Applicant · Founder, heARTbeat (200+ kits) · Huntington Hospital Volunteer · Student Research Intern, City of Hope
-        </div>
+
         
         {/* Keyword Tags - Reorganized into categories */}
         <div className="space-y-4 mb-8">
@@ -96,11 +93,7 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Mission Statement */}
-        <p className="text-lg text-clinical max-w-2xl mx-auto mb-12 leading-relaxed">
-          Bridging clinical volunteering, maternal health research, and community impact 
-          through evidence-based healthcare advocacy and health equity initiatives.
-        </p>
+
         
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
@@ -111,7 +104,7 @@ const Hero = () => {
           
           <Button variant="outline" size="lg" className="group" onClick={openResume}>
             <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-            Open Resume
+            View Resume
           </Button>
           
           <Button variant="outline" size="lg" className="group" onClick={scrollToContact}>
@@ -120,33 +113,7 @@ const Hero = () => {
           </Button>
         </div>
         
-        {/* Test Resume Links */}
-        <div className="text-center mb-8">
-          <p className="text-sm text-muted-foreground mb-2">测试简历下载链接：</p>
-          <div className="flex flex-wrap justify-center gap-2">
-            <a 
-              href="Makayla_Resume.pdf" 
-              target="_blank" 
-              className="text-blue-600 hover:text-blue-800 underline text-sm"
-            >
-              直接链接: Makayla_Resume.pdf
-            </a>
-            <a 
-              href="/Makayla_Resume.pdf" 
-              target="_blank" 
-              className="text-blue-600 hover:text-blue-800 underline text-sm"
-            >
-              绝对路径: /Makayla_Resume.pdf
-            </a>
-            <a 
-              href={`${window.location.origin}/Makayla_Resume.pdf`} 
-              target="_blank" 
-              className="text-blue-600 hover:text-blue-800 underline text-sm"
-            >
-              完整URL: {window.location.origin}/Makayla_Resume.pdf
-            </a>
-          </div>
-        </div>
+
         
         {/* Key Focus Areas */}
         <div className="flex flex-wrap justify-center gap-3">
