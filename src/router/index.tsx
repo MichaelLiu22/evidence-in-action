@@ -1,11 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from '../components/Layout';
-import Home from '../pages/Home';
-import About from '../pages/About';
-import ClinicalService from '../pages/ClinicalService';
+import Academic from '../pages/Academic';
 import Research from '../pages/Research';
+import Teaching from '../pages/Teaching';
 import Projects from '../pages/Projects';
-import Leadership from '../pages/Leadership';
+import Notes from '../pages/Notes';
 import Contact from '../pages/Contact';
 import NotFound from '../pages/NotFound';
 
@@ -16,27 +15,23 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
-      },
-      {
-        path: 'about',
-        element: <About />,
-      },
-      {
-        path: 'clinical-service',
-        element: <ClinicalService />,
+        element: <Academic />,
       },
       {
         path: 'research',
         element: <Research />,
       },
       {
+        path: 'teaching',
+        element: <Teaching />,
+      },
+      {
         path: 'projects',
         element: <Projects />,
       },
       {
-        path: 'leadership',
-        element: <Leadership />,
+        path: 'notes',
+        element: <Notes />,
       },
       {
         path: 'contact',
