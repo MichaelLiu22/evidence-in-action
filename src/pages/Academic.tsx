@@ -83,7 +83,7 @@ const Academic = () => {
           <div className="flex flex-col md:flex-row gap-8 items-start">
             <div className="w-48 h-48 rounded-lg overflow-hidden shadow-lg flex-shrink-0">
               <img 
-                src="/lovable-uploads/34d2e04d-975a-4d61-b037-16668e1568a4.png" 
+                src="/lovable-uploads/Makayla.png" 
                 alt="Makayla Wang"
                 className="w-full h-full object-cover"
               />

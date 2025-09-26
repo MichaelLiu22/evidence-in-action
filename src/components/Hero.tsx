@@ -21,7 +21,7 @@ const Hero = () => {
       {/* Background with Medical Grid */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
-        style={{ backgroundImage: `url(/lovable-uploads/34d2e04d-975a-4d61-b037-16668e1568a4.png)` }}
+        style={{ backgroundImage: `url(/lovable-uploads/Makayla.png)` }}
       />
       <div className="absolute inset-0 medical-grid-bg" />
       <div className="absolute inset-0 ecg-wave" />
