@@ -20,7 +20,7 @@ const Hero = () => {
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background with Medical Grid */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
+        className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-10"
         style={{ backgroundImage: `url(/lovable-uploads/Makayla.png)` }}
       />
       <div className="absolute inset-0 medical-grid-bg" />

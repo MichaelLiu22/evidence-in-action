@@ -46,7 +46,7 @@ const About = () => {
           <div className="space-y-8">
             {/* Profile Photo */}
             <div className="relative">
-              <div className="w-80 h-80 mx-auto rounded-2xl overflow-hidden shadow-lg border border-border/50">
+              <div className="w-80 h-96 mx-auto rounded-2xl overflow-hidden shadow-lg border border-border/50">
                 <img 
                   src="/lovable-uploads/Makayla.png" 
                   alt="Makayla Wang - Medical Student Portfolio"

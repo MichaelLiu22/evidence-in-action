@@ -81,7 +81,7 @@ const Academic = () => {
         {/* Header - Biography */}
         <section className="mb-16">
           <div className="flex flex-col md:flex-row gap-8 items-start">
-            <div className="w-48 h-48 rounded-lg overflow-hidden shadow-lg flex-shrink-0">
+            <div className="w-48 h-60 rounded-lg overflow-hidden shadow-lg flex-shrink-0">
               <img 
                 src="/lovable-uploads/Makayla.png" 
                 alt="Makayla Wang"
