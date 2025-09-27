@@ -31,13 +31,50 @@ const Hero = () => {
       
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center animate-fade-in-up">
-        {/* Main Name */}
-        <h1 className="text-4xl md:text-6xl font-bold heading-clinical mb-4 leading-tight">
-          Makayla Wang
-        </h1>
-        
+        {/* 人物介绍卡片 */}
+        <div className="bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-8 mb-8 shadow-2xl">
+          {/* Main Name */}
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight">
+            Makayla Wang
+          </h1>
+          
+          {/* 个人简介 */}
+          <p className="text-lg text-blue-100 mb-6 max-w-2xl mx-auto">
+            sociology/public health/social justice track | Westridge School, Pasadena, CA | Class of 2026
+          </p>
+          
+          {/* 详细描述 */}
+          <p className="text-blue-50 mb-6 max-w-3xl mx-auto leading-relaxed">
+            I am a high school student conducting independent research on maternal health disparities 
+            with a focus on evidence-based healthcare interventions. My work combines clinical volunteer 
+            experience at Huntington Hospital with systematic research on health equity issues.
+          </p>
+          
+          {/* 核心标签 */}
+          <div className="flex flex-wrap justify-center gap-3 mb-6">
+            {[
+              "Maternal Health Research",
+              "Health Equity", 
+              "Clinical Volunteering",
+              "Evidence-Based Practice"
+            ].map((area) => (
+              <span key={area} className="bg-blue-700/40 text-blue-100 px-4 py-2 rounded-full text-sm font-medium">
+                {area}
+              </span>
+            ))}
+          </div>
+          
+          {/* 行动按钮 */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+              Download CV
+            </button>
+            <button className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+              Email
+            </button>
+          </div>
+        </div>
 
-        
         {/* Keyword Tags - Reorganized into categories */}
         <div className="space-y-4 mb-8">
           {/* Row 1: Clickable Project Links (External) */}

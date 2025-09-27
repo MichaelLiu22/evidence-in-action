@@ -95,7 +95,7 @@ const Academic = () => {
               <div className="space-y-2 text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <Award className="h-4 w-4" />
-                  <span>Student Researcher, Pre-Medical Track</span>
+                  <span>Sociology/Public Health/Social Justice Track</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4" />

@@ -8,14 +8,14 @@ All colors MUST be HSL for proper theming.
 
 @layer base {
   :root {
-    /* Clinical Color Palette */
-    --background: 217 25% 98%;
+    /* Clinical Color Palette - 分层浅蓝色 */
+    --background: 200 100% 95%;
     --foreground: 216 20% 11%;
 
-    --card: 0 0% 100%;
+    --card: 200 100% 97%;
     --card-foreground: 216 20% 11%;
 
-    --popover: 0 0% 100%;
+    --popover: 200 100% 98%;
     --popover-foreground: 216 20% 11%;
 
     /* Medical Blue Primary */
@@ -24,21 +24,21 @@ All colors MUST be HSL for proper theming.
     --primary-light: 212 74% 45%;
     --primary-dark: 216 82% 24%;
 
-    /* Clinical Gray Secondary */
-    --secondary: 216 15% 95%;
+    /* Clinical Blue Secondary - 分层效果 */
+    --secondary: 200 80% 92%;
     --secondary-foreground: 216 20% 20%;
 
-    --muted: 216 12% 96%;
+    --muted: 200 60% 94%;
     --muted-foreground: 216 12% 45%;
 
-    --accent: 212 74% 92%;
+    --accent: 200 50% 90%;
     --accent-foreground: 212 74% 32%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 216 15% 90%;
-    --input: 216 15% 95%;
+    --border: 200 40% 88%;
+    --input: 200 60% 96%;
     --ring: 212 74% 32%;
 
     /* Medical Visual Elements */
@@ -112,8 +112,81 @@ All colors MUST be HSL for proper theming.
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply text-foreground font-sans antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background: 
+      /* 曲线装饰线条 */
+      radial-gradient(ellipse 800px 200px at 20% 10%, hsl(200 60% 85% / 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse 600px 300px at 80% 30%, hsl(200 50% 80% / 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse 1000px 150px at 50% 70%, hsl(200 40% 88% / 0.08) 0%, transparent 50%),
+      /* 波浪曲线 */
+      linear-gradient(45deg, transparent 0%, hsl(200 30% 90% / 0.06) 25%, transparent 50%, hsl(200 30% 90% / 0.06) 75%, transparent 100%),
+      /* 分层浅蓝色背景 - 放大颜色差距 */
+      linear-gradient(180deg, 
+        hsl(200 100% 85%) 0%, 
+        hsl(200 90% 88%) 20%,
+        hsl(200 80% 92%) 40%,
+        hsl(200 70% 95%) 60%,
+        hsl(200 60% 97%) 80%,
+        hsl(200 50% 99%) 100%);
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* 曲线装饰层 - 顶部 */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      /* 正弦波曲线 */
+      linear-gradient(90deg, 
+        transparent 0%, transparent 10%, 
+        hsl(200 40% 85% / 0.08) 15%, transparent 20%, 
+        transparent 30%, hsl(200 40% 85% / 0.08) 35%, transparent 40%,
+        transparent 50%, hsl(200 40% 85% / 0.08) 55%, transparent 60%,
+        transparent 70%, hsl(200 40% 85% / 0.08) 75%, transparent 80%,
+        transparent 90%, hsl(200 40% 85% / 0.08) 95%, transparent 100%),
+      /* 余弦波曲线 */
+      linear-gradient(135deg, 
+        transparent 0%, transparent 20%, 
+        hsl(200 30% 88% / 0.06) 30%, transparent 40%,
+        transparent 60%, hsl(200 30% 88% / 0.06) 70%, transparent 80%,
+        transparent 100%),
+      /* 指数衰减曲线 */
+      radial-gradient(ellipse 1200px 300px at 50% 0%, 
+        hsl(200 50% 90% / 0.1) 0%, transparent 70%);
+    background-size: 300px 120px, 400px 180px, 100% 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* 曲线装饰层 - 底部 */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      /* 对数曲线 */
+      linear-gradient(225deg, 
+        transparent 0%, transparent 30%, 
+        hsl(200 20% 92% / 0.05) 50%, transparent 70%, transparent 100%),
+      /* 二次函数曲线 */
+      radial-gradient(ellipse 800px 400px at 70% 100%, 
+        hsl(200 30% 90% / 0.08) 0%, transparent 60%),
+      /* 三次函数曲线 */
+      linear-gradient(315deg, 
+        transparent 0%, transparent 40%, 
+        hsl(200 25% 94% / 0.04) 60%, transparent 80%, transparent 100%);
+    background-size: 500px 250px, 100% 100%, 600px 300px;
+    pointer-events: none;
+    z-index: -1;
   }
 
   /* Medical Background Elements */
