@@ -36,14 +36,13 @@ const Navigation = () => {
   };
 
   const navClassName = cn(
-    "fixed top-0 left-0 right-0 z-50 border-b backdrop-saturate-150 transition-all duration-300",
-    "before:content-[''] before:absolute before:inset-0 before:-z-20 before:bg-gradient-to-r before:from-white/55 before:via-primary/10 before:to-white/55",
+    "fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20 shadow-sm transition-all duration-300 overflow-hidden",
+    "before:content-[''] before:absolute before:inset-0 before:-z-20 before:bg-gradient-to-r before:from-white/40 before:via-primary/10 before:to-white/40",
     "after:content-[''] after:absolute after:inset-[1px] after:-z-10 after:rounded-[inherit] after:border after:border-white/40 after:opacity-70",
     "dark:before:from-white/10 dark:before:via-primary/20 dark:before:to-white/10 dark:after:border-white/10",
-    "overflow-hidden",
     isScrolled
-      ? "bg-white/85 border-white/50 shadow-[0_12px_38px_rgba(15,23,42,0.16)] backdrop-blur-2xl backdrop-brightness-110 dark:bg-slate-900/80 dark:border-white/10 dark:shadow-[0_12px_38px_rgba(2,6,23,0.55)]"
-      : "bg-white/55 border-white/40 shadow-[0_4px_18px_rgba(15,23,42,0.08)] backdrop-blur-xl backdrop-brightness-110 dark:bg-slate-900/65 dark:border-white/10 dark:shadow-[0_4px_22px_rgba(2,6,23,0.4)]"
+      ? "bg-white/30 shadow-[0_12px_38px_rgba(15,23,42,0.16)] backdrop-blur-xl dark:bg-slate-900/70 dark:shadow-[0_12px_38px_rgba(2,6,23,0.55)]"
+      : "bg-white/10 shadow-[0_4px_18px_rgba(15,23,42,0.08)] dark:bg-slate-900/60 dark:shadow-[0_4px_22px_rgba(2,6,23,0.4)]"
   );
 
   return (

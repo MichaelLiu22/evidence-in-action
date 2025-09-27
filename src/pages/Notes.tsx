@@ -124,8 +124,8 @@ const Notes = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <main className="max-w-4xl mx-auto px-6 py-20">
+    <section className="py-section">
+      <div className="mx-auto max-w-6xl px-6 py-10 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md shadow-lg">
         {/* Header */}
         <section className="mb-12">
           <h1 className="text-4xl font-bold text-foreground mb-4">Notes & Writing</h1>
@@ -278,8 +278,8 @@ const Notes = () => {
             </CardContent>
           </Card>
         </section>
-      </main>
-    </div>
+      </div>
+    </section>
   );
 };
 

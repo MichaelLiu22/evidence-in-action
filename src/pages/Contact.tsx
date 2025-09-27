@@ -78,8 +78,8 @@ const Contact = () => {
   };
 
   return (
-    <section data-glass="contact" className="py-section px-6 bg-muted/30">
-      <div className="max-w-6xl mx-auto">
+    <section data-glass="contact" className="py-section">
+      <div className="mx-auto max-w-6xl px-6 py-10 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md shadow-lg">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold heading-clinical mb-4">

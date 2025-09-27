@@ -2,6 +2,22 @@ import type { Config } from "tailwindcss";
 
 export default {
 	darkMode: ["class"],
+	safelist: [
+		"backdrop-blur-sm",
+		"backdrop-blur-md",
+		"backdrop-blur-lg",
+		"bg-white/10",
+		"bg-white/20",
+		"bg-black/40",
+		"border-white/20",
+		"shadow-lg",
+		"shadow-2xl",
+		"bg-[length:400%_400%]",
+		"animate-gradient-move",
+		"animate-float",
+		"animate-[gradient-move_22s_ease_infinite]",
+		"animate-[float_8s_ease-in-out_infinite]",
+	],
 	content: [
 		"./pages/**/*.{ts,tsx}",
 		"./components/**/*.{ts,tsx}",
@@ -113,7 +129,24 @@ export default {
 					'50%': { 
 						opacity: '0.8',
 						transform: 'scale(1.02)' 
-					}
+					},
+				},
+				'gradient-move': {
+					'0%': { backgroundPosition: '0% 50%' },
+					'50%': { backgroundPosition: '100% 50%' },
+					'100%': { backgroundPosition: '0% 50%' }
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-6px)' }
+				},
+				'float-slow': {
+					'0%, 100%': { transform: 'translate3d(0, 0, 0)' },
+					'50%': { transform: 'translate3d(0, -8px, 0)' }
+				},
+				'float-slower': {
+					'0%, 100%': { transform: 'translate3d(0, 0, 0) scale(1)' },
+					'50%': { transform: 'translate3d(-6px, -10px, 0) scale(1.05)' }
 				}
 			},
 			animation: {
@@ -121,7 +154,11 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in-up': 'fade-in-up 0.6s ease-out',
 				'counter-up': 'counter-up 0.4s ease-out',
-				'pulse-medical': 'pulse-medical 2s ease-in-out infinite'
+				'pulse-medical': 'pulse-medical 2s ease-in-out infinite',
+				'gradient-move': 'gradient-move 22s ease infinite',
+				'float': 'float 8s ease-in-out infinite',
+				'float-slow': 'float 8s ease-in-out infinite',
+				'float-slower': 'float-slower 12s ease-in-out infinite'
 			}
 		}
 	},
