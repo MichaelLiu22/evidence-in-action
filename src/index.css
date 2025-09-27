@@ -103,6 +103,12 @@ All colors MUST be HSL for proper theming.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Wave animation colors */
+    --wave-blue: 220 94% 85%;
+    --wave-green: 150 94% 85%;
+    --wave-purple: 270 94% 85%;
+    --wave-orange: 30 94% 85%;
   }
 }
 
