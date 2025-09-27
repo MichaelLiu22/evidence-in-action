@@ -77,7 +77,7 @@ const Projects = () => {
   ];
 
   return (
-    <section className="py-section px-6 bg-muted/30">
+    <section data-glass="projects" className="py-section px-6 bg-muted/30">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

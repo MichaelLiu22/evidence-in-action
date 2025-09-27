@@ -125,7 +125,7 @@ Best regards,
   ];
 
   return (
-    <section id="contact" className="py-section px-6 bg-muted/30">
+    <section id="contact" data-glass="contact" className="py-section px-6 bg-muted/30">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

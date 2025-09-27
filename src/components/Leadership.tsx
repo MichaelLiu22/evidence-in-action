@@ -85,7 +85,7 @@ const Leadership = () => {
   };
 
   return (
-    <section id="leadership" className="py-section px-6">
+    <section id="leadership" data-glass="leadership" className="py-section px-6">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

@@ -31,7 +31,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-section px-6">
+    <section id="about" data-glass="about" className="py-section px-6">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -46,11 +46,11 @@ const About = () => {
           <div className="space-y-8">
             {/* Profile Photo */}
             <div className="relative">
-              <div className="w-80 h-96 mx-auto rounded-2xl overflow-hidden shadow-lg border border-border/50">
+              <div className="profile-glass-frame w-80 h-96 mx-auto">
                 <img 
                   src="/lovable-uploads/Makayla.png" 
                   alt="Makayla Wang - Medical Student Portfolio"
-                  className="w-full h-full object-cover"
+                  className="profile-glass-image"
                 />
               </div>
               {/* Floating Badge */}
