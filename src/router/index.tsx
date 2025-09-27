@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from '../components/Layout';
-import Index from '../pages/Index';
 import Academic from '../pages/Academic';
 import Research from '../pages/Research';
 import Teaching from '../pages/Teaching';
@@ -16,10 +15,6 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Index />,
-      },
-      {
-        path: 'academic',
         element: <Academic />,
       },
       {
