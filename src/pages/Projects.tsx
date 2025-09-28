@@ -92,8 +92,36 @@ const Projects = () => {
 
         {/* Project Cards */}
         <div className="space-y-12">
-          {projects.map((project, index) => (
-            <Card key={index} className="evidence-card group">
+          {projects.map((project, index) => {
+            // 根据项目类型选择背景图片
+            const getBackgroundImage = (projectTitle: string) => {
+              if (projectTitle.includes("heARTbeat")) {
+                return "/lovable-uploads/huntion.png";
+              } else if (projectTitle.includes("Piggy")) {
+                return "/lovable-uploads/piggyco.png";
+              } else if (projectTitle.includes("Money Mindset")) {
+                return "/lovable-uploads/proj3.jpg";
+              }
+              return "";
+            };
+
+            const backgroundImage = getBackgroundImage(project.title);
+
+            return (
+            <Card key={index} className="evidence-card group relative overflow-hidden">
+              {/* 背景图片层 */}
+              <div 
+                className="absolute inset-0 bg-cover bg-no-repeat bg-left-top opacity-40 group-hover:opacity-60 transition-opacity duration-300"
+                style={{
+                  backgroundImage: `url(${backgroundImage})`,
+                  backgroundPosition: 'left top',
+                  backgroundSize: 'cover'
+                }}
+              />
+              {/* 渐变遮罩层 - 从左上角透明到右下角不透明 */}
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/80 group-hover:to-white/90 transition-all duration-300" />
+              {/* 内容层 */}
+              <div className="relative z-10">
               <CardHeader>
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                   <div className="space-y-2">
@@ -192,8 +220,10 @@ const Projects = () => {
                   ))}
                 </div>
               </CardContent>
+              </div>
             </Card>
-          ))}
+            );
+          })}
         </div>
 
         {/* Project Summary */}
