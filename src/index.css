@@ -632,5 +632,110 @@ All colors MUST be HSL for proper theming.
     h1 { font-size: 1.875rem !important; }
     h2 { font-size: 1.5rem !important; }
     h3 { font-size: 1.25rem !important; }
+    
+    /* 手机端简化转场效果 */
+    .page-enter {
+      animation: simple-fade-in 0.3s ease-out !important;
+    }
+    
+    .page-enter::after {
+      display: none !important;
+    }
+  }
+
+  /* 页面转场动画 - 玻璃光反射效果 */
+  @keyframes glass-reflection-enter {
+    0% {
+      opacity: 0;
+      transform: translateX(100%) scale(0.98);
+      filter: blur(8px);
+    }
+    60% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes light-sweep {
+    0% {
+      transform: translateX(-200%) skewX(-15deg);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(200%) skewX(-15deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes simple-fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .page-transition-container {
+    position: relative;
+    overflow: hidden;
+    will-change: transform, opacity;
+  }
+
+  .page-enter {
+    animation: glass-reflection-enter 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .page-enter::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.15) 45%,
+      rgba(255, 255, 255, 0.8) 50%,
+      rgba(255, 255, 255, 0.15) 55%,
+      transparent 100%
+    );
+    animation: light-sweep 0.8s ease-out;
+    pointer-events: none;
+    z-index: 50;
+    backdrop-filter: blur(2px);
+  }
+
+  /* 暗色模式下的光效调整 */
+  .dark .page-enter::after {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 45%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0.1) 55%,
+      transparent 100%
+    );
+  }
+
+  /* 减少动画的用户偏好设置 */
+  @media (prefers-reduced-motion: reduce) {
+    .page-enter {
+      animation: simple-fade-in 0.2s ease-out;
+    }
+    
+    .page-enter::after {
+      display: none;
+    }
   }
 }
