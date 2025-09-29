@@ -647,29 +647,32 @@ All colors MUST be HSL for proper theming.
   @keyframes glass-reflection-enter {
     0% {
       opacity: 0;
-      transform: translateX(100%) scale(0.98);
-      filter: blur(8px);
+      transform: translate3d(80px, 0, 0) scale(0.98);
+      filter: blur(4px);
     }
-    60% {
-      opacity: 0.7;
+    40% {
+      opacity: 0.5;
     }
     100% {
       opacity: 1;
-      transform: translateX(0) scale(1);
+      transform: translate3d(0, 0, 0) scale(1);
       filter: blur(0);
     }
   }
 
   @keyframes light-sweep {
     0% {
-      transform: translateX(-200%) skewX(-15deg);
+      transform: translate3d(-100%, 0, 0) skewX(-15deg);
       opacity: 0;
     }
-    50% {
-      opacity: 1;
+    30% {
+      opacity: 0.8;
+    }
+    70% {
+      opacity: 0.8;
     }
     100% {
-      transform: translateX(200%) skewX(-15deg);
+      transform: translate3d(200%, 0, 0) skewX(-15deg);
       opacity: 0;
     }
   }
@@ -692,7 +695,7 @@ All colors MUST be HSL for proper theming.
   }
 
   .page-enter {
-    animation: glass-reflection-enter 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+    animation: glass-reflection-enter 1s cubic-bezier(0.16, 0.84, 0.44, 1);
   }
 
   .page-enter::after {
@@ -705,15 +708,17 @@ All colors MUST be HSL for proper theming.
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(255, 255, 255, 0.15) 45%,
-      rgba(255, 255, 255, 0.8) 50%,
-      rgba(255, 255, 255, 0.15) 55%,
+      hsla(var(--rainbow-hue), 85%, 75%, 0.2) 30%,
+      hsla(var(--rainbow-hue), 90%, 85%, 0.5) 45%,
+      hsla(var(--rainbow-hue), 95%, 90%, 0.9) 50%,
+      hsla(var(--rainbow-hue), 90%, 85%, 0.5) 55%,
+      hsla(var(--rainbow-hue), 85%, 75%, 0.2) 70%,
       transparent 100%
     );
-    animation: light-sweep 0.8s ease-out;
+    animation: light-sweep 1.4s cubic-bezier(0.16, 0.84, 0.44, 1);
     pointer-events: none;
     z-index: 50;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(1px) saturate(180%);
   }
 
   /* 暗色模式下的光效调整 */
@@ -721,9 +726,11 @@ All colors MUST be HSL for proper theming.
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(255, 255, 255, 0.1) 45%,
-      rgba(255, 255, 255, 0.5) 50%,
-      rgba(255, 255, 255, 0.1) 55%,
+      hsla(var(--rainbow-hue), 85%, 75%, 0.15) 30%,
+      hsla(var(--rainbow-hue), 90%, 85%, 0.4) 45%,
+      hsla(var(--rainbow-hue), 95%, 90%, 0.7) 50%,
+      hsla(var(--rainbow-hue), 90%, 85%, 0.4) 55%,
+      hsla(var(--rainbow-hue), 85%, 75%, 0.15) 70%,
       transparent 100%
     );
   }
