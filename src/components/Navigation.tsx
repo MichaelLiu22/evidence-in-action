@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Menu, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const Navigation = () => {
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [bubbleStyle, setBubbleStyle] = useState({ left: 0, width: 0 });
+  const navRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +24,43 @@ const Navigation = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const currentIndex = navItems.findIndex(item => item.path === location.pathname);
+    if (currentIndex >= 0 && navRefs.current[currentIndex]) {
+      const element = navRefs.current[currentIndex];
+      const rect = element.getBoundingClientRect();
+      const container = element.parentElement;
+      if (container) {
+        const containerRect = container.getBoundingClientRect();
+        setBubbleStyle({
+          left: rect.left - containerRect.left,
+          width: rect.width
+        });
+      }
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const currentIndex = navItems.findIndex(item => item.path === location.pathname);
+      if (currentIndex >= 0 && navRefs.current[currentIndex]) {
+        const element = navRefs.current[currentIndex];
+        const rect = element.getBoundingClientRect();
+        const container = element.parentElement;
+        if (container) {
+          const containerRect = container.getBoundingClientRect();
+          setBubbleStyle({
+            left: rect.left - containerRect.left,
+            width: rect.width
+          });
+        }
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [location.pathname]);
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -58,17 +98,29 @@ const Navigation = () => {
           </NavLink>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
+          <div className="hidden md:flex items-center space-x-8 relative">
+            {/* 滑动气泡背景 */}
+            <div 
+              className="absolute h-8 rounded-full bg-white/65 border border-white/60 shadow-md transition-all duration-300 ease-out -z-10"
+              style={{
+                left: `${bubbleStyle.left}px`,
+                width: `${bubbleStyle.width}px`,
+                top: '50%',
+                transform: 'translateY(-50%)'
+              }}
+            />
+            
+            {navItems.map((item, index) => (
               <NavLink
                 key={item.name}
                 to={item.path}
+                ref={(el) => navRefs.current[index] = el}
                 className={({ isActive }) =>
                   cn(
-                    "text-sm px-3 py-1 rounded-full border border-white/20 transition-all duration-300 hover:text-primary hover:bg-white/60 hover:border-white/50 hover:shadow-md",
+                    "text-sm px-3 py-1 rounded-full transition-all duration-300 relative z-10",
                     isActive
-                      ? "text-primary font-semibold bg-white/65 border-white/60 shadow-md"
-                      : "text-muted-foreground"
+                      ? "text-primary font-semibold"
+                      : "text-muted-foreground hover:text-primary"
                   )
                 }
               >

@@ -665,11 +665,11 @@ All colors MUST be HSL for proper theming.
       transform: translate3d(-100%, 0, 0) skewX(-15deg);
       opacity: 0;
     }
-    30% {
-      opacity: 0.8;
+    10% {
+      opacity: 0.9;
     }
-    70% {
-      opacity: 0.8;
+    90% {
+      opacity: 0.9;
     }
     100% {
       transform: translate3d(200%, 0, 0) skewX(-15deg);
@@ -715,7 +715,7 @@ All colors MUST be HSL for proper theming.
       hsla(var(--rainbow-hue), 85%, 75%, 0.2) 70%,
       transparent 100%
     );
-    animation: light-sweep 1.4s cubic-bezier(0.16, 0.84, 0.44, 1);
+    animation: light-sweep 1s linear;
     pointer-events: none;
     z-index: 50;
     backdrop-filter: blur(1px) saturate(180%);
