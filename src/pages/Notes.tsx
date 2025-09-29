@@ -6,8 +6,8 @@ import { ExternalLink, FileText, Calendar, Tag, Award } from "lucide-react";
 const Notes = () => {
   const writingCategories = [
     {
-      title: "Research Notes & Methodology",
-      description: "Documentation from ongoing research projects and methodological training",
+      title: "Research & Methodology Documentation",
+      description: "Comprehensive documentation from research projects, policy analysis, and methodological training",
       entries: [
         {
           title: "Clinical Research Methods: Study Design and Data Analysis",
@@ -44,12 +44,6 @@ const Notes = () => {
           type: "Methodology Notes",
           availability: "Available for review",
         },
-      ],
-    },
-    {
-      title: "Health Policy & Advocacy Writing",
-      description: "Analysis of healthcare policies and advocacy strategies",
-      entries: [
         {
           title: "Maternal Health Policy Analysis: State-Level Interventions",
           date: "2025",
@@ -74,9 +68,8 @@ const Notes = () => {
       ],
     },
     {
-      title: "Educational Content & Science Communication",
-      description:
-        "Materials designed to communicate health and financial literacy concepts to diverse audiences",
+      title: "Educational Content & Professional Development",
+      description: "Educational materials, science communication, and reflective documentation from various experiences",
       entries: [
         {
           title: "Financial Health Literacy for Students",
@@ -109,12 +102,6 @@ const Notes = () => {
           type: "Training Documentation",
           availability: "Internal use",
         },
-      ],
-    },
-    {
-      title: "Personal Learning & Reflection",
-      description: "Reflective writing and learning documentation from various experiences",
-      entries: [
         {
           title: "Clinical Experience Reflections",
           date: "2022-Present",

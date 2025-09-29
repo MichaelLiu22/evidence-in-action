@@ -93,29 +93,60 @@ const Projects = () => {
         {/* Project Cards */}
         <div className="space-y-12">
           {projects.map((project, index) => {
-            // 根据项目类型选择背景图片
+            // 根据项目类型选择背景图片和显示方式
             const getBackgroundImage = (projectTitle: string) => {
               if (projectTitle.includes("heARTbeat")) {
                 return "/lovable-uploads/huntion.png";
               } else if (projectTitle.includes("Piggy")) {
                 return "/lovable-uploads/piggyco.png";
               } else if (projectTitle.includes("Money Mindset")) {
-                return "/lovable-uploads/proj3.jpg";
+                return "/lovable-uploads/prjo3m.png";
               }
               return "";
             };
 
+            // 根据项目类型选择背景图片的显示方式和填充颜色 - 适配3:2比例
+            const getBackgroundStyle = (projectTitle: string) => {
+              if (projectTitle.includes("heARTbeat")) {
+                return {
+                  backgroundPosition: 'center center',
+                  backgroundSize: 'cover',
+                  backgroundColor: 'transparent'
+                };
+              } else if (projectTitle.includes("Piggy")) {
+                return {
+                  backgroundPosition: 'center center',
+                  backgroundSize: 'cover',
+                  backgroundColor: 'rgba(59, 130, 246, 0.05)' // 淡蓝色填充
+                };
+              } else if (projectTitle.includes("Money Mindset")) {
+                return {
+                  backgroundPosition: 'center center',
+                  backgroundSize: 'cover',
+                  backgroundColor: 'rgba(34, 197, 94, 0.05)' // 淡绿色填充
+                };
+              }
+              return {
+                backgroundPosition: 'center center',
+                backgroundSize: 'cover',
+                backgroundColor: 'transparent'
+              };
+            };
+
             const backgroundImage = getBackgroundImage(project.title);
+            const backgroundStyle = getBackgroundStyle(project.title);
 
             return (
             <Card key={index} className="evidence-card group relative overflow-hidden">
-              {/* 背景图片层 */}
+              {/* 背景图片层 - 统一3:2比例适配 */}
               <div 
-                className="absolute inset-0 bg-cover bg-no-repeat bg-left-top opacity-40 group-hover:opacity-60 transition-opacity duration-300"
+                className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
                 style={{
                   backgroundImage: `url(${backgroundImage})`,
-                  backgroundPosition: 'left top',
-                  backgroundSize: 'cover'
+                  backgroundPosition: backgroundStyle.backgroundPosition,
+                  backgroundSize: backgroundStyle.backgroundSize,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundColor: backgroundStyle.backgroundColor
                 }}
               />
               {/* 渐变遮罩层 - 从左上角透明到右下角不透明 */}

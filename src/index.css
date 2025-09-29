@@ -262,6 +262,9 @@ All colors MUST be HSL for proper theming.
     overflow: hidden;
     border-radius: 1.25rem;
     padding: 1.5rem;
+    /* 3:2 宽高比设置 */
+    aspect-ratio: 3 / 2;
+    min-height: 400px;
     --glass-tint: rgba(255,255,255,0.42);
     --glass-border: rgba(255,255,255,0.55);
     --glass-highlight: rgba(255,255,255,0.65);

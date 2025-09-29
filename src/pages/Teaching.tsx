@@ -65,52 +65,27 @@ const Teaching = () => {
       },
       tags: ["Financial Literacy", "Public Health", "Education"],
     },
-    {
-      title: "heARTbeat Program Training",
-      role: "Peer Educator",
-      period: "2023 - Present",
-      institution: "Huntington Hospital",
-      location: "Pasadena, CA",
-      description:
-        "Train new volunteers in patient care package assembly and distribution protocols for hospitalized patients.",
-      topics: [
-        "Patient-Centered Care Principles",
-        "Cultural Sensitivity in Healthcare",
-        "Volunteer Safety Protocols",
-        "Documentation and Impact Tracking",
-      ],
-      participants: "20+ volunteers",
-      format: "Hands-on training, mentorship, ongoing support",
-      materials: [
-        { type: "Training Manual", available: false },
-        { type: "Safety Protocols", available: false },
-        { type: "Impact Assessment Tools", available: false },
-      ],
-      impact: {
-        metric: "20+",
-        description: "Volunteers trained",
-        details: "Onboarding, checklists, and shadowing flow",
-      },
-      tags: ["Patient Care", "Volunteer Training", "Hospital"],
-    },
   ];
 
   const futurePlans = [
     {
-      title: "Pre-Medical Student Health Equity Series",
-      timeline: "2025 - 2026",
-      description:
-        "Developing workshop series for pre-medical students on addressing health disparities in clinical practice.",
-      status: "Planning",
-      tags: ["Pre-Med", "Health Disparities", "Workshops"],
-    },
-    {
-      title: "Community Health Education Partnership",
-      timeline: "2025",
-      description:
-        "Collaborating with local community centers to provide health literacy workshops for underserved populations.",
-      status: "In Development",
-      tags: ["Community", "Health Literacy", "Partnership"],
+      title: "Upcoming Teaching Initiatives",
+      initiatives: [
+        {
+          name: "Pre-Medical Student Health Equity Series",
+          timeline: "2025 - 2026",
+          description: "Developing workshop series for pre-medical students on addressing health disparities in clinical practice.",
+          status: "Planning",
+          tags: ["Pre-Med", "Health Disparities", "Workshops"],
+        },
+        {
+          name: "Community Health Education Partnership",
+          timeline: "2025",
+          description: "Collaborating with local community centers to provide health literacy workshops for underserved populations.",
+          status: "In Development",
+          tags: ["Community", "Health Literacy", "Partnership"],
+        },
+      ],
     },
   ];
 
@@ -128,8 +103,61 @@ const Teaching = () => {
 
         {/* Teaching Cards */}
         <div className="space-y-12">
-          {teachingExperience.map((course, index) => (
-            <Card key={index} className="evidence-card group">
+          {teachingExperience.map((course, index) => {
+            // 根据课程类型选择背景图片
+            const getBackgroundImage = (courseTitle: string) => {
+              if (courseTitle.includes("Health Advocacy Workshop Series")) {
+                return "/lovable-uploads/westrige.png";
+              } else if (courseTitle.includes("Financial Literacy for Health Decisions")) {
+                return "/lovable-uploads/financialM.png";
+              }
+              return "";
+            };
+
+            // 根据课程类型选择背景图片的显示方式
+            const getBackgroundStyle = (courseTitle: string) => {
+              if (courseTitle.includes("Health Advocacy Workshop Series")) {
+                return {
+                  backgroundPosition: 'center center',
+                  backgroundSize: 'cover',
+                  backgroundColor: 'rgba(59, 130, 246, 0.05)' // 淡蓝色填充
+                };
+              } else if (courseTitle.includes("Financial Literacy for Health Decisions")) {
+                return {
+                  backgroundPosition: 'center center',
+                  backgroundSize: 'cover',
+                  backgroundColor: 'rgba(34, 197, 94, 0.05)' // 淡绿色填充
+                };
+              }
+              return {
+                backgroundPosition: 'center center',
+                backgroundSize: 'cover',
+                backgroundColor: 'transparent'
+              };
+            };
+
+            const backgroundImage = getBackgroundImage(course.title);
+            const backgroundStyle = getBackgroundStyle(course.title);
+
+            return (
+            <Card key={index} className="evidence-card group relative overflow-hidden">
+              {/* 背景图片层 - 3:2比例适配 */}
+              {backgroundImage && (
+                <div 
+                  className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    backgroundImage: `url(${backgroundImage})`,
+                    backgroundPosition: backgroundStyle.backgroundPosition,
+                    backgroundSize: backgroundStyle.backgroundSize,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundColor: backgroundStyle.backgroundColor
+                  }}
+                />
+              )}
+              {/* 渐变遮罩层 - 从左上角透明到右下角不透明 */}
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/80 group-hover:to-white/90 transition-all duration-300" />
+              {/* 内容层 */}
+              <div className="relative z-10">
               <CardHeader>
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                   <div className="space-y-2">
@@ -237,12 +265,14 @@ const Teaching = () => {
                   </div>
                 </div>
               </CardContent>
+              </div>
             </Card>
-          ))}
+            );
+          })}
         </div>
 
         {/* Future Teaching Plans */}
-        <div className="mt-16 space-y-8">
+        <div className="mt-16">
           <div className="text-center mb-6">
             <h3 className="text-2xl font-semibold heading-clinical mb-2">Future Teaching Initiatives</h3>
             <p className="text-clinical max-w-2xl mx-auto">
@@ -253,28 +283,34 @@ const Teaching = () => {
           {futurePlans.map((plan, index) => (
             <Card key={index} className="evidence-card group">
               <CardHeader>
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                  <div className="space-y-2">
-                    <CardTitle className="heading-clinical text-xl">{plan.title}</CardTitle>
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="h-4 w-4" />
-                        {plan.timeline}
-                      </div>
-                      <Badge variant="secondary" className="text-xs">{plan.status}</Badge>
-                    </div>
-                  </div>
-                </div>
+                <CardTitle className="heading-clinical text-xl">{plan.title}</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <p className="text-sm text-clinical">{plan.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {plan.tags?.map((tag, i) => (
-                    <Badge key={i} variant="secondary" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+              <CardContent className="space-y-6">
+                {plan.initiatives.map((initiative, idx) => (
+                  <div key={idx} className="border-l-4 border-primary/30 pl-4 space-y-3">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                      <h4 className="font-semibold heading-clinical text-lg">{initiative.name}</h4>
+                      <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                          <Calendar className="h-4 w-4" />
+                          {initiative.timeline}
+                        </div>
+                        <Badge variant="secondary" className="text-xs">{initiative.status}</Badge>
+                      </div>
+                    </div>
+                    <p className="text-sm text-clinical">{initiative.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {initiative.tags?.map((tag, i) => (
+                        <Badge key={i} variant="secondary" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                    {idx < plan.initiatives.length - 1 && (
+                      <div className="border-t border-border/50 pt-4"></div>
+                    )}
+                  </div>
+                ))}
               </CardContent>
             </Card>
           ))}

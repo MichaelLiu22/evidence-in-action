@@ -244,139 +244,177 @@ const Academic = () => {
           ))}
         </div>
 
-        {/* Teaching & Instruction */}
+        {/* Teaching & Writing */}
         <div className="mt-16 space-y-12">
           <div className="text-center">
-            <h2 className="text-3xl font-bold heading-clinical mb-2">Teaching & Instruction</h2>
+            <h2 className="text-3xl font-bold heading-clinical mb-2">Teaching & Writing</h2>
             <p className="text-clinical max-w-2xl mx-auto">
-              Workshops and content focused on advocacy, literacy, and applied public health.
+              Educational initiatives, content creation, and documentation focused on advocacy, literacy, and applied public health.
             </p>
           </div>
 
-          {teaching.map((course, index) => (
-            <Card key={index} className="evidence-card group">
-              <CardHeader>
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                  <div className="space-y-2">
-                    <CardTitle className="heading-clinical text-xl">{course.title}</CardTitle>
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                      <Badge variant="outline" className="text-xs">{course.role}</Badge>
-                      <div className="flex items-center gap-1">
-                        <Calendar className="h-4 w-4" />
-                        {course.period}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Users className="h-4 w-4" />
-                        {course.institution}
-                      </div>
-                    </div>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {course.tags?.map((tag: string, i: number) => (
-                        <Badge key={i} variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
+          {/* Teaching Section */}
+          <div className="space-y-8">
+            <div className="border-l-4 border-primary/30 pl-4">
+              <h3 className="text-xl font-semibold heading-clinical mb-4">Teaching & Instruction</h3>
+              <Card className="evidence-card group relative overflow-hidden">
+                {/* 背景图片层 - 3:2比例适配 */}
+                <div 
+                  className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    backgroundImage: `url(/lovable-uploads/beach.png)`,
+                    backgroundPosition: 'center center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundColor: 'rgba(59, 130, 246, 0.05)' // 淡蓝色填充
+                  }}
+                />
+                {/* 渐变遮罩层 - 从左上角透明到右下角不透明 */}
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/80 group-hover:to-white/90 transition-all duration-300" />
+                {/* 内容层 */}
+                <div className="relative z-10">
+                <CardContent className="space-y-6">
+                  {teaching.map((course, index) => (
+                    <div key={index} className="border-l-2 border-primary/20 pl-4 space-y-3">
+                      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                        <div className="space-y-2">
+                          <h4 className="font-semibold heading-clinical text-lg">{course.title}</h4>
+                          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                            <Badge variant="outline" className="text-xs">{course.role}</Badge>
+                            <div className="flex items-center gap-1">
+                              <Calendar className="h-4 w-4" />
+                              {course.period}
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Users className="h-4 w-4" />
+                              {course.institution}
+                            </div>
+                          </div>
+                          <div className="mt-2 flex flex-wrap gap-2">
+                            {course.tags?.map((tag: string, i: number) => (
+                              <Badge key={i} variant="secondary" className="text-xs">
+                                {tag}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
 
-                  {/* Materials */}
-                  <div className="flex gap-2 flex-wrap self-start">
-                    {course.materials.map((m, idx) => (
-                      <Button key={idx} variant="outline" size="sm" disabled={!m.available} asChild={!!m.available}>
-                        {m.available ? (
-                          <a href={m.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                            <ExternalLink className="h-3 w-3" /> {m.type}
-                          </a>
-                        ) : (
-                          <>{m.type} (Private)</>
+                        {/* Materials */}
+                        <div className="flex gap-2 flex-wrap self-start">
+                          {course.materials.map((m, idx) => (
+                            <Button key={idx} variant="outline" size="sm" disabled={!m.available} asChild={!!m.available}>
+                              {m.available ? (
+                                <a href={m.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                                  <ExternalLink className="h-3 w-3" /> {m.type}
+                                </a>
+                              ) : (
+                                <>{m.type} (Private)</>
+                              )}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <h5 className="font-semibold heading-clinical mb-2 flex items-center gap-2">
+                          <BookOpen className="h-4 w-4 text-primary" />
+                          Overview
+                        </h5>
+                        <p className="text-clinical text-sm">{course.description}</p>
+                      </div>
+
+                      {/* Impact strip */}
+                      {course.impact && (
+                        <div className="bg-accent/30 rounded-lg p-3">
+                          <div className="flex items-center gap-3 mb-2">
+                            <Award className="h-4 w-4 text-primary" />
+                            <span className="font-semibold text-primary text-sm">Teaching Impact</span>
+                          </div>
+                          <div className="grid md:grid-cols-3 gap-4">
+                            <div className="text-center">
+                              <div className="text-xl font-bold text-primary counter-animate">{course.impact.metric}</div>
+                              <div className="text-xs text-clinical">{course.impact.description}</div>
+                            </div>
+                            <div className="md:col-span-2">
+                              <p className="text-xs text-clinical">{course.impact.details}</p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      {index < teaching.length - 1 && (
+                        <div className="border-t border-border/50 pt-4"></div>
+                      )}
+                    </div>
+                  ))}
+                </CardContent>
+                </div>
+              </Card>
+            </div>
+
+            {/* Writing Section */}
+            <div className="border-l-4 border-blue-500/30 pl-4">
+              <h3 className="text-xl font-semibold heading-clinical mb-4">Notes & Writing</h3>
+              <Card className="evidence-card group relative overflow-hidden">
+                {/* 背景图片层 - 3:2比例适配 */}
+                <div 
+                  className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    backgroundImage: `url(/lovable-uploads/Makaylapub.png)`,
+                    backgroundPosition: 'center center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundColor: 'rgba(34, 197, 94, 0.05)' // 淡绿色填充
+                  }}
+                />
+                {/* 渐变遮罩层 - 从左上角透明到右下角不透明 */}
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/80 group-hover:to-white/90 transition-all duration-300" />
+                {/* 内容层 */}
+                <div className="relative z-10">
+                <CardContent className="space-y-6">
+                  {notes.map((note, index) => (
+                    <div key={index} className="border-l-2 border-blue-500/20 pl-4 space-y-3">
+                      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                        <div className="space-y-2">
+                          <h4 className="font-semibold heading-clinical text-lg">{note.title}</h4>
+                          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                            <Badge variant="outline" className="text-xs">{note.category}</Badge>
+                            <Badge variant="secondary" className="text-xs">{note.status}</Badge>
+                          </div>
+                        </div>
+                        {note.url && note.url !== "#" && (
+                          <Button variant="outline" size="sm" asChild className="self-start">
+                            <a href={note.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                              <ExternalLink className="h-3 w-3" /> View Content
+                            </a>
+                          </Button>
                         )}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-6">
-                <div>
-                  <h4 className="font-semibold heading-clinical mb-2 flex items-center gap-2">
-                    <BookOpen className="h-4 w-4 text-primary" />
-                    Overview
-                  </h4>
-                  <p className="text-clinical text-sm">{course.description}</p>
-                </div>
-
-                {/* Impact strip */}
-                {course.impact && (
-                  <div className="bg-accent/30 rounded-lg p-4">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Award className="h-5 w-5 text-primary" />
-                      <span className="font-semibold text-primary">Teaching Impact</span>
-                    </div>
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-primary counter-animate">{course.impact.metric}</div>
-                        <div className="text-sm text-clinical">{course.impact.description}</div>
                       </div>
-                      <div className="md:col-span-2">
-                        <p className="text-sm text-clinical">{course.impact.details}</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
 
-        {/* Notes & Writing */}
-        <div className="mt-16 space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold heading-clinical mb-2">Notes & Writing</h2>
-            <p className="text-clinical max-w-2xl mx-auto">
-              Documentation, policy analysis, and science communication.
-            </p>
+                      <div>
+                        <h5 className="font-semibold heading-clinical mb-2">Overview</h5>
+                        <p className="text-clinical text-sm">{note.description}</p>
+                      </div>
+
+                      <div>
+                        <h5 className="font-semibold heading-clinical mb-2">Topics</h5>
+                        <div className="flex flex-wrap gap-2">
+                          {note.topics.map((t, i) => (
+                            <Badge key={i} variant="secondary" className="text-xs">
+                              {t}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                      {index < notes.length - 1 && (
+                        <div className="border-t border-border/50 pt-4"></div>
+                      )}
+                    </div>
+                  ))}
+                </CardContent>
+                </div>
+              </Card>
+            </div>
           </div>
-
-          {notes.map((note, index) => (
-            <Card key={index} className="evidence-card group">
-              <CardHeader>
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                  <div className="space-y-2">
-                    <CardTitle className="heading-clinical text-xl">{note.title}</CardTitle>
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                      <Badge variant="outline" className="text-xs">{note.category}</Badge>
-                      <Badge variant="secondary" className="text-xs">{note.status}</Badge>
-                    </div>
-                  </div>
-                  {note.url && note.url !== "#" && (
-                    <Button variant="outline" size="sm" asChild className="self-start">
-                      <a href={note.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                        <ExternalLink className="h-3 w-3" /> View Content
-                      </a>
-                    </Button>
-                  )}
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-6">
-                <div>
-                  <h4 className="font-semibold heading-clinical mb-2">Overview</h4>
-                  <p className="text-clinical text-sm">{note.description}</p>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold heading-clinical mb-2">Topics</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {note.topics.map((t, i) => (
-                      <Badge key={i} variant="secondary" className="text-xs">
-                        {t}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
         </div>
 
         {/* Summary Strip */}

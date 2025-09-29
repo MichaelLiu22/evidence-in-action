@@ -79,8 +79,53 @@ const Research = () => {
 
         {/* Research Projects */}
         <div className="space-y-12">
-          {researchProjects.map((project, index) => (
-            <Card key={index} className="evidence-card group">
+          {researchProjects.map((project, index) => {
+            // 根据研究项目类型选择背景图片
+            const getBackgroundImage = (projectTitle: string) => {
+              if (projectTitle.includes("City of Hope")) {
+                return "/lovable-uploads/cityofhope.png";
+              }
+              return "";
+            };
+
+            // 根据研究项目类型选择背景图片的显示方式
+            const getBackgroundStyle = (projectTitle: string) => {
+              if (projectTitle.includes("City of Hope")) {
+                return {
+                  backgroundPosition: 'center center',
+                  backgroundSize: 'cover',
+                  backgroundColor: 'rgba(59, 130, 246, 0.05)' // 淡蓝色填充
+                };
+              }
+              return {
+                backgroundPosition: 'center center',
+                backgroundSize: 'cover',
+                backgroundColor: 'transparent'
+              };
+            };
+
+            const backgroundImage = getBackgroundImage(project.title);
+            const backgroundStyle = getBackgroundStyle(project.title);
+
+            return (
+            <Card key={index} className="evidence-card group relative overflow-hidden">
+              {/* 背景图片层 - 3:2比例适配 */}
+              {backgroundImage && (
+                <div 
+                  className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    backgroundImage: `url(${backgroundImage})`,
+                    backgroundPosition: backgroundStyle.backgroundPosition,
+                    backgroundSize: backgroundStyle.backgroundSize,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundColor: backgroundStyle.backgroundColor
+                  }}
+                />
+              )}
+              {/* 渐变遮罩层 - 从左上角透明到右下角不透明 */}
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/80 group-hover:to-white/90 transition-all duration-300" />
+              {/* 内容层 */}
+              <div className="relative z-10">
               <CardHeader>
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                   <div className="space-y-2">
@@ -204,8 +249,10 @@ const Research = () => {
                   ))}
                 </div>
               </CardContent>
+              </div>
             </Card>
-          ))}
+            );
+          })}
         </div>
 
         {/* Research Summary */}
