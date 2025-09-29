@@ -127,9 +127,9 @@ const Research = () => {
               {/* 内容层 */}
               <div className="relative z-10">
               <CardHeader>
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3 md:gap-4">
                   <div className="space-y-2">
-                    <CardTitle className="heading-clinical text-2xl">
+                    <CardTitle className="heading-clinical text-xl md:text-2xl">
                       {project.title}
                     </CardTitle>
                     <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
@@ -157,7 +157,7 @@ const Research = () => {
                       variant="outline" 
                       size="sm"
                       asChild
-                      className="self-start"
+                      className="self-start w-full sm:w-auto"
                     >
                       <a 
                         href={project.evidence.website} 
@@ -186,22 +186,22 @@ const Research = () => {
                 </div>
 
                 {/* Impact Metrics */}
-                <div className="bg-accent/30 rounded-lg p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Award className="h-5 w-5 text-primary" />
-                    <span className="font-semibold text-primary">Research Impact</span>
+                <div className="bg-accent/30 rounded-lg p-3 md:p-4">
+                  <div className="flex items-center gap-2 md:gap-3 mb-2">
+                    <Award className="h-4 md:h-5 w-4 md:w-5 text-primary" />
+                    <span className="font-semibold text-primary text-sm md:text-base">Research Impact</span>
                   </div>
-                  <div className="grid md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-primary counter-animate">
+                      <div className="text-xl md:text-2xl font-bold text-primary counter-animate">
                         {project.impact.metric}
                       </div>
-                      <div className="text-sm text-clinical">
+                      <div className="text-xs md:text-sm text-clinical">
                         {project.impact.description}
                       </div>
                     </div>
                     <div className="md:col-span-2">
-                      <p className="text-sm text-clinical">
+                      <p className="text-xs md:text-sm text-clinical">
                         {project.impact.details}
                       </p>
                     </div>
@@ -210,14 +210,14 @@ const Research = () => {
 
                 {/* Methodology */}
                 <div>
-                  <h4 className="font-semibold heading-clinical mb-3 flex items-center gap-2">
-                    <Users className="h-4 w-4 text-primary" />
+                  <h4 className="font-semibold heading-clinical mb-2 md:mb-3 flex items-center gap-2 text-sm md:text-base">
+                    <Users className="h-3 md:h-4 w-3 md:w-4 text-primary" />
                     Research Methodology
                   </h4>
-                  <ul className="space-y-2">
+                  <ul className="space-y-1.5 md:space-y-2">
                     {project.methodology.map((method, idx) => (
-                      <li key={idx} className="text-clinical text-sm flex items-start gap-2">
-                        <span className="text-primary mt-1.5 text-xs">•</span>
+                      <li key={idx} className="text-clinical text-xs md:text-sm flex items-start gap-2">
+                        <span className="text-primary mt-1 md:mt-1.5 text-xs">•</span>
                         {method}
                       </li>
                     ))}
@@ -226,14 +226,14 @@ const Research = () => {
 
                 {/* Key Findings */}
                 <div>
-                  <h4 className="font-semibold heading-clinical mb-3 flex items-center gap-2">
-                    <Award className="h-4 w-4 text-primary" />
+                  <h4 className="font-semibold heading-clinical mb-2 md:mb-3 flex items-center gap-2 text-sm md:text-base">
+                    <Award className="h-3 md:h-4 w-3 md:w-4 text-primary" />
                     Key Findings
                   </h4>
-                  <ul className="space-y-2">
+                  <ul className="space-y-1.5 md:space-y-2">
                     {project.findings.map((finding, idx) => (
-                      <li key={idx} className="text-clinical text-sm flex items-start gap-2">
-                        <span className="text-primary mt-1.5 text-xs">•</span>
+                      <li key={idx} className="text-clinical text-xs md:text-sm flex items-start gap-2">
+                        <span className="text-primary mt-1 md:mt-1.5 text-xs">•</span>
                         {finding}
                       </li>
                     ))}

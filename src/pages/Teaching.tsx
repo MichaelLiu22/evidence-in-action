@@ -159,9 +159,9 @@ const Teaching = () => {
               {/* 内容层 */}
               <div className="relative z-10">
               <CardHeader>
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3 md:gap-4">
                   <div className="space-y-2">
-                    <CardTitle className="heading-clinical text-2xl">{course.title}</CardTitle>
+                    <CardTitle className="heading-clinical text-xl md:text-2xl">{course.title}</CardTitle>
                     <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                       <Badge variant="outline" className="text-xs">{course.role}</Badge>
                       <div className="flex items-center gap-1">
@@ -199,18 +199,18 @@ const Teaching = () => {
                 </div>
 
                 {/* Impact Metrics */}
-                <div className="bg-accent/30 rounded-lg p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Award className="h-5 w-5 text-primary" />
-                    <span className="font-semibold text-primary">Teaching Impact</span>
+                <div className="bg-accent/30 rounded-lg p-3 md:p-4">
+                  <div className="flex items-center gap-2 md:gap-3 mb-2">
+                    <Award className="h-4 md:h-5 w-4 md:w-5 text-primary" />
+                    <span className="font-semibold text-primary text-sm md:text-base">Teaching Impact</span>
                   </div>
-                  <div className="grid md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-primary counter-animate">{course.impact.metric}</div>
-                      <div className="text-sm text-clinical">{course.impact.description}</div>
+                      <div className="text-xl md:text-2xl font-bold text-primary counter-animate">{course.impact.metric}</div>
+                      <div className="text-xs md:text-sm text-clinical">{course.impact.description}</div>
                     </div>
                     <div className="md:col-span-2">
-                      <p className="text-sm text-clinical">{course.impact.details}</p>
+                      <p className="text-xs md:text-sm text-clinical">{course.impact.details}</p>
                     </div>
                   </div>
                 </div>
@@ -223,14 +223,14 @@ const Teaching = () => {
 
                 {/* Topics Covered */}
                 <div>
-                  <h4 className="font-semibold heading-clinical mb-3 flex items-center gap-2">
-                    <BookOpen className="h-4 w-4 text-primary" />
+                  <h4 className="font-semibold heading-clinical mb-2 md:mb-3 flex items-center gap-2 text-sm md:text-base">
+                    <BookOpen className="h-3 md:h-4 w-3 md:w-4 text-primary" />
                     Topics Covered
                   </h4>
-                  <ul className="grid md:grid-cols-2 gap-2">
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-1.5 md:gap-2">
                     {course.topics.map((topic: string, idx: number) => (
-                      <li key={idx} className="text-clinical text-sm flex items-start gap-2">
-                        <span className="text-primary mt-1.5 text-xs">•</span>
+                      <li key={idx} className="text-clinical text-xs md:text-sm flex items-start gap-2">
+                        <span className="text-primary mt-1 md:mt-1.5 text-xs">•</span>
                         {topic}
                       </li>
                     ))}
@@ -239,7 +239,7 @@ const Teaching = () => {
 
                 {/* Materials */}
                 <div>
-                  <h4 className="font-semibold heading-clinical mb-3">Course Materials</h4>
+                  <h4 className="font-semibold heading-clinical mb-2 md:mb-3 text-sm md:text-base">Course Materials</h4>
                   <div className="flex gap-2 flex-wrap">
                     {course.materials.map((material: any, idx: number) => (
                       <Button
@@ -248,7 +248,7 @@ const Teaching = () => {
                         size="sm"
                         disabled={!material.available}
                         asChild={!!material.available && !!material.url}
-                        className={!material.available ? "opacity-70" : ""}
+                        className={`w-full sm:w-auto text-xs md:text-sm ${!material.available ? "opacity-70" : ""}`}
                       >
                         {material.available && material.url ? (
                           <a href={material.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
