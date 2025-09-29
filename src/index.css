@@ -742,7 +742,7 @@ All colors MUST be HSL for proper theming.
       hsla(var(--rainbow-hue), 85%, 75%, 0.2) 70%,
       transparent 100%
     );
-    animation: light-sweep 1s linear;
+    animation: light-sweep 1s linear forwards;
     pointer-events: none;
     z-index: 50;
     backdrop-filter: blur(1px) saturate(180%);
