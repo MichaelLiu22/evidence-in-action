@@ -10,7 +10,10 @@ const Navigation = () => {
   const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [bubbleStyle, setBubbleStyle] = useState({ left: 0, width: 0 });
+  const [particles, setParticles] = useState<Array<{ id: number; fromLeft: number; fromWidth: number; toLeft: number; toWidth: number; delay: number }>>([]);
+  const [isAnimating, setIsAnimating] = useState(false);
   const navRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const prevPathRef = useRef(location.pathname);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,20 +28,64 @@ const Navigation = () => {
     };
   }, []);
 
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "Research", path: "/research" },
+    { name: "Teaching", path: "/teaching" },
+    { name: "Projects", path: "/projects" },
+    { name: "Notes", path: "/notes" },
+    { name: "Contact", path: "/contact" }
+  ];
+
   useEffect(() => {
     const currentIndex = navItems.findIndex(item => item.path === location.pathname);
+    const prevIndex = navItems.findIndex(item => item.path === prevPathRef.current);
+    
     if (currentIndex >= 0 && navRefs.current[currentIndex]) {
       const element = navRefs.current[currentIndex];
       const rect = element.getBoundingClientRect();
       const container = element.parentElement;
+      
       if (container) {
         const containerRect = container.getBoundingClientRect();
+        const newLeft = rect.left - containerRect.left;
+        const newWidth = rect.width;
+        
+        // 如果是路由切换且不是首次加载，生成粒子动画
+        if (prevIndex >= 0 && currentIndex !== prevIndex && prevPathRef.current !== location.pathname && navRefs.current[prevIndex]) {
+          const prevElement = navRefs.current[prevIndex];
+          const prevRect = prevElement.getBoundingClientRect();
+          const prevLeft = prevRect.left - containerRect.left;
+          const prevWidth = prevRect.width;
+          
+          // 生成4个小泡泡
+          const newParticles = Array.from({ length: 4 }, (_, i) => ({
+            id: Date.now() + i,
+            fromLeft: prevLeft,
+            fromWidth: prevWidth * 0.3,
+            toLeft: newLeft,
+            toWidth: newWidth,
+            delay: i * 30
+          }));
+          
+          setParticles(newParticles);
+          setIsAnimating(true);
+          
+          // 300ms后清除粒子
+          setTimeout(() => {
+            setParticles([]);
+            setIsAnimating(false);
+          }, 350);
+        }
+        
         setBubbleStyle({
-          left: rect.left - containerRect.left,
-          width: rect.width
+          left: newLeft,
+          width: newWidth
         });
       }
     }
+    
+    prevPathRef.current = location.pathname;
   }, [location.pathname]);
 
   useEffect(() => {
@@ -62,14 +109,6 @@ const Navigation = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, [location.pathname]);
 
-  const navItems = [
-    { name: "Home", path: "/" },
-    { name: "Research", path: "/research" },
-    { name: "Teaching", path: "/teaching" },
-    { name: "Projects", path: "/projects" },
-    { name: "Notes", path: "/notes" },
-    { name: "Contact", path: "/contact" }
-  ];
 
   const openResume = () => {
     window.open("/Makayla_Resume.pdf", "_blank");
@@ -99,9 +138,12 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8 relative">
-            {/* 滑动气泡背景 */}
+            {/* 主气泡背景 */}
             <div 
-              className="absolute h-8 rounded-full bg-white/65 border border-white/60 shadow-md transition-all duration-300 ease-out -z-10"
+              className={cn(
+                "absolute h-8 rounded-full bg-white/65 border border-white/60 shadow-md transition-all ease-out -z-10",
+                isAnimating ? "duration-0 opacity-0" : "duration-300 opacity-100"
+              )}
               style={{
                 left: `${bubbleStyle.left}px`,
                 width: `${bubbleStyle.width}px`,
@@ -109,6 +151,23 @@ const Navigation = () => {
                 transform: 'translateY(-50%)'
               }}
             />
+            
+            {/* 粒子泡泡 */}
+            {particles.map((particle) => (
+              <div
+                key={particle.id}
+                className="absolute rounded-full bg-white/50 border border-white/40 -z-10"
+                style={{
+                  height: '20px',
+                  top: '50%',
+                  animation: `bubble-merge 300ms cubic-bezier(0.34, 1.56, 0.64, 1) ${particle.delay}ms forwards`,
+                  '--from-left': `${particle.fromLeft}px`,
+                  '--from-width': `${particle.fromWidth}px`,
+                  '--to-left': `${particle.toLeft}px`,
+                  '--to-width': `${particle.toWidth}px`,
+                } as React.CSSProperties}
+              />
+            ))}
             
             {navItems.map((item, index) => (
               <NavLink

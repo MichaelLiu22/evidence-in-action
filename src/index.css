@@ -665,15 +665,42 @@ All colors MUST be HSL for proper theming.
       transform: translate3d(-100%, 0, 0) skewX(-15deg);
       opacity: 0;
     }
-    10% {
+    8% {
       opacity: 0.9;
     }
-    90% {
+    75% {
       opacity: 0.9;
+    }
+    92% {
+      opacity: 0;
     }
     100% {
       transform: translate3d(200%, 0, 0) skewX(-15deg);
       opacity: 0;
+    }
+  }
+
+  @keyframes bubble-merge {
+    0% {
+      opacity: 0;
+      transform: translateY(-50%) scale(0.5);
+      left: var(--from-left);
+      width: var(--from-width);
+    }
+    20% {
+      opacity: 1;
+      transform: translateY(-50%) scale(1);
+    }
+    80% {
+      opacity: 1;
+      left: var(--to-left);
+      width: var(--to-width);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-50%) scale(1.2);
+      left: var(--to-left);
+      width: var(--to-width);
     }
   }
 
