@@ -12,6 +12,8 @@ const Navigation = () => {
   const [bubbleStyle, setBubbleStyle] = useState({ left: 0, width: 0 });
   const [particles, setParticles] = useState<Array<{ id: number; fromLeft: number; fromWidth: number; toLeft: number; toWidth: number; delay: number }>>([]);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number; size: number }>>([]);
+  const [isRippleAnimating, setIsRippleAnimating] = useState(false);
   const navRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const prevPathRef = useRef(location.pathname);
 
@@ -114,6 +116,42 @@ const Navigation = () => {
     window.open("/Makayla_Resume.pdf", "_blank");
   };
 
+  const handleNavClick = (targetPath: string, targetIndex: number, event: React.MouseEvent) => {
+    const currentIndex = navItems.findIndex(item => item.path === location.pathname);
+    
+    if (currentIndex >= 0 && currentIndex !== targetIndex && navRefs.current[targetIndex]) {
+      const targetElement = navRefs.current[targetIndex];
+      const rect = targetElement.getBoundingClientRect();
+      const container = targetElement.parentElement;
+      
+      if (container) {
+        const containerRect = container.getBoundingClientRect();
+        const x = rect.left + rect.width / 2 - containerRect.left;
+        const y = rect.top + rect.height / 2 - containerRect.top;
+        const size = Math.max(rect.width, rect.height);
+        
+        // 创建水波纹效果
+        const newRipple = {
+          id: Date.now(),
+          x,
+          y,
+          size
+        };
+        
+        setRipples(prev => [...prev, newRipple]);
+        setIsRippleAnimating(true);
+        
+        // 600ms后清除水波纹
+        setTimeout(() => {
+          setRipples(prev => prev.filter(ripple => ripple.id !== newRipple.id));
+          if (ripples.length === 1) {
+            setIsRippleAnimating(false);
+          }
+        }, 600);
+      }
+    }
+  };
+
   const navClassName = cn(
     "fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20 shadow-sm transition-all duration-300 overflow-hidden",
     "before:content-[''] before:absolute before:inset-0 before:-z-20 before:bg-gradient-to-r before:from-white/40 before:via-primary/10 before:to-white/40",
@@ -169,16 +207,31 @@ const Navigation = () => {
               />
             ))}
             
+            {/* 水波纹效果 */}
+            {ripples.map((ripple) => (
+              <div
+                key={ripple.id}
+                className="absolute rounded-full ripple-effect"
+                style={{
+                  left: `${ripple.x - ripple.size / 2}px`,
+                  top: `${ripple.y - ripple.size / 2}px`,
+                  width: `${ripple.size}px`,
+                  height: `${ripple.size}px`,
+                }}
+              />
+            ))}
+            
             {navItems.map((item, index) => (
               <NavLink
                 key={item.name}
                 to={item.path}
                 ref={(el) => navRefs.current[index] = el}
+                onClick={(e) => handleNavClick(item.path, index, e)}
                 className={({ isActive }) =>
                   cn(
-                    "text-sm px-3 py-1 rounded-full transition-all duration-300 relative z-10",
+                    "text-sm px-3 py-1 rounded-full transition-all duration-300 relative z-10 nav-artistic",
                     isActive
-                      ? "text-primary font-semibold"
+                      ? "text-primary font-semibold active"
                       : "text-muted-foreground hover:text-primary"
                   )
                 }
@@ -220,9 +273,9 @@ const Navigation = () => {
                     onClick={() => setOpen(false)}
               className={({ isActive }) =>
                   cn(
-                        "text-lg px-4 py-2 rounded-full border border-white/20 transition-all duration-300 hover:text-primary hover:bg-white/60 hover:border-white/50",
+                        "text-lg px-4 py-2 rounded-full border border-white/20 transition-all duration-300 hover:text-primary hover:bg-white/60 hover:border-white/50 nav-artistic",
                         isActive
-                          ? "text-primary font-semibold bg-white/65 border-white/60 shadow-md"
+                          ? "text-primary font-semibold bg-white/65 border-white/60 shadow-md active"
                           : "text-muted-foreground"
                       )
                     }
