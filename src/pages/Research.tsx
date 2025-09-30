@@ -85,12 +85,22 @@ const Research = () => {
               if (projectTitle.includes("City of Hope")) {
                 return "/lovable-uploads/cityofhope.png";
               }
+              if (projectTitle.includes("Independent Research on Maternal Mortality")) {
+                return "/lovable-uploads/sample1.png";
+              }
               return "";
             };
 
             // 根据研究项目类型选择背景图片的显示方式
             const getBackgroundStyle = (projectTitle: string) => {
               if (projectTitle.includes("City of Hope")) {
+                return {
+                  backgroundPosition: 'center center',
+                  backgroundSize: 'cover',
+                  backgroundColor: 'rgba(59, 130, 246, 0.05)' // 淡蓝色填充
+                };
+              }
+              if (projectTitle.includes("Independent Research on Maternal Mortality")) {
                 return {
                   backgroundPosition: 'center center',
                   backgroundSize: 'cover',

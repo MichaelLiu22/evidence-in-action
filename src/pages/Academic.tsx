@@ -162,8 +162,36 @@ const Academic = () => {
             </p>
           </div>
 
-          {papers.map((paper, index) => (
-            <Card key={index} className="evidence-card group">
+          {papers.map((paper, index) => {
+            // 根据论文标题选择背景图片
+            const getBackgroundImage = (paperTitle: string) => {
+              if (paperTitle.includes("Maternal Mortality Disparities in the United States")) {
+                return "/lovable-uploads/sample2.png";
+              }
+              return "";
+            };
+
+            const backgroundImage = getBackgroundImage(paper.title);
+
+            return (
+            <Card key={index} className="evidence-card group relative overflow-hidden">
+              {/* 背景图片层 */}
+              {backgroundImage && (
+                <div 
+                  className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    backgroundImage: `url(${backgroundImage})`,
+                    backgroundPosition: 'center center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundColor: 'rgba(59, 130, 246, 0.05)' // 淡蓝色填充
+                  }}
+                />
+              )}
+              {/* 渐变遮罩层 - 从左上角透明到右下角不透明 */}
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/80 group-hover:to-white/90 transition-all duration-300" />
+              {/* 内容层 */}
+              <div className="relative z-10">
               <CardHeader>
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                   <div className="space-y-2">
@@ -241,8 +269,10 @@ const Academic = () => {
                   </div>
                 </div>
               </CardContent>
+              </div>
             </Card>
-          ))}
+            );
+          })}
         </div>
 
         {/* Teaching & Writing */}

@@ -280,8 +280,36 @@ const Teaching = () => {
             </p>
           </div>
 
-          {futurePlans.map((plan, index) => (
-            <Card key={index} className="evidence-card group">
+          {futurePlans.map((plan, index) => {
+            // 根据计划标题选择背景图片
+            const getBackgroundImage = (planTitle: string) => {
+              if (planTitle.includes("Upcoming Teaching Initiatives")) {
+                return "/lovable-uploads/sample4.png";
+              }
+              return "";
+            };
+
+            const backgroundImage = getBackgroundImage(plan.title);
+
+            return (
+            <Card key={index} className="evidence-card group relative overflow-hidden">
+              {/* 背景图片层 */}
+              {backgroundImage && (
+                <div 
+                  className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    backgroundImage: `url(${backgroundImage})`,
+                    backgroundPosition: 'center center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundColor: 'rgba(59, 130, 246, 0.05)' // 淡蓝色填充
+                  }}
+                />
+              )}
+              {/* 渐变遮罩层 - 从左上角透明到右下角不透明 */}
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/80 group-hover:to-white/90 transition-all duration-300" />
+              {/* 内容层 */}
+              <div className="relative z-10">
               <CardHeader>
                 <CardTitle className="heading-clinical text-xl">{plan.title}</CardTitle>
               </CardHeader>
@@ -312,8 +340,10 @@ const Teaching = () => {
                   </div>
                 ))}
               </CardContent>
+              </div>
             </Card>
-          ))}
+            );
+          })}
         </div>
 
         {/* Teaching Summary */}

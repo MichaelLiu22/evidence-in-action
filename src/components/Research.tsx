@@ -102,8 +102,19 @@ const Research = () => {
 
           {/* Current Research Tab */}
           <TabsContent value="current" className="space-y-8">
-            <Card id="research-maternal" className="evidence-card">
-              <CardHeader>
+            <Card 
+              id="research-maternal" 
+              className="evidence-card relative overflow-hidden"
+              style={{
+                backgroundImage: "url('/lovable-uploads/sample1.png')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat"
+              }}
+            >
+              {/* 背景图片遮罩层 */}
+              <div className="absolute inset-0 bg-white/85 backdrop-blur-sm"></div>
+              <CardHeader className="relative z-10">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div>
                     <CardTitle className="text-2xl heading-clinical mb-2">
@@ -125,7 +136,7 @@ const Research = () => {
                 </div>
               </CardHeader>
 
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-6 relative z-10">
                 <div className="bg-accent/50 rounded-lg p-4">
                   <h4 className="font-semibold heading-clinical mb-2">Research Focus</h4>
                   <p className="text-clinical">{currentResearch.focus}</p>
