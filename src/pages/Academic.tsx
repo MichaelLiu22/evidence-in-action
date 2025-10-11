@@ -126,7 +126,9 @@ const Academic = () => {
               </div>
 
               <p className="text-clinical max-w-3xl">
-                I am a high school student conducting independent research on maternal health disparities with a focus on evidence-based healthcare interventions. My work combines clinical volunteer experience at Huntington Hospital with systematic research on health equity issues. I am particularly interested in the intersection of policy, community health, and evidence-based practice in addressing healthcare disparities.
+              Hi! I’m Makayla Wang, a senior at Westridge School with a deep passion for sociology, health equity, and social justice. I’m driven by a desire to understand how social systems shape people’s lives—and how we can create change through research, advocacy, and community engagement.
+Outside the classroom, I’ve explored my interests through leadership conferences, community service, and volunteer work, all centered on uplifting others and amplifying diverse voices. I also express my creativity as a blogger and small business owner, where I share ideas about finance, wellness, and empowerment.
+When I’m not working on new projects, you can find me at an amusement park with friends, trying new restaurants and cafés, or in the kitchen baking for my family. I love finding joy in little adventures and meaningful connections.
               </p>
 
               <div className="flex flex-wrap gap-2">
