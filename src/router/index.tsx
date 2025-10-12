@@ -4,7 +4,6 @@ import Academic from '../pages/Academic';
 import Research from '../pages/Research';
 import Teaching from '../pages/Teaching';
 import Projects from '../pages/Projects';
-import Notes from '../pages/Notes';
 import Contact from '../pages/Contact';
 import NotFound from '../pages/NotFound';
 
@@ -28,10 +27,6 @@ export const router = createBrowserRouter([
       {
         path: 'projects',
         element: <Projects />,
-      },
-      {
-        path: 'notes',
-        element: <Notes />,
       },
       {
         path: 'contact',

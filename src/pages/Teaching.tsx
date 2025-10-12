@@ -13,7 +13,7 @@ const Teaching = () => {
       location: "Pasadena, CA",
       description:
         "Head of Student Voices, leading classes of students over two years and organizing schoolwide assemblies focused on social justice and community impact. Responsible for overseeing 12+ affinity groups, developing curriculum, facilitating weekly meetings, teaching research skills, creating presentations, and coordinating with guest speakers and student organizations to amplify diverse voices.",
-      Some topics covered: [
+      topics: [
         "Bias in Media",
         "Medical Racism",
         "Immigration - Stories and Policy",
@@ -143,7 +143,7 @@ const Teaching = () => {
             <Card key={index} className="evidence-card group relative overflow-hidden">
               {/* 背景图片层 - 3:2比例适配 */}
               {backgroundImage && (
-                <div 
+                <div
                   className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
                   style={{
                     backgroundImage: `url(${backgroundImage})`,
@@ -295,7 +295,7 @@ const Teaching = () => {
             <Card key={index} className="evidence-card group relative overflow-hidden">
               {/* 背景图片层 */}
               {backgroundImage && (
-                <div 
+                <div
                   className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
                   style={{
                     backgroundImage: `url(${backgroundImage})`,

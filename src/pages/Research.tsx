@@ -44,11 +44,11 @@ const Research = () => {
         "Conducted comparative analysis of testimonies, media portrayals, and policy documents to trace how narratives of the Nanjing Massacre have evolved",
         "Analysis on the power of literature, art, and entertainment to heal and educate "
       ],
-      Impact: [
+      findings: [
         "Voices of survivors and their descendants are central to understanding the impact of the Nanjing Massacre",
         "Enhanced skills in long term research and presentation skills",
         "Revealed how contested narratives influence education, political tensions, and remembranace  ",
-        "Gained ability to critically analyze and synthesize a wide range of primary and secondary sources from multiple countries and perspectives. 
+        "Gained ability to critically analyze and synthesize a wide range of primary and secondary sources from multiple countries and perspectives."
       ],
       impact: {
         metric: "5+",
@@ -121,7 +121,7 @@ const Research = () => {
             <Card key={index} className="evidence-card group relative overflow-hidden">
               {/* 背景图片层 - 3:2比例适配 */}
               {backgroundImage && (
-                <div 
+                <div
                   className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
                   style={{
                     backgroundImage: `url(${backgroundImage})`,
@@ -161,17 +161,17 @@ const Research = () => {
                       </Badge>
                     </div>
                   </div>
-                  
+
                   {project.evidence?.website && (
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       size="sm"
                       asChild
                       className="self-start w-full sm:w-auto"
                     >
-                      <a 
-                        href={project.evidence.website} 
-                        target="_blank" 
+                      <a
+                        href={project.evidence.website}
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2"
                       >
