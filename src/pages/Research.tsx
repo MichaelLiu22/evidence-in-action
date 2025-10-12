@@ -7,16 +7,16 @@ const Research = () => {
   const researchProjects = [
     {
       title: "Independent Research on Maternal Mortality",
-      period: "2024 - Present",
+      period: "Summer of 2025",
       location: "Independent Study",
       type: "Independent Research",
       focus: "Maternal Health Disparities & Health Equity",
       description: "Comprehensive analysis of maternal mortality rates, focusing on racial and socioeconomic disparities in healthcare access and outcomes.",
       methodology: [
         "Literature review of peer-reviewed research on maternal health disparities",
-        "Statistical analysis of CDC and WHO maternal mortality data",
-        "Comparative study of healthcare systems across different demographics",
-        "Case study analysis of successful intervention programs"
+        "Statistical analysis of maternal and infant mortaliy rates throough government data",
+        "Comparative study of before and after policy changes such as Abortion rights",
+        "Analysis of current mobile health clinics, technology, and doula services"
       ],
       findings: [
         "Significant racial disparities in maternal mortality rates persist across all income levels",
@@ -27,39 +27,39 @@ const Research = () => {
       impact: {
         metric: "2025",
         description: "Research completion target",
-        details: "Comprehensive report on maternal health equity recommendations"
+        details: "Case study analysis on Texas, proposed solution for education workshops through March of Dimes "
       },
       tags: ["Maternal Health", "Health Equity", "Data Analysis", "Policy Research"]
     },
     {
-      title: "City of Hope — Clinical Research Internship",
-      period: "2023 - Present",
-      location: "Duarte, CA",
-      type: "Clinical Research Internship",
-      focus: "Cancer Research & Clinical Trials",
-      description: "Hands-on experience in clinical research methodology, patient data analysis, and research protocol development in a leading cancer research institution.",
+      title: "Independent Research on Nanjing Massacre - Research in History at Westridge",
+      period: "2025 - Present",
+      location: "Pasadena, CA",
+      type: "Historical Research",
+      focus: "Generational Trauma, Historical Justice ",
+      description: "Research on the Nanjing Massacre examines how generational trauma, the dehumanization of women, and political tensions have left enduring scars on both survivors and their descendants. It explores how these unresolved wounds continue to shape collective memory, identity, and society today.",
       methodology: [
-        "Clinical trial data collection and analysis",
-        "Patient recruitment and consent process management",
-        "Research protocol development and implementation",
-        "Statistical analysis of clinical outcomes"
+        "Utilized books, primary sources, newspaper archives, historical journals, and personal accounts from Japan, Korea, China, and the United States to build a multi-perspective foundation.",
+        "Analyzed government declassified documents, war crime court records, and international legal archives",
+        "Conducted comparative analysis of testimonies, media portrayals, and policy documents to trace how narratives of the Nanjing Massacre have evolved",
+        "Analysis on the power of literature, art, and entertainment to heal and educate "
       ],
-      findings: [
-        "Improved understanding of clinical research methodology and ethics",
-        "Enhanced skills in data analysis and statistical interpretation",
-        "Experience in patient-centered research approaches",
-        "Knowledge of regulatory requirements for clinical trials"
+      Impact: [
+        "Voices of survivors and their descendants are central to understanding the impact of the Nanjing Massacre",
+        "Enhanced skills in long term research and presentation skills",
+        "Revealed how contested narratives influence education, political tensions, and remembranace  ",
+        "Gained ability to critically analyze and synthesize a wide range of primary and secondary sources from multiple countries and perspectives. 
       ],
       impact: {
-        metric: "100+",
-        description: "Clinical trial participants supported",
-        details: "Contributed to ongoing cancer research studies"
+        metric: "5+",
+        description: "Presentations given to different audiences",
+        details: "Contributed to highlighting the voices of the ones suffered"
       },
       evidence: {
-        website: "https://www.cityofhope.org/",
-        type: "Institutional Documentation"
+        website: "",
+        type: "Research Paper Coming Soon"
       },
-      tags: ["Clinical Research", "Cancer Research", "Data Analysis", "Patient Care"]
+      tags: ["Year long research project", "Impact on different societies", "Generational Trauma", "Historical Justice"]
     }
   ];
 
