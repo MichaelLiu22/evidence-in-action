@@ -6,21 +6,21 @@ import { ExternalLink, Users, BookOpen, Calendar, MapPin, Award } from "lucide-r
 const Teaching = () => {
   const teachingExperience = [
     {
-      title: "Health Advocacy Workshop Series",
-      role: "Student Leader & Curriculum Developer",
-      period: "2024 - 2025",
+      title: "Student Voices Head",
+      role: "Student Leader",
+      period: "2024 - Present",
       institution: "Westridge School",
       location: "Pasadena, CA",
       description:
-        "Designed and facilitated student-led workshops on health equity, evidence-based advocacy, and healthcare access for high school students.",
-      topics: [
-        "Understanding Health Disparities",
-        "Evidence-Based Advocacy Methods",
-        "Healthcare Policy Analysis",
-        "Community Health Assessment",
+        "Head of Student Voices, leading classes of students over two years and organizing schoolwide assemblies focused on social justice and community impact. Responsible for overseeing 12+ affinity groups, developing curriculum, facilitating weekly meetings, teaching research skills, creating presentations, and coordinating with guest speakers and student organizations to amplify diverse voices.",
+      Some topics covered: [
+        "Bias in Media",
+        "Medical Racism",
+        "Immigration - Stories and Policy",
+        "Annual MLK Assembly",
       ],
       participants: "45+ students",
-      format: "Interactive workshops, case studies, group discussions",
+      format: "Interactive classes, research skills, case studies, group discussions",
       materials: [
         { type: "Workshop Slides", available: false },
         { type: "Student Handouts", available: false },
@@ -34,34 +34,34 @@ const Teaching = () => {
       tags: ["Health Equity", "Advocacy", "Curriculum Design"],
     },
     {
-      title: "Financial Literacy for Health Decisions",
-      role: "Content Creator & Educator",
-      period: "2023 - Present",
-      institution: "Online Platform",
-      location: "Digital",
+      title: "Business and Entrepreneurship Club",
+      role: "Content Creator & Club Founder",
+      period: "2022-2024",
+      institution: "Westridge School",
+      location: "Pasadena, CA",
       description:
-        "Created educational content exploring the intersection of financial literacy and healthcare decision-making for students.",
+        "President of the Business and Entrepreneurship Club, leading 10+ students annually in competitions, teaching foundational business concepts, and organizing fundraising initiatives. Oversaw club activities, guided project development, and fostered teamwork through hands-on entrepreneurial experiences. Hosted Alumni in the field for school-wide lunch talks.",
       topics: [
-        "Healthcare Costs & Insurance Literacy",
-        "College Financing & Health Insurance",
-        "Mental Health Economics",
-        "Financial Stress & Academic Performance",
+        "Business Proposal and Basics",
+        "Finance, Product Development/Design, Marketing, Risk Analysis, and Consumer Behavior",
+        "Case study analysis - Uber, Starbucks, Apple, and more",
+        "Competitions - NFTE, Harvard Business Competition, and more",
       ],
-      participants: "1000+ readers",
-      format: "Blog posts, resource guides, case analyses",
+      participants: "30+ students",
+      format: "Presentation, Competition workshop, Hosted Alumni Talks, Fundraising events",
       materials: [
         {
-          type: "Blog Articles",
-          available: true,
-          url: "https://makaylamoneymindset.weebly.com/blog",
+          type: "Presentations",
+          available: false,
+          url: "",
         },
-        { type: "Resource Guides", available: false },
-        { type: "Financial Planning Tools", available: false },
+        { type: "Business Proposal submitted for competitions", available: false },
+        { type: "Case studies", available: false },
       ],
       impact: {
-        metric: "1,000+",
-        description: "Readers reached",
-        details: "Ongoing content updates and reader Q&A",
+        metric: "30+",
+        description: "Students led",
+        details: "Ongoing resource help and assistance in competitions",
       },
       tags: ["Financial Literacy", "Public Health", "Education"],
     },
@@ -94,7 +94,7 @@ const Teaching = () => {
       <div className="mx-auto max-w-6xl px-6 py-10 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md shadow-lg">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold heading-clinical mb-4">Teaching & Instruction</h2>
+          <h2 className="text-4xl font-bold heading-clinical mb-4">Leadership</h2>
           <p className="text-xl text-clinical max-w-3xl mx-auto">
             Educational initiatives focused on health advocacy, financial literacy, and evidence-based practice.
           </p>
