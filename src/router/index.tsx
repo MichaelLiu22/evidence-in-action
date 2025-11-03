@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
         element: <Research />,
       },
       {
-        path: 'teaching',
+        path: 'leadership',
         element: <Teaching />,
       },
       {
