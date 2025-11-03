@@ -1,9 +1,51 @@
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Mail, Download, MapPin, Calendar, Award, Users, BookOpen } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { ExternalLink, Mail, Download, MapPin, Calendar, Award, Users, BookOpen, X } from "lucide-react";
 
 const Academic = () => {
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [isSlideshowVisible, setIsSlideshowVisible] = useState(false);
+  const slideshowRef = useRef<HTMLDivElement>(null);
+
+  // 检测幻灯片是否进入视口
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsSlideshowVisible(true);
+          } else {
+            setIsSlideshowVisible(false);
+          }
+        });
+      },
+      {
+        threshold: 0.3, // 当30%可见时触发
+      }
+    );
+
+    if (slideshowRef.current) {
+      observer.observe(slideshowRef.current);
+    }
+
+    return () => {
+      if (slideshowRef.current) {
+        observer.unobserve(slideshowRef.current);
+      }
+    };
+  }, []);
+
   const openResume = () => {
     if (typeof window !== "undefined") window.open("/Makayla_Resume.pdf", "_blank");
   };
@@ -155,324 +197,130 @@ When I’m not working on new projects, you can find me at an amusement park wit
           <div className="w-500 h-1 bg-primary rounded-full mt-8"></div>
         </div>
 
-        {/* Research Papers */}
-        <div className="space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold heading-clinical mb-2">Research</h2>
-            <p className="text-clinical max-w-2xl mx-auto">
-              Evidence-based investigations focused on maternal health disparities and equitable care.
-            </p>
+        {/* Life Photos Gallery - Compact Display */}
+        <div className="mt-8">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold heading-clinical">My Life! ☀</h2>
           </div>
-
-          {papers.map((paper, index) => {
-            // 根据论文标题选择背景图片
-            const getBackgroundImage = (paperTitle: string) => {
-              if (paperTitle.includes("Maternal Mortality Disparities in the United States")) {
-                return "/lovable-uploads/sample2.png";
-              }
-              return "";
-            };
-
-            const backgroundImage = getBackgroundImage(paper.title);
-
-            return (
-            <Card key={index} className="evidence-card group relative overflow-hidden">
-              {/* 背景图片层 */}
-              {backgroundImage && (
-                <div 
-                  className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    backgroundImage: `url(${backgroundImage})`,
-                    backgroundPosition: 'center center',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundColor: 'rgba(59, 130, 246, 0.05)' // 淡蓝色填充
-                  }}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
+            {[1, 2, 3, 4, 5, 6].map((num, index) => (
+              <div
+                key={num}
+                onClick={() => setSelectedImage(num)}
+                className="photo-reveal-container relative overflow-hidden rounded-lg aspect-square cursor-pointer border border-white/20 bg-white/10 backdrop-blur-md shadow-lg hover:shadow-xl transition-shadow duration-300"
+                style={{
+                  animationDelay: `${index * 0.1}s`,
+                }}
+              >
+                <img
+                  src={`/lovable-uploads/life-photo${num}.jpg`}
+                  alt={`Life photo ${num}`}
+                  className="w-full h-full object-cover"
                 />
-              )}
-              {/* 渐变遮罩层 - 从左上角透明到右下角不透明 */}
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/80 group-hover:to-white/90 transition-all duration-300" />
-              {/* 内容层 */}
-              <div className="relative z-10">
-              <CardHeader>
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                  <div className="space-y-2">
-                    <CardTitle className="heading-clinical text-xl md:text-2xl">{paper.title}</CardTitle>
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="h-4 w-4" />
-                        {paper.year}
-                      </div>
-                      <Badge
-                        variant={paper.status === "In Progress" ? "secondary" : "outline"}
-                        className="text-xs"
-                      >
-                        {paper.status}
-                      </Badge>
-                      <Badge variant="outline" className="text-xs">{paper.type}</Badge>
-                    </div>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {paper.tags?.map((tag, i) => (
-                        <Badge key={i} variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Links */}
-                  <div className="flex gap-2 flex-wrap self-start">
-                    {paper.links.map((link, idx) => (
-                      <Button
-                        key={idx}
-                        variant="outline"
-                        size="sm"
-                        disabled={!link.available}
-                        asChild={!!link.available}
-                        className="w-full sm:w-auto"
-                      >
-                        {link.available ? (
-                          <a href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                            <ExternalLink className="h-3 w-3" /> {link.type}
-                          </a>
-                        ) : (
-                          <>{link.type} (Coming Soon)</>
-                        )}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-6">
-                {/* Overview */}
-                <div>
-                  <h4 className="font-semibold heading-clinical mb-2 flex items-center gap-2">
-                    <BookOpen className="h-4 w-4 text-primary" />
-                    Overview
-                  </h4>
-                  <p className="text-clinical text-sm">{paper.description}</p>
-                </div>
-
-                {/* Impact Metrics strip */}
-                <div className="bg-accent/30 rounded-lg p-3 md:p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Award className="h-4 md:h-5 w-4 md:w-5 text-primary" />
-                    <span className="font-semibold text-primary text-sm md:text-base">Research Target</span>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                    <div className="text-center">
-                      <div className="text-xl md:text-2xl font-bold text-primary counter-animate">{paper.impact.metric}</div>
-                      <div className="text-xs md:text-sm text-clinical">{paper.impact.description}</div>
-                    </div>
-                    <div className="md:col-span-2">
-                      <p className="text-xs md:text-sm text-clinical">{paper.impact.details}</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
               </div>
-            </Card>
-            );
-          })}
+            ))}
+          </div>
         </div>
 
-        {/* Teaching & Writing */}
-        <div className="mt-16 space-y-12">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold heading-clinical mb-2">Teaching & Writing</h2>
-            <p className="text-clinical max-w-2xl mx-auto">
-              Educational initiatives, content creation, and documentation focused on advocacy, literacy, and applied public health.
-            </p>
+        {/* Slideshow Section */}
+        <div ref={slideshowRef} className="mt-12">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold heading-clinical mb-2">My Presentation</h2>
+            <p className="text-clinical">Interactive slideshow showcasing my work and ideas</p>
           </div>
-
-          {/* Teaching Section */}
-          <div className="space-y-8">
-            <div className="border-l-4 border-primary/30 pl-4">
-              <h3 className="text-xl font-semibold heading-clinical mb-4">Teaching & Instruction</h3>
-              <Card className="evidence-card group relative overflow-hidden">
-                {/* 背景图片层 - 3:2比例适配 */}
-                <div 
-                  className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    backgroundImage: `url(/lovable-uploads/beach.png)`,
-                    backgroundPosition: 'center center',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundColor: 'rgba(59, 130, 246, 0.05)' // 淡蓝色填充
-                  }}
-                />
-                {/* 渐变遮罩层 - 从左上角透明到右下角不透明 */}
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/80 group-hover:to-white/90 transition-all duration-300" />
-                {/* 内容层 */}
-                <div className="relative z-10">
-                <CardContent className="space-y-6">
-                  {teaching.map((course, index) => (
-                    <div key={index} className="border-l-2 border-primary/20 pl-4 space-y-3">
-                      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3 md:gap-4">
-                        <div className="space-y-2">
-                          <h4 className="font-semibold heading-clinical text-base md:text-lg">{course.title}</h4>
-                          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                            <Badge variant="outline" className="text-xs">{course.role}</Badge>
-                            <div className="flex items-center gap-1">
-                              <Calendar className="h-4 w-4" />
-                              {course.period}
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Users className="h-4 w-4" />
-                              {course.institution}
-                            </div>
-                          </div>
-                          <div className="mt-2 flex flex-wrap gap-2">
-                            {course.tags?.map((tag: string, i: number) => (
-                              <Badge key={i} variant="secondary" className="text-xs">
-                                {tag}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Materials */}
-                        <div className="flex gap-2 flex-wrap self-start">
-                          {course.materials.map((m, idx) => (
-                            <Button key={idx} variant="outline" size="sm" disabled={!m.available} asChild={!!m.available} className="w-full sm:w-auto text-xs md:text-sm">
-                              {m.available ? (
-                                <a href={m.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                                  <ExternalLink className="h-3 w-3" /> {m.type}
-                                </a>
-                              ) : (
-                                <>{m.type} (Private)</>
-                              )}
-                            </Button>
-                          ))}
-                        </div>
+          
+          <Card className="evidence-card border border-white/20 bg-white/10 backdrop-blur-md shadow-lg">
+            <CardContent className="p-4 md:p-6">
+              {/* Auto-playing Slideshow Carousel - Only plays when visible */}
+              <Carousel
+                key={isSlideshowVisible ? "autoplay" : "manual"}
+                className="w-full"
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                plugins={
+                  isSlideshowVisible
+                    ? [
+                        Autoplay({
+                          delay: 5000, // 5 seconds - starts counting when visible
+                          stopOnInteraction: false,
+                          stopOnMouseEnter: true,
+                        }),
+                      ]
+                    : []
+                }
+              >
+                <CarouselContent>
+                  {/* Presentation slides - auto-playing every 5 seconds */}
+                  {[
+                    "/presentation/ppt1.png",
+                    "/presentation/ppt2.png",
+                    "/presentation/ppt3.png",
+                    "/presentation/ppt4.png",
+                    "/presentation/ppt5.png",
+                    "/presentation/ppt6.png",
+                    "/presentation/ppt7.png",
+                    "/presentation/ppt8.png",
+                    "/presentation/ppt9.png",
+                    "/presentation/ppt10.png",
+                    "/presentation/ppt11.png",
+                    "/presentation/ppt12.png",
+                    "/presentation/ppt13.png",
+                    "/presentation/ppt14.png",
+                  ].map((slide, index) => (
+                    <CarouselItem key={index}>
+                      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-white/20 bg-white/5 flex items-center justify-center">
+                        <img
+                          src={slide}
+                          alt={`Slide ${index + 1}`}
+                          className="max-w-full max-h-full object-contain"
+                          onError={(e) => {
+                            // Fallback if image doesn't exist
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                            const parent = target.parentElement;
+                            if (parent) {
+                              parent.innerHTML = `
+                                <div class="flex items-center justify-center text-muted-foreground">
+                                  <p>Slide ${index + 1} - Please add image to /public/presentation/</p>
+                                </div>
+                              `;
+                            }
+                          }}
+                        />
                       </div>
-
-                      <div>
-                        <h5 className="font-semibold heading-clinical mb-2 flex items-center gap-2">
-                          <BookOpen className="h-4 w-4 text-primary" />
-                          Overview
-                        </h5>
-                        <p className="text-clinical text-sm">{course.description}</p>
-                      </div>
-
-                      {/* Impact strip */}
-                      {course.impact && (
-                        <div className="bg-accent/30 rounded-lg p-2 md:p-3">
-                          <div className="flex items-center gap-2 md:gap-3 mb-2">
-                            <Award className="h-3 md:h-4 w-3 md:w-4 text-primary" />
-                            <span className="font-semibold text-primary text-xs md:text-sm">Teaching Impact</span>
-                          </div>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                            <div className="text-center">
-                              <div className="text-lg md:text-xl font-bold text-primary counter-animate">{course.impact.metric}</div>
-                              <div className="text-xs text-clinical">{course.impact.description}</div>
-                            </div>
-                            <div className="md:col-span-2">
-                              <p className="text-xs text-clinical">{course.impact.details}</p>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      {index < teaching.length - 1 && (
-                        <div className="border-t border-border/50 pt-4"></div>
-                      )}
-                    </div>
+                    </CarouselItem>
                   ))}
-                </CardContent>
-                </div>
-              </Card>
-            </div>
+                </CarouselContent>
+                <CarouselPrevious className="left-2 bg-white/20 backdrop-blur-md border-white/30 hover:bg-white/30" />
+                <CarouselNext className="right-2 bg-white/20 backdrop-blur-md border-white/30 hover:bg-white/30" />
+              </Carousel>
+            </CardContent>
+          </Card>
+        </div>
 
-            {/* Writing Section */}
-            <div className="border-l-4 border-blue-500/30 pl-4">
-              <h3 className="text-xl font-semibold heading-clinical mb-4">Notes & Writing</h3>
-              <Card className="evidence-card group relative overflow-hidden">
-                {/* 背景图片层 - 3:2比例适配 */}
-                <div 
-                  className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    backgroundImage: `url(/lovable-uploads/Makaylapub.png)`,
-                    backgroundPosition: 'center center',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundColor: 'rgba(34, 197, 94, 0.05)' // 淡绿色填充
-                  }}
+        {/* Image Viewer Dialog */}
+        <Dialog open={selectedImage !== null} onOpenChange={(open) => !open && setSelectedImage(null)}>
+          <DialogContent className="max-w-4xl w-[95vw] p-0 bg-transparent border-none shadow-none [&>button]:hidden">
+            {selectedImage && (
+              <div className="relative w-full h-full flex items-center justify-center p-4">
+                <button
+                  onClick={() => setSelectedImage(null)}
+                  className="absolute top-4 right-4 z-50 rounded-full bg-white/20 backdrop-blur-md border border-white/30 p-2 hover:bg-white/30 transition-all duration-200 shadow-lg"
+                  aria-label="Close"
+                >
+                  <X className="h-5 w-5 text-white" />
+                </button>
+                <img
+                  src={`/lovable-uploads/life-photo${selectedImage}.jpg`}
+                  alt={`Life photo ${selectedImage}`}
+                  className="max-h-[90vh] max-w-full object-contain rounded-lg shadow-2xl"
                 />
-                {/* 渐变遮罩层 - 从左上角透明到右下角不透明 */}
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/80 group-hover:to-white/90 transition-all duration-300" />
-                {/* 内容层 */}
-                <div className="relative z-10">
-                <CardContent className="space-y-6">
-                  {notes.map((note, index) => (
-                    <div key={index} className="border-l-2 border-blue-500/20 pl-4 space-y-3">
-                      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                        <div className="space-y-2">
-                          <h4 className="font-semibold heading-clinical text-lg">{note.title}</h4>
-                          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                            <Badge variant="outline" className="text-xs">{note.category}</Badge>
-                            <Badge variant="secondary" className="text-xs">{note.status}</Badge>
-                          </div>
-                        </div>
-                        {note.url && note.url !== "#" && (
-                          <Button variant="outline" size="sm" asChild className="self-start">
-                            <a href={note.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                              <ExternalLink className="h-3 w-3" /> View Content
-                            </a>
-                          </Button>
-                        )}
-                      </div>
-
-                      <div>
-                        <h5 className="font-semibold heading-clinical mb-2">Overview</h5>
-                        <p className="text-clinical text-sm">{note.description}</p>
-                      </div>
-
-                      <div>
-                        <h5 className="font-semibold heading-clinical mb-2">Topics</h5>
-                        <div className="flex flex-wrap gap-2">
-                          {note.topics.map((t, i) => (
-                            <Badge key={i} variant="secondary" className="text-xs">
-                              {t}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                      {index < notes.length - 1 && (
-                        <div className="border-t border-border/50 pt-4"></div>
-                      )}
-                    </div>
-                  ))}
-                </CardContent>
-                </div>
-              </Card>
-            </div>
-          </div>
-        </div>
-
-        {/* Summary Strip */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center">
-            <div className="text-4xl font-bold text-primary counter-animate mb-2">{papers.length}</div>
-            <div className="text-clinical">Active Research Papers</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-primary counter-animate mb-2">{teaching.length}</div>
-            <div className="text-clinical">Teaching Programs</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-primary counter-animate mb-2">{notes.length}</div>
-            <div className="text-clinical">Writing Tracks</div>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <footer className="text-center text-sm text-clinical border-t border-white/20 mt-16 pt-8">
-          <p>© {new Date().getFullYear()} Makayla Wang. All rights reserved.</p>
-          <p className="mt-2">
-            Contact: <a href="mailto:makayla.wang@example.com" className="text-primary hover:underline">makayla.wang@example.com</a>
-          </p>
-        </footer>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );
