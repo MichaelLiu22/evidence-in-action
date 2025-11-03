@@ -97,12 +97,12 @@ const Hero = () => {
           {/* 6-Photo Grid Layout with Glass Effect */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {[
-              { id: 1, src: "/lovable-uploads/photo1.jpg", alt: "Life moment 1" },
-              { id: 2, src: "/lovable-uploads/photo2.jpg", alt: "Life moment 2" },
-              { id: 3, src: "/lovable-uploads/photo3.jpg", alt: "Life moment 3" },
-              { id: 4, src: "/lovable-uploads/photo4.jpg", alt: "Life moment 4" },
-              { id: 5, src: "/lovable-uploads/photo5.jpg", alt: "Life moment 5" },
-              { id: 6, src: "/lovable-uploads/photo6.jpg", alt: "Life moment 6" }
+              { id: 1, src: "/lovable-uploads/life-photo1.jpg", alt: "Fun times on the water ride" },
+              { id: 2, src: "/lovable-uploads/life-photo2.jpg", alt: "Skiing adventure" },
+              { id: 3, src: "/lovable-uploads/life-photo3.jpg", alt: "Friends together" },
+              { id: 4, src: "/lovable-uploads/life-photo4.jpg", alt: "Night out with friends" },
+              { id: 5, src: "/lovable-uploads/life-photo5.jpg", alt: "Daily moments" },
+              { id: 6, src: "/lovable-uploads/life-photo6.jpg", alt: "Graduation celebration" }
             ].map((photo, index) => (
               <div
                 key={photo.id}
