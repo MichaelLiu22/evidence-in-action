@@ -88,111 +88,47 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Keyword Tags - Reorganized into categories */}
-        <div className="space-y-4 mb-8">
-          {/* Row 1: Clickable Project Links (External) */}
-          <div className="flex flex-wrap justify-center gap-2">
-            <div className="w-full text-center mb-2">
-              <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
-                🚀 Project Links
-              </span>
-            </div>
+        {/* Photo Gallery Section - 生活照展示 */}
+        <div className="mt-12 space-y-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-8">
+            Life Moments
+          </h2>
+          
+          {/* 6-Photo Grid Layout with Glass Effect */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {[
-              { label: "heARTbeat", href: "https://heartbeatorganization.weebly.com/", external: true },
-              { label: "Piggy & Co Tote Bags", href: "https://www.thepiggyco.com/", external: true },
-              { label: "Blog: Makayla's Money Mindset", href: "https://makaylamoneymindset.weebly.com/blog", external: true }
-            ].map((tag) => (
-              <a
-                key={tag.label}
-                href={tag.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="interactive-hover inline-flex items-center px-3 py-1.5 text-sm border-2 border-primary/50 rounded-full bg-primary/10 hover:bg-primary/20 hover:border-primary transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-sm"
+              { id: 1, src: "/lovable-uploads/photo1.jpg", alt: "Life moment 1" },
+              { id: 2, src: "/lovable-uploads/photo2.jpg", alt: "Life moment 2" },
+              { id: 3, src: "/lovable-uploads/photo3.jpg", alt: "Life moment 3" },
+              { id: 4, src: "/lovable-uploads/photo4.jpg", alt: "Life moment 4" },
+              { id: 5, src: "/lovable-uploads/photo5.jpg", alt: "Life moment 5" },
+              { id: 6, src: "/lovable-uploads/photo6.jpg", alt: "Life moment 6" }
+            ].map((photo, index) => (
+              <div
+                key={photo.id}
+                className="group relative overflow-hidden rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md hover:border-white/40 transition-all duration-500 hover:scale-[1.03] cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
+                style={{ 
+                  animationDelay: `${0.4 + index * 0.08}s`,
+                  animation: 'fade-in 0.6s ease-out forwards'
+                }}
               >
-                {tag.label}
-                <ExternalLink className="ml-1 h-3 w-3 text-primary" />
-              </a>
+                <div className="aspect-[4/3] relative overflow-hidden bg-slate-900/30">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    onError={(e) => {
+                      e.currentTarget.src = '/placeholder.svg';
+                    }}
+                  />
+                  {/* Glass Overlay on Hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Shimmer Effect */}
+                  <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.3)_50%,rgba(255,255,255,0)_100%)] translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                </div>
+              </div>
             ))}
-          </div>
-          
-          {/* Row 2: Research & Experience Projects (Merged) */}
-          <div className="flex flex-wrap justify-center gap-2">
-            <div className="w-full text-center mb-2">
-              <span className="text-sm font-medium text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
-                🔬 Research & Experience Projects
-              </span>
-            </div>
-            {[
-              { label: "Maternal Health Research", href: "#research", project: "Independent Research on Maternal Mortality" },
-              { label: "Huntington Hospital Volunteer", href: "#clinical-service", project: "Patient Services & heARTbeat Program" },
-              { label: "City of Hope Intern", href: "#research", project: "Clinical Research Internship" },
-              { label: "Student Ambassador", href: "#clinical-service", project: "DEIJ Leadership & Health Advocacy" },
-              { label: "Coro Fellowship", href: "#leadership", project: "Youth Climate Leadership Program" },
-              { label: "Business Competitions", href: "#leadership", project: "Healthcare Innovation Challenges" }
-            ].map((tag) => (
-              <button
-                key={tag.label}
-                onClick={() => scrollToSection(tag.href.replace('#', ''))}
-                className="interactive-hover inline-flex items-center px-3 py-1.5 text-sm border border-blue-300 rounded-full bg-blue-50 hover:bg-blue-100 hover:border-blue-400 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-blue-400 group cursor-pointer"
-                title={tag.project}
-              >
-                {tag.label}
-                <span className="ml-1 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-              </button>
-            ))}
-          </div>
-        </div>
-        
-
-        
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-          <Button size="lg" className="interactive-hover group" onClick={scrollToProjects}>
-            View Projects
-            <ArrowDown className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
-          </Button>
-          
-          <Button variant="outline" size="lg" className="interactive-hover group" onClick={openResume}>
-            <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-            View Resume
-          </Button>
-          
-          <Button variant="outline" size="lg" className="interactive-hover group" onClick={scrollToContact}>
-            <Mail className="mr-2 h-4 w-4" />
-            Contact Me
-          </Button>
-        </div>
-        
-
-        
-        {/* Key Focus Areas */}
-        <div className="flex flex-wrap justify-center gap-3">
-          {[
-            "Clinical Volunteering",
-            "Maternal Health Research", 
-            "Health Equity Advocacy",
-            "Community Impact",
-            "Evidence-Based Practice"
-          ].map((area) => (
-            <Badge key={area} variant="secondary" className="text-sm px-4 py-2">
-              {area}
-            </Badge>
-          ))}
-        </div>
-        
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-2xl mx-auto">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-primary counter-animate">200+</div>
-            <div className="text-sm text-muted-foreground">Care Packages Distributed</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-primary counter-animate">5+</div>
-            <div className="text-sm text-muted-foreground">Hospital Departments</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-primary counter-animate">2025</div>
-            <div className="text-sm text-muted-foreground">Research Year</div>
           </div>
         </div>
       </div>
